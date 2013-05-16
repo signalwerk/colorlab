@@ -1,3 +1,14 @@
 colorLab
+===
+
+
+
+Documentation
 ---
-A Class written by Stefan Huber & his flying code monkeys
+To generate the Doc just install [Docco](http://jashkenas.github.io/docco/) with `sudo npm install -g docco` and fire `docco colorLab.js`
+
+
+
+Authors
+---
+Lib written by Stefan Huber & the flying code monkeys. See `AUTHORS.txt`.
