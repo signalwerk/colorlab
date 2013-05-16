@@ -137,6 +137,69 @@ var colorLab = (function(space, values){
             return this;
         },
 
+        // find deltaE of two colorLab Variables
+        CIEDE2000: function(newPoint) {
+
+            console.log( this.L(), this.a(), this.b() );
+            console.log( newPoint.CIELAB.L(), newPoint.CIELAB.a(), newPoint.CIELAB.b() );
+
+            // code here
+            // weighting factors
+            var KL = 1;
+            var KC = 1;
+            var KH = 1;
+
+            // the two colorLab Values
+            var L1 = this.L();
+            var a1 = this.a();
+            var b1 = this.b();
+
+            var L2 = newPoint.CIELAB.L();
+            var a2 = newPoint.CIELAB.a();
+            var b2 = newPoint.CIELAB.b();
+
+            // Step 1: calculate C
+            var C1 = Math.sqrt(a1 * a1 + b1 * b1);
+            var C2 = Math.sqrt(a2 * a2 + b2 * b2);
+
+            // Step 2: calculate aNew, CNew, hNew
+            var Cdurchschnitt = (C1 + C2) / 2;
+            var G = 0.5 * (1 - Math.sqrt(Math.pow(Cdurchschnitt, 7) / (Math.pow(Cdurchschnitt, 7) + Math.pow(25, 7))));
+
+            var L1new = L1;
+            var a1new = (1 + G) * a1;
+            var b1new = b1;
+
+            var L2new = L2;
+            var a2new = (1 + G) * a2;
+            var b2new = b2;
+
+            var C1new = Math.sqrt(Math.pow(a1new, 2) + Math.pow(b1new, 2));
+            var C2new = Math.sqrt(Math.pow(a2new, 2) + Math.pow(b2new, 2));
+
+
+
+
+            console.log("C1:" + " " + C1);
+            console.log("C2:" + " " + C2);
+            console.log("Cdurchschnitt:" + " " + Cdurchschnitt);
+            console.log("G:" + " " + G);
+            console.log("L1new:" + " " + L1new);
+            console.log("a1new:" + " " + a1new);
+            console.log("b1new:" + " " + b1new);
+            console.log("L2new:" + " " + L2new);
+            console.log("a2new:" + " " + a2new);
+            console.log("b2new:" + " " + b2new);
+            console.log("C1new:" + " " + C1new);
+            console.log("C2new:" + " " + C2new);
+
+
+            return 222;
+        },
+
+
+
+
         // plot the Lab-Values
         toString: function() {
             return 'L: ' + this.CIELAB.L() + ', a: ' + this.CIELAB.a() + ', b: ' + this.CIELAB.b();
