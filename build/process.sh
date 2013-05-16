@@ -1,9 +1,10 @@
 #!/bin/bash
 
+cd ../data/raw
 
 # Process the CIEDE2000 Testdata
 # -------------------------------------------
-rm ciede2000testdata.json
+rm ../ciede2000testdata.json
 # cp ciede2000testdata.txt ciede2000testdata.json
 
 # wrap in json structure
@@ -20,13 +21,14 @@ perl -pi -0 -e "s/\\n+/\\n/g" ciede2000testdata.json
 # no coma for last line
 perl -pi -0 -e "s/\},\n*\]/\}\n\]/" ciede2000testdata.json
 
+mv ciede2000testdata.json ../
 
 
 # Process the FOGRA39L.txt
 # -------------------------------------------
 
 
-rm FOGRA39L.json
+rm ../FOGRA39L.json
 # cp ciede2000testdata.txt ciede2000testdata.json
 
 # wrap in json structure
@@ -43,3 +45,5 @@ perl -pi -0 -e "s/\\n+/\\n/g" FOGRA39L.json
 
 # no coma for last line
 perl -pi -0 -e "s/\},\n*\]/\}\n\]/" FOGRA39L.json
+
+mv FOGRA39L.json ../
