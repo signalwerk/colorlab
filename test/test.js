@@ -71,4 +71,17 @@ test( "point with object of values", function() {
 
 
 
+module( "Delta E" );
+
+
+test( "Delta E of two CIELAB colors", function() {
+
+    var a = new colorLab('CIELAB', [50.0000, 2.6772, -79.7751]);
+    var b = new colorLab('CIELAB', [50.0000, 0.0000, -82.7485]);
+
+    var dE = a.CIELAB.CIEDE2000(b);
+
+    equal(dE, 2.0425);
+
+});
 
