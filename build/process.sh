@@ -1,11 +1,15 @@
 #!/bin/bash
 
+
+# this bash generates json from the raw data
+
 cd ../data/raw
 
 # Process the CIEDE2000 Testdata
 # -------------------------------------------
 rm ../ciede2000testdata.json
-# cp ciede2000testdata.txt ciede2000testdata.json
+rm ciede2000testdata.txt
+wget http://www.ece.rochester.edu/~gsharma/ciede2000/dataNprograms/ciede2000testdata.txt
 
 # wrap in json structure
 echo 'var ciede2000testdata = [' > ciede2000testdata.json
@@ -29,7 +33,8 @@ mv ciede2000testdata.json ../
 
 
 rm ../FOGRA39L.json
-# cp ciede2000testdata.txt ciede2000testdata.json
+rm FOGRA39L.txt
+wget http://www.color.org/FOGRA39L.txt
 
 # wrap in json structure
 echo 'var FOGRA39L = [' > FOGRA39L.json
