@@ -25,14 +25,6 @@
 //     new colorLab('CIELAB');
 //     
 
-function toDegrees (angle) {
-  return angle * (180 / Math.PI);
-}
-
-/** Converts numeric degrees to radians */
-function toRad(num) {
-    return num * Math.PI / 180;
-}
 
 
 var colorLab = (function(space, values){
@@ -50,6 +42,19 @@ var colorLab = (function(space, values){
     this._currentSpace = "none";
     this._CIELAB = {};
 
+    this.helper = {};
+
+    this.helper.math = {
+
+        toDegrees: function(angle) {
+          return angle * (180 / Math.PI);
+        },
+
+        // Converts numeric degrees to radians 
+        toRad: function(num) {
+            return num * Math.PI / 180;
+        }
+    };
 
     // ### to work in the CIELAB colorspace
     // use it with `colorLab.CIELAB`
@@ -209,9 +214,9 @@ var colorLab = (function(space, values){
                 Lab1.h = 0;
             } else {
                 if (Lab1.b >= 0) {
-                    Lab1.h = toDegrees(Math.atan2(Lab1.b, Lab1.a_1));
+                    Lab1.h = root.helper.math.toDegrees(Math.atan2(Lab1.b, Lab1.a_1));
                 } else {
-                    Lab1.h = toDegrees(Math.atan2(Lab1.b, Lab1.a_1)) + 360;
+                    Lab1.h = root.helper.math.toDegrees(Math.atan2(Lab1.b, Lab1.a_1)) + 360;
                 }
             }
 
@@ -219,9 +224,9 @@ var colorLab = (function(space, values){
                 Lab2.h = 0;
             } else {
                 if (Lab2.b >= 0) {
-                    Lab2.h = toDegrees(Math.atan2(Lab2.b, Lab2.a_1));
+                    Lab2.h = root.helper.math.toDegrees(Math.atan2(Lab2.b, Lab2.a_1));
                 } else {
-                    Lab2.h = toDegrees(Math.atan2(Lab2.b, Lab2.a_1)) + 360;
+                    Lab2.h = root.helper.math.toDegrees(Math.atan2(Lab2.b, Lab2.a_1)) + 360;
                 }
             }
 
@@ -247,7 +252,7 @@ var colorLab = (function(space, values){
                   }
                }
             }
-            var deltaH = 2 * Math.sqrt( Lab1.C_1 * Lab2.C_1 ) * Math.sin( toRad( deltah / 2 ) );
+            var deltaH = 2 * Math.sqrt( Lab1.C_1 * Lab2.C_1 ) * Math.sin( root.helper.math.toRad( deltah / 2 ) );
 
             console.log("deltah: ", deltah);
             console.log("deltaH: ", deltaH);
@@ -289,7 +294,7 @@ var colorLab = (function(space, values){
             console.log("hDiff", hDiff);
 
 
-            L_aveMinus50pow2 = Math.pow((L_ave - 50), 2);
+            var L_aveMinus50pow2 = Math.pow((L_ave - 50), 2);
             console.log("L_aveMinus50pow2", L_aveMinus50pow2);
 
 
@@ -300,7 +305,7 @@ var colorLab = (function(space, values){
             console.log("SC", SC);
 
 
-            var T = 1 - 0.17 * Math.cos( toRad( hDiff - 30 ) ) + 0.24 * Math.cos( toRad( 2 * hDiff ) ) + 0.32 * Math.cos( toRad( 3 * hDiff + 6 ) ) - 0.20 * Math.cos( toRad( 4 * hDiff - 63 ) );
+            var T = 1 - 0.17 * Math.cos( root.helper.math.toRad( hDiff - 30 ) ) + 0.24 * Math.cos( root.helper.math.toRad( 2 * hDiff ) ) + 0.32 * Math.cos( root.helper.math.toRad( 3 * hDiff + 6 ) ) - 0.20 * Math.cos( root.helper.math.toRad( 4 * hDiff - 63 ) );
 
             console.log("T", T);
 
@@ -313,7 +318,7 @@ var colorLab = (function(space, values){
             var RC = 2 * Math.sqrt(Math.pow(C_1ave, 7) / (Math.pow(C_1ave, 7) + Math.pow(25, 7)));
             console.log("RC", RC);
 
-            var RT = 0 - Math.sin(toRad( 2 * dTheta)) * RC;
+            var RT = 0 - Math.sin(root.helper.math.toRad( 2 * dTheta)) * RC;
             console.log("RT", RT);
 
 
