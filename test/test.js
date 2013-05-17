@@ -16,7 +16,7 @@ function toBeCloseTo (expected, actual, precision) {
     precision = precision || 2;
   }
   return Math.abs(expected - actual) < (Math.pow(10, -precision) / 2);
-};
+}
 
 
 
@@ -103,7 +103,7 @@ test( "Delta E of two CIELAB colors", function() {
 
 
 
-    ok(toBeCloseTo(dE, 2.0425, 4), "The Delat E is not close enough. Exected: " +  2.0425 + ", Result: " + dE);
+    ok(toBeCloseTo(dE, 2.0425, 4), "The Delat E test. Exected: " +  2.0425 + ", Result: " + dE);
     equal(a.CIELAB.CIEDE2000(b), b.CIELAB.CIEDE2000(a), "The order of the colors shouldnt matter to get Delta E");
 
 });
@@ -117,7 +117,7 @@ test( "Delta E check with testdata", function() {
         var b = new colorLab('CIELAB', [ciede2000testdata[i].L2, ciede2000testdata[i].a2, ciede2000testdata[i].b2]);
         var dE = a.CIELAB.CIEDE2000(b);
         // equal(dE, ciede2000testdata[i].dE);
-        ok(toBeCloseTo(dE, ciede2000testdata[i].dE, 4), "The Delat E is not close enough. Exected: " +  ciede2000testdata[i].dE + ", Result: " + dE);
+        ok(toBeCloseTo(dE, ciede2000testdata[i].dE, 4), "The Delat E test. Exected: " +  ciede2000testdata[i].dE + ", Result: " + dE);
 
     }
 
