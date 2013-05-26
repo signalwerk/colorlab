@@ -1,8 +1,5 @@
 // unit-tests
 
-
-
-
 /**
  * >> function from jasmine framework (https://github.com/pivotal/jasmine)
  * Matcher that checks that the expected item is equal to the actual item
@@ -17,7 +14,6 @@ function toBeCloseTo (expected, actual, precision) {
   }
   return Math.abs(expected - actual) < (Math.pow(10, -precision) / 2);
 }
-
 
 
 module( "init Tests" );
@@ -101,8 +97,6 @@ test( "Delta E of two CIELAB colors", function() {
 
     var dE = a.CIELAB.CIEDE2000(b);
 
-
-
     ok(toBeCloseTo(dE, 2.0425, 4), "The Delat E test. Exected: " +  2.0425 + ", Result: " + dE);
     equal(a.CIELAB.CIEDE2000(b), b.CIELAB.CIEDE2000(a), "The order of the colors shouldnt matter to get Delta E");
 
@@ -116,7 +110,7 @@ test( "Delta E check with testdata", function() {
         var a = new colorLab('CIELAB', [ciede2000testdata[i].L1, ciede2000testdata[i].a1, ciede2000testdata[i].b1]);
         var b = new colorLab('CIELAB', [ciede2000testdata[i].L2, ciede2000testdata[i].a2, ciede2000testdata[i].b2]);
         var dE = a.CIELAB.CIEDE2000(b);
-        // equal(dE, ciede2000testdata[i].dE);
+
         ok(toBeCloseTo(dE, ciede2000testdata[i].dE, 4), "The Delat E test. Exected: " +  ciede2000testdata[i].dE + ", Result: " + dE);
 
     }
