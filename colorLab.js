@@ -239,7 +239,7 @@ var colorLab = (function(space, values){
 
             // get the delta h and delta H
             var deltah;
-            if ( ( Lab1.C_1 * Lab1.C_2 ) === 0 ) {
+            if ( ( Lab1.C_1 * Lab2.C_1 ) === 0 ) {
                deltah = 0;
             } else {
                if ( Math.abs( Lab2.h - Lab1.h ) <= 180 ) {
@@ -344,12 +344,12 @@ var colorLab = (function(space, values){
 
         // plot the Lab-Values
         toString: function() {
-            return 'L: ' + this.CIELAB.L() + ', a: ' + this.CIELAB.a() + ', b: ' + this.CIELAB.b();
+            return 'L: ' + this.L() + ', a: ' + this.a() + ', b: ' + this.b();
         },
 
         // shorthand for toString
         print: function() {
-            return this.CIELAB.toString();
+            return this.toString();
         }
     };
 

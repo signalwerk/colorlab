@@ -18,12 +18,22 @@ function toBeCloseTo (expected, actual, precision) {
 
 module( "init Tests" );
 
+test( "wrong color system", function() {
+
+     throws(
+        function() {
+         new colorLab('CMYK', [1, 2, 3, 4]);
+        }
+      );
+});
+
 test( "with values", function() {
 	var a = new colorLab('CIELAB', [2, 4, 6]);
 
     equal(a.CIELAB.L(), 2);
     equal(a.CIELAB.a(), 4);
     equal(a.CIELAB.b(), 6);
+
 });
 
 test( "without values", function() {
@@ -49,6 +59,69 @@ test( "without values", function() {
 
 });
 
+
+module( "genera. calc" );
+test( "add two points", function() {
+    var a = new colorLab('CIELAB', [1, 2, 3]);
+    var b = new colorLab('CIELAB', [10, 20, 30]);
+
+    a.CIELAB.add(b);
+
+    equal(a.CIELAB.L(), 11);
+    equal(a.CIELAB.a(), 22);
+    equal(a.CIELAB.b(), 33);
+});
+
+test( "sub two points", function() {
+    var a = new colorLab('CIELAB', [10, 20, 30]);
+    var b = new colorLab('CIELAB', [1, 2, 3]);
+
+    a.CIELAB.sub(b);
+
+    equal(a.CIELAB.L(), 9);
+    equal(a.CIELAB.a(), 18);
+    equal(a.CIELAB.b(), 27);
+
+});
+test( "div two points", function() {
+    var a = new colorLab('CIELAB', [10, 24, 35]);
+    var b = new colorLab('CIELAB', [2, 4, 5]);
+
+    a.CIELAB.div(b);
+
+    equal(a.CIELAB.L(), 5);
+    equal(a.CIELAB.a(), 6);
+    equal(a.CIELAB.b(), 7);
+});
+
+test( "floor a points", function() {
+    var a = new colorLab('CIELAB', [0.1, 9.9, 100]);
+
+    a.CIELAB.floor();
+
+    equal(a.CIELAB.L(), 0);
+    equal(a.CIELAB.a(), 9);
+    equal(a.CIELAB.b(), 100);
+});
+
+
+test( "round a points", function() {
+    var a = new colorLab('CIELAB', [0.49, 9.5, 100.51]);
+
+    a.CIELAB.round();
+
+    equal(a.CIELAB.L(), 0);
+    equal(a.CIELAB.a(), 10);
+    equal(a.CIELAB.b(), 101);
+});
+
+module( "general output" );
+test( "ouput", function() {
+    var a = new colorLab('CIELAB', [1, 2, 3]);
+
+    equal(a.CIELAB.print(), "L: 1, a: 2, b: 3");
+
+});
 
 module( "multiply" );
 
@@ -88,6 +161,19 @@ test( "point with object of values", function() {
 
 
 module( "Delta E" );
+
+
+test( "Delta E of two CIELAB colors with 0", function() {
+
+    var a = new colorLab('CIELAB', [0,0,0]);
+    var b = new colorLab('CIELAB', [0,0,0]);
+
+    var dE = a.CIELAB.CIEDE2000(b);
+
+    ok(toBeCloseTo(dE, 0, 4), "The Delat E test. Exected: " +  0 + ", Result: " + dE);
+    equal(a.CIELAB.CIEDE2000(b), b.CIELAB.CIEDE2000(a), "The order of the colors shouldnt matter to get Delta E");
+
+});
 
 
 test( "Delta E of two CIELAB colors", function() {
