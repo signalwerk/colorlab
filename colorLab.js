@@ -24,7 +24,35 @@
 // 
 //     new colorLab('CIELAB');
 //     
+/*
 
+
+// pattern from https://github.com/documentcloud/underscore/blob/master/underscore.js
+(function() {
+
+  // Baseline setup
+  // --------------
+
+  // Establish the root object, `window` in the browser, or `global` on the server.
+  var root = this;
+
+  // Export the colorLab object for **Node.js**, with
+  // backwards-compatibility for the old `require()` API. If we're in
+  // the browser, add `colorLab` as a global object via a string identifier,
+  // for Closure Compiler "advanced" mode.
+  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = colorLab;
+    }
+    exports.colorLab = colorLab;
+  } else {
+    root.colorLab = colorLab;
+  }
+
+
+
+}).call(this);
+ */
 
 
 var colorLab = (function(space, values){
@@ -41,6 +69,7 @@ var colorLab = (function(space, values){
 
     this._currentSpace = "none";
     this._CIELAB = {};
+    this._CMYK = {};
 
     this.helper = {};
 
@@ -339,12 +368,140 @@ var colorLab = (function(space, values){
 
         },
 
-
-
+        toArray: function() {
+            return [this.L(), this.a(), this.b()];
+        },
 
         // plot the Lab-Values
         toString: function() {
             return 'L: ' + this.L() + ', a: ' + this.a() + ', b: ' + this.b();
+        },
+
+        // shorthand for toString
+        print: function() {
+            return this.toString();
+        }
+    };
+
+    // ### to work in the CMYK colorspace
+    // use it with `colorLab.CMYK`
+    this.CMYK = {
+        init: function(C, M, Y, K) {
+            root._CMYK = {C:0,M:0,Y:0,K:0};
+            this.C(C);
+            this.M(M);
+            this.Y(Y);
+            this.K(K);
+        },
+
+        C: function(C) {
+            if (C === undefined) {
+                return root._CMYK.C;
+            } else {
+                root._CMYK.C = C;
+            }
+        },
+        M: function(M) {
+            if (M === undefined) {
+                return root._CMYK.M;
+            } else {
+                root._CMYK.M = M;
+            }
+        },
+        Y: function(Y) {
+            if (Y === undefined) {
+                return root._CMYK.Y;
+            } else {
+                root._CMYK.Y = Y;
+            }
+        },
+        K: function(K) {
+            if (K === undefined) {
+                return root._CMYK.K;
+            } else {
+                root._CMYK.K = K;
+            }
+        },
+
+        // add value to pint like `add({x:1,y:2})`
+        add: function(other) {
+            return this._fnTemplate(other, function(a, b) {return a + b;});
+        },
+        sub: function(other) {
+            return this._fnTemplate(other, function(a, b) {return a - b;});
+        },
+        mul: function(other) {
+            return this._fnTemplate(other, function(a, b) {return a * b;});
+        },
+        div: function(other) {
+            return this._fnTemplate(other, function(a, b) {return a / b;});
+        },
+        floor: function() {
+            return this._fnTemplate(null, function(a) {return Math.floor(a);});
+        },
+        round: function() {
+            return this._fnTemplate(null, function(a) {return Math.round(a);});
+        },
+
+        // #### general function template
+        // this is the general template to run the generalized functions
+        _fnTemplate: function(other, op) {
+
+            // run function without an additional numeric imput like `add(2)`
+            if (typeof(other) === 'number') {
+                this.C( op(this.C(), other) );
+                this.M( op(this.M(), other) );
+                this.Y( op(this.Y(), other) );
+                this.K( op(this.K(), other) );
+                return this;
+            }
+
+            // run function without an additional imput like `round()`
+            if (other === null) {
+                this.C( op(this.C()) );
+                this.M( op(this.M()) );
+                this.Y( op(this.Y()) );
+                this.K( op(this.K()) );
+                return this;
+            }
+
+            // run function without an additional imput of type colorLab or objects `add({L:2,a:3,b:2})`
+
+            if (other.CMYK === undefined) {
+                this.C( op(this.C(), other.C) );
+            } else {
+                this.C( op(this.C(), other.CMYK.C()) );
+            }
+
+            if (other.CMYK === undefined) {
+                this.M( op(this.M(), other.M) );
+            } else {
+                this.M( op(this.M(), other.CMYK.M()) );
+            }
+
+            if (other.CMYK === undefined) {
+                this.Y( op(this.Y(), other.Y) );
+            } else {
+                this.Y( op(this.Y(), other.CMYK.Y()) );
+            }
+
+            if (other.CMYK === undefined) {
+                this.K( op(this.K(), other.K) );
+            } else {
+                this.K( op(this.K(), other.CMYK.K()) );
+            }
+
+
+            return this;
+        },
+
+        toArray: function() {
+            return [this.C(), this.M(), this.Y(), this.K()];
+        },
+
+        // plot the Color-Values
+        toString: function() {
+            return 'C: ' + this.C() + ', M: ' + this.M() + ', Y: ' + this.Y() + ', K: ' + this.K();
         },
 
         // shorthand for toString
@@ -368,6 +525,15 @@ var colorLab = (function(space, values){
                 this.CIELAB.init(values[0], values[1], values[2]);
             }
             break;
+        case 'CMYK':
+            this._currentSpace = space;
+
+            if (values === undefined) {
+                this.CMYK.init(0,0,0,0);
+            } else {
+                this.CMYK.init(values[0], values[1], values[2], values[3]);
+            }
+            break;
         default:
             throw {
                 type:       "implementation",
@@ -379,6 +545,7 @@ var colorLab = (function(space, values){
 
 
 });
+
 
 
 
