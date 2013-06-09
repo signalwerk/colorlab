@@ -57,7 +57,7 @@ Initialize the Class with </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> colorLab = (<span class="keyword">function</span>(space, values){</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="comment">/*</pre></div></div>
             
         </li>
         
@@ -65,12 +65,14 @@ Initialize the Class with </p>
         <li id="section-3">
             <div class="annotation">
               
-              <div class="pilwrap for-h2">
+              <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <h2>Initial Setup</h2>
+              <p>pattern from <a href="https://github.com/documentcloud/underscore/blob/master/underscore.js">https://github.com/documentcloud/underscore/blob/master/underscore.js</a></p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre>(<span class="keyword">function</span>() {</pre></div></div>
             
         </li>
         
@@ -78,14 +80,12 @@ Initialize the Class with </p>
         <li id="section-4">
             <div class="annotation">
               
-              <div class="pilwrap ">
+              <div class="pilwrap for-h2">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Save a reference to the global object </p>
+              <h2>Baseline setup</h2>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> root = <span class="keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -96,14 +96,11 @@ Initialize the Class with </p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Current version of the library.</p>
+              <p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">this</span>.VERSION = <span class="string">'0.0.1'</span>;
-
-    <span class="keyword">this</span>._currentSpace = <span class="string">"none"</span>;
-    <span class="keyword">this</span>._CIELAB = {};</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> root = <span class="keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -111,8 +108,114 @@ Initialize the Class with </p>
         <li id="section-6">
             <div class="annotation">
               
-              <div class="pilwrap for-h3">
+              <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Export the colorLab object for <strong>Node.js</strong>, with
+backwards-compatibility for the old <code>require()</code> API. If we&#39;re in
+the browser, add <code>colorLab</code> as a global object via a string identifier,
+for Closure Compiler &quot;advanced&quot; mode.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' &amp;&amp; module.exports) {
+      exports = module.exports = colorLab;
+    }
+    exports.colorLab = colorLab;
+  } else {
+    root.colorLab = colorLab;
+  }
+
+
+
+}).call(this);
+ */
+
+
+var colorLab = (function(space, values){</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2>Initial Setup</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Save a reference to the global object </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> root = <span class="keyword">this</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Current version of the library.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">this</span>.VERSION = <span class="string">'0.0.1'</span>;
+
+    <span class="keyword">this</span>._currentSpace = <span class="string">"none"</span>;
+    <span class="keyword">this</span>._CIELAB = {};
+    <span class="keyword">this</span>._CMYK = {};
+
+    <span class="keyword">this</span>.helper = {};
+
+    <span class="keyword">this</span>.helper.math = {
+
+        toDegrees: <span class="keyword">function</span>(angle) {
+          <span class="keyword">return</span> angle * (<span class="number">180</span> / Math.PI);
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Converts numeric degrees to radians </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        toRad: <span class="keyword">function</span>(num) {
+            <span class="keyword">return</span> num * Math.PI / <span class="number">180</span>;
+        }
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <h3>to work in the CIELAB colorspace</h3>
 <p>use it with <code>colorLab.CIELAB</code></p>
@@ -152,11 +255,11 @@ Initialize the Class with </p>
         </li>
         
         
-        <li id="section-7">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p>add value to pint like <code>add({x:1,y:2})</code></p>
 
@@ -184,11 +287,11 @@ Initialize the Class with </p>
         </li>
         
         
-        <li id="section-8">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap for-h4">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <h4>general function template</h4>
 <p>this is the general template to run the generalized functions</p>
@@ -200,11 +303,11 @@ Initialize the Class with </p>
         </li>
         
         
-        <li id="section-9">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               <p>run function without an additional numeric imput like <code>add(2)</code></p>
 
@@ -220,11 +323,11 @@ Initialize the Class with </p>
         </li>
         
         
-        <li id="section-10">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <p>run function without an additional imput like <code>round()</code></p>
 
@@ -240,11 +343,11 @@ Initialize the Class with </p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <p>run function without an additional imput of type colorLab or objects <code>add({L:2,a:3,b:2})</code></p>
 
@@ -274,35 +377,712 @@ Initialize the Class with </p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>find deltaE of two colorLab Variables</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        CIEDE2000: <span class="keyword">function</span>(newPoint) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>for more details see 
+<a href="http://www.ece.rochester.edu/~gsharma/ciede2000/">http://www.ece.rochester.edu/~gsharma/ciede2000/</a>
+<a href="http://www.ece.rochester.edu/~gsharma/ciede2000/ciede2000noteCRNA.pdf">http://www.ece.rochester.edu/~gsharma/ciede2000/ciede2000noteCRNA.pdf</a>
+<a href="http://www.ece.rochester.edu/~gsharma/ciede2000/dataNprograms/deltaE2000.m">http://www.ece.rochester.edu/~gsharma/ciede2000/dataNprograms/deltaE2000.m</a>
+<a href="http://en.wikipedia.org/wiki/Color_difference">http://en.wikipedia.org/wiki/Color_difference</a></p>
+<p>console.log( this.L(), this.a(), this.b() );
+console.log( newPoint.CIELAB.L(), newPoint.CIELAB.a(), newPoint.CIELAB.b() );</p>
+<p>weighting factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> k_L = <span class="number">1</span>;
+            <span class="keyword">var</span> k_C = <span class="number">1</span>;
+            <span class="keyword">var</span> k_H = <span class="number">1</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Input Lab pairs</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> Lab1 = {
+                L: <span class="keyword">this</span>.L(),
+                a: <span class="keyword">this</span>.a(),
+                b: <span class="keyword">this</span>.b()
+            };
+            <span class="keyword">var</span> Lab2 = {
+                L: newPoint.CIELAB.L(),
+                a: newPoint.CIELAB.a(),
+                b: newPoint.CIELAB.b()
+            };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>we calculate a C* to compensate later the for chroma</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            Lab1.C = Math.sqrt(Math.pow(Lab1.a, <span class="number">2</span>) + Math.pow(Lab1.b, <span class="number">2</span>));
+            Lab2.C = Math.sqrt(Math.pow(Lab2.a, <span class="number">2</span>) + Math.pow(Lab2.b, <span class="number">2</span>));
+
+            <span class="keyword">var</span> C_avr = (Lab1.C + Lab2.C) / <span class="number">2</span>; <span class="comment">// average of the two C</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>console.log(Lab1);
+console.log(Lab2);</p>
+<p>get G for the colors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> G = <span class="number">0.5</span> * (<span class="number">1</span> - Math.sqrt(Math.pow(C_avr, <span class="number">7</span>) / (Math.pow(C_avr, <span class="number">7</span>) + Math.pow(<span class="number">25</span>, <span class="number">7</span>))));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>console.log(&quot;G&quot;, G);</p>
+<p>add for both colors the a&#39;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            Lab1.a_1 = (<span class="number">1</span> + G) * Lab1.a;
+            Lab2.a_1 = (<span class="number">1</span> + G) * Lab2.a;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>console.log(&quot;Lab1.a_1&quot;, Lab1.a_1);
+console.log(&quot;Lab2.a_1&quot;, Lab2.a_1);</p>
+<p>add for both colors the C&#39;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            Lab1.C_1 = Math.sqrt(Math.pow(Lab1.a_1, <span class="number">2</span>) + Math.pow(Lab1.b, <span class="number">2</span>));
+            Lab2.C_1 = Math.sqrt(Math.pow(Lab2.a_1, <span class="number">2</span>) + Math.pow(Lab2.b, <span class="number">2</span>));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>console.log(&quot;Lab1.C_1&quot;, Lab1.C_1);
+console.log(&quot;Lab2.C_1&quot;, Lab2.C_1);</p>
+<p>add h&#39; for both colors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (Lab1.a_1 === <span class="number">0</span> &amp;&amp; Lab1.b === <span class="number">0</span>) {
+                Lab1.h = <span class="number">0</span>;
+            } <span class="keyword">else</span> {
+                <span class="keyword">if</span> (Lab1.b &gt;= <span class="number">0</span>) {
+                    Lab1.h = root.helper.math.toDegrees(Math.atan2(Lab1.b, Lab1.a_1));
+                } <span class="keyword">else</span> {
+                    Lab1.h = root.helper.math.toDegrees(Math.atan2(Lab1.b, Lab1.a_1)) + <span class="number">360</span>;
+                }
+            }
+
+            <span class="keyword">if</span> (Lab2.a_1 === <span class="number">0</span> &amp;&amp; Lab2.b === <span class="number">0</span>) {
+                Lab2.h = <span class="number">0</span>;
+            } <span class="keyword">else</span> {
+                <span class="keyword">if</span> (Lab2.b &gt;= <span class="number">0</span>) {
+                    Lab2.h = root.helper.math.toDegrees(Math.atan2(Lab2.b, Lab2.a_1));
+                } <span class="keyword">else</span> {
+                    Lab2.h = root.helper.math.toDegrees(Math.atan2(Lab2.b, Lab2.a_1)) + <span class="number">360</span>;
+                }
+            }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>console.log(&quot;Lab1.h&quot;,Lab1.h);
+console.log(&quot;Lab2.h&quot;,Lab2.h);</p>
+<p>Now calculate the signed differences in lightness, chroma, and hue</p>
+<p>get the delta h and delta H</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> deltah;
+            <span class="keyword">if</span> ( ( Lab1.C_1 * Lab2.C_1 ) === <span class="number">0</span> ) {
+               deltah = <span class="number">0</span>;
+            } <span class="keyword">else</span> {
+               <span class="keyword">if</span> ( Math.abs( Lab2.h - Lab1.h ) &lt;= <span class="number">180</span> ) {
+                  deltah = Lab2.h - Lab1.h;
+               } <span class="keyword">else</span> {
+                  <span class="keyword">if</span> ( Lab2.h - Lab1.h &gt; <span class="number">180</span> ) {
+                    deltah = Lab2.h - Lab1.h - <span class="number">360</span>;
+                  } <span class="keyword">else</span> {
+                    deltah = Lab2.h - Lab1.h + <span class="number">360</span>;
+                  }
+               }
+            }
+            <span class="keyword">var</span> deltaH = <span class="number">2</span> * Math.sqrt( Lab1.C_1 * Lab2.C_1 ) * Math.sin( root.helper.math.toRad( deltah / <span class="number">2</span> ) );</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>console.log(&quot;deltah: &quot;, deltah);
+console.log(&quot;deltaH: &quot;, deltaH);</p>
+<p>the delta for lightness</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> deltaL = Lab1.L - Lab2.L;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>console.log(&quot;deltaL&quot;, deltaL);</p>
+<p>the delta for chroma</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> deltaC = Lab2.C_1 - Lab1.C_1;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>console.log(&quot;deltaC&quot;, deltaC);</p>
+<p>Calculate CIEDE2000 Color-Difference </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> L_ave = (Lab1.L + Lab2.L) / <span class="number">2</span>;
+            <span class="keyword">var</span> C_1ave = (Lab1.C_1 + Lab2.C_1) / <span class="number">2</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>console.log(&quot;L_ave&quot;, L_ave);
+console.log(&quot;C_1ave&quot;, C_1ave);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> hDiff;
+            <span class="keyword">if</span> ( ( Lab1.C_1 * Lab2.C_1 ) === <span class="number">0</span> ) {
+               hDiff = Lab1.h + Lab2.h;
+            } <span class="keyword">else</span> {
+               <span class="keyword">if</span> ( Math.abs( Lab2.h - Lab1.h ) &gt;  <span class="number">180</span> ) {
+                  <span class="keyword">if</span> ( ( Lab2.h  + Lab1.h ) &lt;  <span class="number">360</span> ) {
+                    hDiff = Lab1.h + Lab2.h + <span class="number">360</span>;
+                  } <span class="keyword">else</span> {
+                    hDiff = Lab1.h + Lab2.h - <span class="number">360</span>;
+                  }
+               } <span class="keyword">else</span> {
+                  hDiff = Lab1.h + Lab2.h ;
+               }
+               hDiff = hDiff / <span class="number">2</span>;
+            }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>console.log(&quot;hDiff&quot;, hDiff);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> L_aveMinus50pow2 = Math.pow((L_ave - <span class="number">50</span>), <span class="number">2</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>console.log(&quot;L_aveMinus50pow2&quot;, L_aveMinus50pow2);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> SL = <span class="number">1</span> + ((<span class="number">0.015</span> * L_aveMinus50pow2) / Math.sqrt(<span class="number">20</span> + L_aveMinus50pow2));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>console.log(&quot;SL&quot;, SL);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> SC = <span class="number">1</span> + <span class="number">0.045</span> * C_1ave;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>console.log(&quot;SC&quot;, SC);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> T = <span class="number">1</span> - <span class="number">0.17</span> * Math.cos( root.helper.math.toRad( hDiff - <span class="number">30</span> ) ) + <span class="number">0.24</span> * Math.cos( root.helper.math.toRad( <span class="number">2</span> * hDiff ) ) + <span class="number">0.32</span> * Math.cos( root.helper.math.toRad( <span class="number">3</span> * hDiff + <span class="number">6</span> ) ) - <span class="number">0.20</span> * Math.cos( root.helper.math.toRad( <span class="number">4</span> * hDiff - <span class="number">63</span> ) );</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>console.log(&quot;T&quot;, T);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> SH = <span class="number">1</span> + <span class="number">0.015</span> * C_1ave * T;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>console.log(&quot;SH&quot;, SH);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> dTheta = <span class="number">30</span> * Math.exp(-<span class="number">1</span> * Math.pow((hDiff - <span class="number">275</span> ) / <span class="number">25</span>, <span class="number">2</span>));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>console.log(&quot;dTheta&quot;, dTheta);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> RC = <span class="number">2</span> * Math.sqrt(Math.pow(C_1ave, <span class="number">7</span>) / (Math.pow(C_1ave, <span class="number">7</span>) + Math.pow(<span class="number">25</span>, <span class="number">7</span>)));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>console.log(&quot;RC&quot;, RC);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> RT = <span class="number">0</span> - Math.sin(root.helper.math.toRad( <span class="number">2</span> * dTheta)) * RC;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <p>console.log(&quot;RT&quot;, RT);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> dkL = deltaL / (k_L * SL);
+            <span class="keyword">var</span> dkC = deltaC / (k_C * SC);
+            <span class="keyword">var</span> dkH = deltaH / (k_H * SH);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <p>console.log(&quot;dkL&quot;, dkL);
+console.log(&quot;dkC&quot;, dkC);
+console.log(&quot;dkH&quot;, dkH);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> CIEDE2000 = Math.sqrt(Math.pow(dkL, <span class="number">2</span>) + Math.pow(dkC, <span class="number">2</span>) + Math.pow(dkH, <span class="number">2</span>) + RT * dkC * dkH );</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <p>console.log(&quot;CIEDE2000&quot;, CIEDE2000);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">return</span> CIEDE2000;
+
+        },
+
+        toArray: <span class="keyword">function</span>() {
+            <span class="keyword">return</span> [<span class="keyword">this</span>.L(), <span class="keyword">this</span>.a(), <span class="keyword">this</span>.b()];
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
               </div>
               <p>plot the Lab-Values</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>        toString: <span class="keyword">function</span>() {
-            <span class="keyword">return</span> <span class="string">'L: '</span> + <span class="keyword">this</span>.CIELAB.L() + <span class="string">', a: '</span> + <span class="keyword">this</span>.CIELAB.a() + <span class="string">', b: '</span> + <span class="keyword">this</span>.CIELAB.b();
+            <span class="keyword">return</span> <span class="string">'L: '</span> + <span class="keyword">this</span>.L() + <span class="string">', a: '</span> + <span class="keyword">this</span>.a() + <span class="string">', b: '</span> + <span class="keyword">this</span>.b();
         },</pre></div></div>
             
         </li>
         
         
-        <li id="section-13">
+        <li id="section-42">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-42">&#182;</a>
               </div>
               <p>shorthand for toString</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>        print: <span class="keyword">function</span>() {
-            <span class="keyword">return</span> <span class="keyword">this</span>.CIELAB.toString();
+            <span class="keyword">return</span> <span class="keyword">this</span>.toString();
+        }
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-43">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-43">&#182;</a>
+              </div>
+              <h3>to work in the CMYK colorspace</h3>
+<p>use it with <code>colorLab.CMYK</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">this</span>.CMYK = {
+        init: <span class="keyword">function</span>(C, M, Y, K) {
+            root._CMYK = {C:<span class="number">0</span>,M:<span class="number">0</span>,Y:<span class="number">0</span>,K:<span class="number">0</span>};
+            <span class="keyword">this</span>.C(C);
+            <span class="keyword">this</span>.M(M);
+            <span class="keyword">this</span>.Y(Y);
+            <span class="keyword">this</span>.K(K);
+        },
+
+        C: <span class="keyword">function</span>(C) {
+            <span class="keyword">if</span> (C === <span class="literal">undefined</span>) {
+                <span class="keyword">return</span> root._CMYK.C;
+            } <span class="keyword">else</span> {
+                root._CMYK.C = C;
+            }
+        },
+        M: <span class="keyword">function</span>(M) {
+            <span class="keyword">if</span> (M === <span class="literal">undefined</span>) {
+                <span class="keyword">return</span> root._CMYK.M;
+            } <span class="keyword">else</span> {
+                root._CMYK.M = M;
+            }
+        },
+        Y: <span class="keyword">function</span>(Y) {
+            <span class="keyword">if</span> (Y === <span class="literal">undefined</span>) {
+                <span class="keyword">return</span> root._CMYK.Y;
+            } <span class="keyword">else</span> {
+                root._CMYK.Y = Y;
+            }
+        },
+        K: <span class="keyword">function</span>(K) {
+            <span class="keyword">if</span> (K === <span class="literal">undefined</span>) {
+                <span class="keyword">return</span> root._CMYK.K;
+            } <span class="keyword">else</span> {
+                root._CMYK.K = K;
+            }
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-44">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-44">&#182;</a>
+              </div>
+              <p>add value to pint like <code>add({x:1,y:2})</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        add: <span class="keyword">function</span>(other) {
+            <span class="keyword">return</span> <span class="keyword">this</span>._fnTemplate(other, <span class="keyword">function</span>(a, b) {<span class="keyword">return</span> a + b;});
+        },
+        sub: <span class="keyword">function</span>(other) {
+            <span class="keyword">return</span> <span class="keyword">this</span>._fnTemplate(other, <span class="keyword">function</span>(a, b) {<span class="keyword">return</span> a - b;});
+        },
+        mul: <span class="keyword">function</span>(other) {
+            <span class="keyword">return</span> <span class="keyword">this</span>._fnTemplate(other, <span class="keyword">function</span>(a, b) {<span class="keyword">return</span> a * b;});
+        },
+        div: <span class="keyword">function</span>(other) {
+            <span class="keyword">return</span> <span class="keyword">this</span>._fnTemplate(other, <span class="keyword">function</span>(a, b) {<span class="keyword">return</span> a / b;});
+        },
+        floor: <span class="keyword">function</span>() {
+            <span class="keyword">return</span> <span class="keyword">this</span>._fnTemplate(<span class="literal">null</span>, <span class="keyword">function</span>(a) {<span class="keyword">return</span> Math.floor(a);});
+        },
+        round: <span class="keyword">function</span>() {
+            <span class="keyword">return</span> <span class="keyword">this</span>._fnTemplate(<span class="literal">null</span>, <span class="keyword">function</span>(a) {<span class="keyword">return</span> Math.round(a);});
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-45">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-45">&#182;</a>
+              </div>
+              <h4>general function template</h4>
+<p>this is the general template to run the generalized functions</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        _fnTemplate: <span class="keyword">function</span>(other, op) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-46">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <p>run function without an additional numeric imput like <code>add(2)</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (<span class="keyword">typeof</span>(other) === <span class="string">'number'</span>) {
+                <span class="keyword">this</span>.C( op(<span class="keyword">this</span>.C(), other) );
+                <span class="keyword">this</span>.M( op(<span class="keyword">this</span>.M(), other) );
+                <span class="keyword">this</span>.Y( op(<span class="keyword">this</span>.Y(), other) );
+                <span class="keyword">this</span>.K( op(<span class="keyword">this</span>.K(), other) );
+                <span class="keyword">return</span> <span class="keyword">this</span>;
+            }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-47">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-47">&#182;</a>
+              </div>
+              <p>run function without an additional imput like <code>round()</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (other === <span class="literal">null</span>) {
+                <span class="keyword">this</span>.C( op(<span class="keyword">this</span>.C()) );
+                <span class="keyword">this</span>.M( op(<span class="keyword">this</span>.M()) );
+                <span class="keyword">this</span>.Y( op(<span class="keyword">this</span>.Y()) );
+                <span class="keyword">this</span>.K( op(<span class="keyword">this</span>.K()) );
+                <span class="keyword">return</span> <span class="keyword">this</span>;
+            }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-48">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-48">&#182;</a>
+              </div>
+              <p>run function without an additional imput of type colorLab or objects <code>add({L:2,a:3,b:2})</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (other.CMYK === <span class="literal">undefined</span>) {
+                <span class="keyword">this</span>.C( op(<span class="keyword">this</span>.C(), other.C) );
+            } <span class="keyword">else</span> {
+                <span class="keyword">this</span>.C( op(<span class="keyword">this</span>.C(), other.CMYK.C()) );
+            }
+
+            <span class="keyword">if</span> (other.CMYK === <span class="literal">undefined</span>) {
+                <span class="keyword">this</span>.M( op(<span class="keyword">this</span>.M(), other.M) );
+            } <span class="keyword">else</span> {
+                <span class="keyword">this</span>.M( op(<span class="keyword">this</span>.M(), other.CMYK.M()) );
+            }
+
+            <span class="keyword">if</span> (other.CMYK === <span class="literal">undefined</span>) {
+                <span class="keyword">this</span>.Y( op(<span class="keyword">this</span>.Y(), other.Y) );
+            } <span class="keyword">else</span> {
+                <span class="keyword">this</span>.Y( op(<span class="keyword">this</span>.Y(), other.CMYK.Y()) );
+            }
+
+            <span class="keyword">if</span> (other.CMYK === <span class="literal">undefined</span>) {
+                <span class="keyword">this</span>.K( op(<span class="keyword">this</span>.K(), other.K) );
+            } <span class="keyword">else</span> {
+                <span class="keyword">this</span>.K( op(<span class="keyword">this</span>.K(), other.CMYK.K()) );
+            }
+
+
+            <span class="keyword">return</span> <span class="keyword">this</span>;
+        },
+
+        toArray: <span class="keyword">function</span>() {
+            <span class="keyword">return</span> [<span class="keyword">this</span>.C(), <span class="keyword">this</span>.M(), <span class="keyword">this</span>.Y(), <span class="keyword">this</span>.K()];
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-49">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-49">&#182;</a>
+              </div>
+              <p>plot the Color-Values</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        toString: <span class="keyword">function</span>() {
+            <span class="keyword">return</span> <span class="string">'C: '</span> + <span class="keyword">this</span>.C() + <span class="string">', M: '</span> + <span class="keyword">this</span>.M() + <span class="string">', Y: '</span> + <span class="keyword">this</span>.Y() + <span class="string">', K: '</span> + <span class="keyword">this</span>.K();
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-50">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-50">&#182;</a>
+              </div>
+              <p>shorthand for toString</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        print: <span class="keyword">function</span>() {
+            <span class="keyword">return</span> <span class="keyword">this</span>.toString();
         }
     };
 
@@ -319,6 +1099,15 @@ Initialize the Class with </p>
                 <span class="keyword">this</span>.CIELAB.init(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);
             } <span class="keyword">else</span> {
                 <span class="keyword">this</span>.CIELAB.init(values[<span class="number">0</span>], values[<span class="number">1</span>], values[<span class="number">2</span>]);
+            }
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">'CMYK'</span>:
+            <span class="keyword">this</span>._currentSpace = space;
+
+            <span class="keyword">if</span> (values === <span class="literal">undefined</span>) {
+                <span class="keyword">this</span>.CMYK.init(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);
+            } <span class="keyword">else</span> {
+                <span class="keyword">this</span>.CMYK.init(values[<span class="number">0</span>], values[<span class="number">1</span>], values[<span class="number">2</span>], values[<span class="number">3</span>]);
             }
             <span class="keyword">break</span>;
         <span class="keyword">default</span>:

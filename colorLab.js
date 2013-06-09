@@ -11,6 +11,21 @@
 // http://www.nixtu.info/2011/05/using-jsshaper-to-provide-operator.html
 // https://github.com/tcorral/Design-Patterns-in-Javascript/blob/master/Chaining/Chainable.js
 
+/*
+
+github-page >> http://ricostacruz.com/flatdoc/
+
+
+// http://jsperf.com/linear-interpolation/5
+function linearInterpolation(min, max, k) {
+    return min + (max - min) * k;
+}
+
+http://bl.ocks.org/mbostock/4281513
+http://bl.ocks.org/mbostock/3014589
+dont mix colors in lab!! mix in xyz!!!
+
+ */
 
 
 // colorLab Class
