@@ -25,6 +25,10 @@ http://bl.ocks.org/mbostock/4281513
 http://bl.ocks.org/mbostock/3014589
 dont mix colors in lab!! mix in xyz!!!
 
+
+module-structure
+https://github.com/wesleytodd/JS-Boilerplate/blob/master/module.js
+
  */
 
 
@@ -82,6 +86,12 @@ var colorLab = (function(space, values){
     // Current version of the library.
     this.VERSION = '0.0.1';
 
+
+    // constatnats
+    this.kK = 24389.0 / 27.0;
+    this.kE = 216.0 / 24389.0;
+
+
     this._currentSpace = "none";
     this._CIELAB = {};
     this._CMYK = {};
@@ -99,6 +109,34 @@ var colorLab = (function(space, values){
             return num * Math.PI / 180;
         }
     };
+
+    this.helper.convert = {
+
+
+        CIEXYZCIELAB : function(XYZ, RefWhite)
+        {
+
+            var fHelper = function (t) {
+                if (t > root.kE) {
+                    return Math.pow(t, 1.0 / 3.0);
+                } else {
+                    return ((root.kK * t + 16.0) / 116.0);
+                }
+            };
+
+            var fx = fHelper(XYZ.X / RefWhite.X);
+            var fy = fHelper(XYZ.Y / RefWhite.Y);
+            var fz = fHelper(XYZ.Z / RefWhite.Z);
+
+            var Lab = {};
+            Lab.L = 116.0 * fy - 16.0;
+            Lab.a = 500.0 * (fx - fy);
+            Lab.b = 200.0 * (fy - fz);
+            return Lab;
+        }
+    };
+
+
 
     // ### to work in the CIELAB colorspace
     // use it with `colorLab.CIELAB`
@@ -194,6 +232,77 @@ var colorLab = (function(space, values){
 
             return this;
         },
+
+
+        // http://lofi.forum.physorg.com/Convertion-from-nanometers-to-CIELAB-values_7984.html
+        // Tristimulus values
+        spectrum: function(spectralSet) {
+
+            // with illuminant D !!!!!!! and 2° CIE1931
+            
+            var XYZ = { X: 0.0, Y: 0.0, Z: 0.0};
+            var totalGet = 0;
+
+            for (var i = 0; i < spectralSet.length; i++) {
+
+
+                var currentNm = spectralSet[i].nm;
+
+                var accordingIlluminant = colorLab.illuminant.D.filter(function (el) {
+                    return  el.nm == currentNm;
+                });
+
+                // look for the current illuminant-value
+                if (accordingIlluminant.length != 1) {
+                    throw {
+                        type:       "data",
+                        message:     "there is no corresponding illumination value for current nm"
+                    };
+                } else {
+                    accordingIlluminant = accordingIlluminant[0];
+                }
+
+                // look for the current Observer-value
+                var accordingObserver = colorLab.observer.CIE1931.filter(function (el) {
+                    return  el.nm == currentNm;
+                });
+
+                if (accordingObserver.length != 1) {
+                    throw {
+                        type:       "data",
+                        message:     "there is no corresponding nm-Value in the observer-data"
+                    };
+                } else {
+                    accordingObserver = accordingObserver[0];
+                }
+
+                // we need this to normalize the data afterwards
+                totalGet += accordingObserver.xyz[1]*accordingIlluminant.power;
+
+                // sum up all values in the nm-array
+                XYZ.X += accordingObserver.xyz[0]*accordingIlluminant.power*spectralSet[i].value;
+                XYZ.Y += accordingObserver.xyz[1]*accordingIlluminant.power*spectralSet[i].value;
+                XYZ.Z += accordingObserver.xyz[2]*accordingIlluminant.power*spectralSet[i].value;
+
+
+            }
+
+
+             XYZ.X = XYZ.X / totalGet;
+             XYZ.Y = XYZ.Y / totalGet;
+             XYZ.Z = XYZ.Z / totalGet;
+
+            // convert to CIELAB with D-Illuminant
+            var specLAB = root.helper.convert.CIEXYZCIELAB (
+                { X: XYZ.X, Y: XYZ.Y, Z: XYZ.Z},
+                { X: 0.96397188, Y: 1.0, Z: 0.824037097}
+            );
+
+            this.L( specLAB.L );
+            this.a( specLAB.a );
+            this.b( specLAB.b );
+        },
+
 
         // find deltaE of two colorLab Variables
         CIEDE2000: function(newPoint) {
@@ -695,10 +804,65 @@ colorLab.illuminant = {
         {nm: 820, power: 57.4406},
         {nm: 825, power: 58.8765},
         {nm: 830, power: 60.3125}
+    ],
+    D :  [
+        {nm: 340, power: 17.92},
+        {nm: 350, power: 20.98},
+        {nm: 360, power: 23.91},
+        {nm: 370, power: 25.89},
+        {nm: 380, power: 24.45},
+        {nm: 390, power: 29.83},
+        {nm: 400, power: 49.25},
+        {nm: 410, power: 56.45},
+        {nm: 420, power: 59.97},
+        {nm: 430, power: 57.76},
+        {nm: 440, power: 74.77},
+        {nm: 450, power: 87.19},
+        {nm: 460, power: 90.56},
+        {nm: 470, power: 91.32},
+        {nm: 480, power: 95.07},
+        {nm: 490, power: 91.93},
+        {nm: 500, power: 95.70},
+        {nm: 510, power: 96.59},
+        {nm: 520, power: 97.11},
+        {nm: 530, power: 102.09},
+        {nm: 540, power: 100.75},
+        {nm: 550, power: 102.31},
+        {nm: 560, power: 100.00},
+        {nm: 570, power: 97.74},
+        {nm: 580, power: 98.92},
+        {nm: 590, power: 93.51},
+        {nm: 600, power: 97.71},
+        {nm: 610, power: 99.29},
+        {nm: 620, power: 99.07},
+        {nm: 630, power: 95.75},
+        {nm: 640, power: 98.90},
+        {nm: 650, power: 95.71},
+        {nm: 660, power: 98.24},
+        {nm: 670, power: 103.06},
+        {nm: 680, power: 99.19},
+        {nm: 690, power: 87.43},
+        {nm: 700, power: 91.66},
+        {nm: 710, power: 92.94},
+        {nm: 720, power: 76.89},
+        {nm: 730, power: 86.56},
+        {nm: 740, power: 92.63},
+        {nm: 750, power: 78.27},
+        {nm: 760, power: 57.72},
+        {nm: 770, power: 82.97},
+        {nm: 780, power: 78.31},
+        {nm: 790, power: 79.59},
+        {nm: 800, power: 73.44},
+        {nm: 810, power: 63.95},
+        {nm: 820, power: 70.81},
+        {nm: 830, power: 74.48}
     ]
 };
 
 
+
+// 1931 2° CIE Standard Colorimetric Observer Data
+// 1964 10 °CIE Standard Colorimetric Observer Data
 
 colorLab.observer = {
     CIE1964 : [
@@ -869,3 +1033,72 @@ colorLab.observer = {
     ]
 };
 
+
+
+
+
+
+/* Simple JavaScript Inheritance
+ * By John Resig http://ejohn.org/
+ * MIT Licensed.
+ */
+// Inspired by base2 and Prototype
+(function(){
+  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+
+  // The base Class implementation (does nothing)
+  this.Class = function(){};
+
+  // Create a new Class that inherits from this class
+  Class.extend = function(prop) {
+    var _super = this.prototype;
+
+    // Instantiate a base class (but only create the instance,
+    // don't run the init constructor)
+    initializing = true;
+    var prototype = new this();
+    initializing = false;
+
+    // Copy the properties over onto the new prototype
+    for (var name in prop) {
+      // Check if we're overwriting an existing function
+      prototype[name] = typeof prop[name] == "function" &&
+        typeof _super[name] == "function" && fnTest.test(prop[name]) ?
+        (function(name, fn){
+          return function() {
+            var tmp = this._super;
+
+            // Add a new ._super() method that is the same method
+            // but on the super-class
+            this._super = _super[name];
+
+            // The method only need to be bound temporarily, so we
+            // remove it when we're done executing
+            var ret = fn.apply(this, arguments);
+            this._super = tmp;
+
+            return ret;
+          };
+        })(name, prop[name]) :
+        prop[name];
+    }
+
+    // The dummy class constructor
+    function Class() {
+      // All construction is actually done in the init method
+      if ( !initializing && this.init )
+        this.init.apply(this, arguments);
+    }
+
+    // Populate our constructed prototype object
+    Class.prototype = prototype;
+
+    // Enforce the constructor to be what we expect
+    Class.prototype.constructor = Class;
+
+    // And make this class extendable
+    Class.extend = arguments.callee;
+
+    return Class;
+  };
+})();

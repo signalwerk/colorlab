@@ -244,6 +244,7 @@ test( "ouput", function() {
 
 });
 
+
 // ---------------------------------------------
 // ---------------------------------------------
 module( "general output LAB" );
@@ -320,6 +321,171 @@ test( "point with object of values", function() {
     equal(c.CMYK.Y(), 32);
     equal(c.CMYK.K(), 50);
 });
+
+// ---------------------------------------------
+// ---------------------------------------------
+module( "spectrum (nm) to LAB" );
+
+
+test( "set lab according to nm-spectrum", function() {
+
+    // the reference-Data is calculated with a x-rite i1 pro photospectrometer
+    // and the according software
+    var spectralTestData = {
+
+        one: {
+            spectrum : [
+                 {nm: 380, value: 0.674885},
+                 {nm: 390, value: 0.726196},
+                 {nm: 400, value: 0.763722},
+                 {nm: 410, value: 0.789506},
+                 {nm: 420, value: 0.805537},
+                 {nm: 430, value: 0.819173},
+                 {nm: 440, value: 0.828788},
+                 {nm: 450, value: 0.83628},
+                 {nm: 460, value: 0.846448},
+                 {nm: 470, value: 0.852662},
+                 {nm: 480, value: 0.856404},
+                 {nm: 490, value: 0.86145},
+                 {nm: 500, value: 0.865696},
+                 {nm: 510, value: 0.867724},
+                 {nm: 520, value: 0.871921},
+                 {nm: 530, value: 0.875368},
+                 {nm: 540, value: 0.878054},
+                 {nm: 550, value: 0.881389},
+                 {nm: 560, value: 0.880432},
+                 {nm: 570, value: 0.884206},
+                 {nm: 580, value: 0.882807},
+                 {nm: 590, value: 0.882543},
+                 {nm: 600, value: 0.885087},
+                 {nm: 610, value: 0.88628},
+                 {nm: 620, value: 0.885939},
+                 {nm: 630, value: 0.88625},
+                 {nm: 640, value: 0.886912},
+                 {nm: 650, value: 0.881938},
+                 {nm: 660, value: 0.883668},
+                 {nm: 670, value: 0.890834},
+                 {nm: 680, value: 0.892425},
+                 {nm: 690, value: 0.890839},
+                 {nm: 700, value: 0.894183},
+                 {nm: 710, value: 0.896583},
+                 {nm: 720, value: 0.896578},
+                 {nm: 730, value: 0.898296}
+            ],
+            Lab :  {L: 95.1, a: -0.3, b: 2.8 }
+        },
+        two: {
+            spectrum : [
+                 {nm: 380, value: 0.0924462},
+                 {nm: 390, value: 0.0940832},
+                 {nm: 400, value: 0.0942267},
+                 {nm: 410, value: 0.0941882},
+                 {nm: 420, value: 0.0939718},
+                 {nm: 430, value: 0.0930549},
+                 {nm: 440, value: 0.0914344},
+                 {nm: 450, value: 0.0902866},
+                 {nm: 460, value: 0.0876634},
+                 {nm: 470, value: 0.0840203},
+                 {nm: 480, value: 0.0786973},
+                 {nm: 490, value: 0.0718362},
+                 {nm: 500, value: 0.0641432},
+                 {nm: 510, value: 0.0560224},
+                 {nm: 520, value: 0.0483718},
+                 {nm: 530, value: 0.0418735},
+                 {nm: 540, value: 0.0373635},
+                 {nm: 550, value: 0.0347571},
+                 {nm: 560, value: 0.0328061},
+                 {nm: 570, value: 0.0318001},
+                 {nm: 580, value: 0.0313526},
+                 {nm: 590, value: 0.0311194},
+                 {nm: 600, value: 0.0307722},
+                 {nm: 610, value: 0.030805},
+                 {nm: 620, value: 0.0311203},
+                 {nm: 630, value: 0.031948},
+                 {nm: 640, value: 0.0330095},
+                 {nm: 650, value: 0.0346472},
+                 {nm: 660, value: 0.0369458},
+                 {nm: 670, value: 0.0391475},
+                 {nm: 680, value: 0.043339},
+                 {nm: 690, value: 0.0486126},
+                 {nm: 700, value: 0.0536472},
+                 {nm: 710, value: 0.0580585},
+                 {nm: 720, value: 0.0610549},
+                 {nm: 730, value: 0.0631799}
+            ],
+            Lab :  {L: 23.3, a: 1.9, b: -20.3 }
+        },
+        three: {
+            spectrum : [
+                 {nm: 380, value: 0.042879},
+                 {nm: 390, value: 0.0585837},
+                 {nm: 400, value: 0.0862697},
+                 {nm: 410, value: 0.1229},
+                 {nm: 420, value: 0.149924},
+                 {nm: 430, value: 0.170061},
+                 {nm: 440, value: 0.190323},
+                 {nm: 450, value: 0.197942},
+                 {nm: 460, value: 0.187809},
+                 {nm: 470, value: 0.169112},
+                 {nm: 480, value: 0.148425},
+                 {nm: 490, value: 0.129048},
+                 {nm: 500, value: 0.111181},
+                 {nm: 510, value: 0.0926122},
+                 {nm: 520, value: 0.0752751},
+                 {nm: 530, value: 0.0629062},
+                 {nm: 540, value: 0.0547817},
+                 {nm: 550, value: 0.0463365},
+                 {nm: 560, value: 0.0378415},
+                 {nm: 570, value: 0.0330268},
+                 {nm: 580, value: 0.0342695},
+                 {nm: 590, value: 0.045159},
+                 {nm: 600, value: 0.0595014},
+                 {nm: 610, value: 0.0666808},
+                 {nm: 620, value: 0.0691445},
+                 {nm: 630, value: 0.0700992},
+                 {nm: 640, value: 0.0717238},
+                 {nm: 650, value: 0.0771675},
+                 {nm: 660, value: 0.0857641},
+                 {nm: 670, value: 0.0908835},
+                 {nm: 680, value: 0.0893411},
+                 {nm: 690, value: 0.0840304},
+                 {nm: 700, value: 0.0765717},
+                 {nm: 710, value: 0.0712801},
+                 {nm: 720, value: 0.0754317},
+                 {nm: 730, value: 0.093611}
+            ],
+            Lab :  {L: 29.7, a: 11.7, b: -32.1 }
+        }
+    };
+
+
+    // test with all data-sets
+    var a = new colorLab('CIELAB');
+
+    a.CIELAB.spectrum(spectralTestData.one.spectrum);
+
+    ok( toBeCloseTo(a.CIELAB.L(), spectralTestData.one.Lab.L, 1) );
+    ok( toBeCloseTo(a.CIELAB.a(), spectralTestData.one.Lab.a, 1) );
+    ok( toBeCloseTo(a.CIELAB.b(), spectralTestData.one.Lab.b, 1) );
+
+    a.CIELAB.spectrum(spectralTestData.two.spectrum);
+
+    ok( toBeCloseTo(a.CIELAB.L(), spectralTestData.two.Lab.L, 1) );
+    ok( toBeCloseTo(a.CIELAB.a(), spectralTestData.two.Lab.a, 1) );
+    ok( toBeCloseTo(a.CIELAB.b(), spectralTestData.two.Lab.b, 1) );
+
+    a.CIELAB.spectrum(spectralTestData.three.spectrum);
+
+    ok( toBeCloseTo(a.CIELAB.L(), spectralTestData.three.Lab.L, 1) );
+    ok( toBeCloseTo(a.CIELAB.a(), spectralTestData.three.Lab.a, 1) );
+    ok( toBeCloseTo(a.CIELAB.b(), spectralTestData.three.Lab.b, 1) );
+
+
+});
+
+
+
+
 
 // ---------------------------------------------
 // ---------------------------------------------
