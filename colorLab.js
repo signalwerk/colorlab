@@ -13,6 +13,11 @@
 
 /*
 
+i18n
+https://github.com/jamesarosen/ember-i18n?utm_source=Ember+Weekly&utm_campaign=499b06ca98-Ember_Weekly_Issue_10&utm_medium=email&utm_term=0_e96229d21d-499b06ca98-72171725
+https://github.com/jamesarosen/CLDR.js
+
+
 github-page >> http://ricostacruz.com/flatdoc/
 
 
