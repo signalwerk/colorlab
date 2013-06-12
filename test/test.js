@@ -1,3 +1,6 @@
+readCxfFromURL("http://localhost:8000/test/test sh 2.cxf");
+
+
 // unit-tests
 
 /**
