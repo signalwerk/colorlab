@@ -1,4 +1,6 @@
-readCxfFromURL("http://localhost:8000/test/test sh 2.cxf");
+
+
+//console.log ("cxf: ", readCxfFromURL("http://localhost:8000/test/test sh 2.cxf") );
 
 
 // unit-tests
@@ -534,5 +536,25 @@ test( "Delta E check with testdata", function() {
         ok(toBeCloseTo(dE, ciede2000testdata[i].dE, 4), "The Delat E test. Exected: " +  ciede2000testdata[i].dE + ", Result: " + dE);
 
     }
+
+});
+
+
+
+
+// ---------------------------------------------
+// ---------------------------------------------
+module( "test helper function for XYZ to RGB for sRGB 2° D65" );
+
+
+test( "without values", function() {
+    var a = new colorLab('CIELAB', [0,0,0]);
+
+    var RGB = a.helper.convert.XYZRGB8BIT( {X: 0.1081347, Y: 0.0967537, Z: 0.0619907}, colorLab.XYZ2RGBMtx.CIED65.sRGB);
+
+
+    equal(RGB.R, 115);
+    equal(RGB.G, 80);
+    equal(RGB.B, 64);
 
 });
