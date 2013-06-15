@@ -82,12 +82,17 @@ function sampleCleanUp(samples) {
         }, []
     );
 
-    console.log (newSamples);
+    return newSamples;
+
+    // console.log (newSamples);
 }
 
 
 
 function readCxfFromURL(url) {
+
+    var cxfPatches;
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function(){
 
@@ -102,7 +107,7 @@ function readCxfFromURL(url) {
                   console.log("\nInput XML...\n\n");
 
                   parsedObj = getJsonOfXML(XML_string, "sample");
-                  sampleCleanUp(parsedObj);
+                  cxfPatches = sampleCleanUp(parsedObj);
                   //console.log(parsedObj);
                   console.log("\nXML TO JSON...\n\n");
                   //console.log(JSON.stringify(parsedObj));
@@ -114,8 +119,10 @@ function readCxfFromURL(url) {
             }
         }
     };
-    xmlhttp.open("GET", url, true);
+    // xmlhttp.open("GET", url, true);
+    xmlhttp.open("GET", url, false); // synchronous
     xmlhttp.send();
+    return cxfPatches;
 }
 
 
