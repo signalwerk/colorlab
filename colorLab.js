@@ -1,40 +1,10 @@
-//     colorLab.js 0.0.1
-
+//     colorLab.js
 //     (c) 2013 Stefan Huber, Signalwerk GmbH
 //     colorLab may be freely distributed under the MIT license.
 //     For all details and documentation:
 //     http://colorlabjs.org
-//     
-//     
-
-// Design-Patterns inspired by
-// http://www.nixtu.info/2011/05/using-jsshaper-to-provide-operator.html
-// https://github.com/tcorral/Design-Patterns-in-Javascript/blob/master/Chaining/Chainable.js
-
-/*
-
-i18n
-https://github.com/jamesarosen/ember-i18n?utm_source=Ember+Weekly&utm_campaign=499b06ca98-Ember_Weekly_Issue_10&utm_medium=email&utm_term=0_e96229d21d-499b06ca98-72171725
-https://github.com/jamesarosen/CLDR.js
 
 
-github-page >> http://ricostacruz.com/flatdoc/
-
-
-// http://jsperf.com/linear-interpolation/5
-function linearInterpolation(min, max, k) {
-    return min + (max - min) * k;
-}
-
-http://bl.ocks.org/mbostock/4281513
-http://bl.ocks.org/mbostock/3014589
-dont mix colors in lab!! mix in xyz!!!
-
-
-module-structure
-https://github.com/wesleytodd/JS-Boilerplate/blob/master/module.js
-
- */
 
 
 // colorLab Class
@@ -47,37 +17,6 @@ https://github.com/wesleytodd/JS-Boilerplate/blob/master/module.js
 // or 
 // 
 //     new colorLab('CIELAB');
-//     
-/*
-
-
-// pattern from https://github.com/documentcloud/underscore/blob/master/underscore.js
-(function() {
-
-  // Baseline setup
-  // --------------
-
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var root = this;
-
-  // Export the colorLab object for **Node.js**, with
-  // backwards-compatibility for the old `require()` API. If we're in
-  // the browser, add `colorLab` as a global object via a string identifier,
-  // for Closure Compiler "advanced" mode.
-  if (typeof exports !== 'undefined') {
-    if (typeof module !== 'undefined' && module.exports) {
-      exports = module.exports = colorLab;
-    }
-    exports.colorLab = colorLab;
-  } else {
-    root.colorLab = colorLab;
-  }
-
-
-
-}).call(this);
- */
-
 
 var colorLab = (function(space, values){
 
@@ -364,9 +303,6 @@ var colorLab = (function(space, values){
             // http://www.ece.rochester.edu/~gsharma/ciede2000/ciede2000noteCRNA.pdf
             // http://www.ece.rochester.edu/~gsharma/ciede2000/dataNprograms/deltaE2000.m
             // http://en.wikipedia.org/wiki/Color_difference
-
-            // console.log( this.L(), this.a(), this.b() );
-            // console.log( newPoint.CIELAB.L(), newPoint.CIELAB.a(), newPoint.CIELAB.b() );
 
             // weighting factors
             var k_L = 1;
