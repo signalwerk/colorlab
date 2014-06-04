@@ -12,3 +12,7 @@ To generate the Doc just install [Docco](http://jashkenas.github.io/docco/) with
 ###Authors
 ---
 Lib written by Stefan Huber & the flying code monkeys. See `AUTHORS.txt`.
+
+
+###Liks
+* Similar Lib: [chromatist](https://github.com/jrus/chromatist)
