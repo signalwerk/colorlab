@@ -28,12 +28,12 @@ var colorLab = (function(space, values){
 
 
     // Current version of the library.
-    this.VERSION = '0.0.1';
+    this.VERSION = '0.1.1';
 
 
     // constatnats
-    this.kK = 24389.0 / 27.0;
-    this.kE = 216.0 / 24389.0;
+    this.kK = 24389.0 / 27.0; // 903.296296296
+    this.kE = 216.0 / 24389.0; // 0.00885645167
 
 
     this._currentSpace = "none";
@@ -56,9 +56,14 @@ var colorLab = (function(space, values){
         // Convert from 0-1 to 0-255
         to8bit : function(num)
         {
-            return Math.round(Math.min(255, Math.max(0, (num*255))));
-        }
+            return root.helper.math.range8bit(num*255);
+        },
 
+        // Convert from 0-1 to 0-255
+        range8bit : function(num)
+        {
+            return Math.round(Math.min(255, Math.max(0, num)));
+        }
 
     };
 
@@ -84,6 +89,71 @@ var colorLab = (function(space, values){
             Lab.a = 500.0 * (fx - fy);
             Lab.b = 200.0 * (fy - fz);
             return Lab;
+        },
+
+
+
+
+            CIELABCIExyz : function(Lab, RefWhite) {
+
+                var fHelper = function (t, m) {
+                    var p = Math.pow(t, 3);
+
+                    if (p > root.kE) {
+                        return p * m;
+                    } else {
+                        return ((t - 16.0 / 116.0 ) / 7.787)*m;
+                    }
+                };
+
+                var fy = (Lab.CIELAB.L() + 16.0) / 116.0;
+                var fx = Lab.CIELAB.a() / 500.0 + fy;
+                var fz = fy - Lab.CIELAB.b() / 200.0;
+
+
+                // console.log(fy,fx,fz)
+                //console.log(RefWhite.x,RefWhite.y,RefWhite.z)
+                // console.log(fHelper(fx * RefWhite.x))
+                // console.log(fHelper(fy * RefWhite.y))
+                // console.log(fHelper(fz * RefWhite.z))
+
+                var xyz = {};
+                xyz.x = fHelper(fx, RefWhite.x);
+                xyz.y = fHelper(fy, RefWhite.y);
+                xyz.z = fHelper(fz, RefWhite.z);
+                return xyz;
+
+            },
+
+
+
+
+
+
+
+
+        LABRGB : function(lab, RefWhite, RefMtx) {
+
+
+
+            xyz  = root.helper.convert.CIELABCIExyz(lab, RefWhite);
+
+
+            rgb  = root.helper.convert.xyzRGB(
+
+
+{
+    x: xyz.x,
+    y: xyz.y,
+    z: xyz.z,
+}, RefMtx
+
+                );
+
+
+
+            return rgb;
+
         },
 
         XYZRGB : function(XYZ, RefMtx) {
@@ -112,6 +182,45 @@ var colorLab = (function(space, values){
 
             return RGB;
         },
+
+
+        // http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
+
+        xyzRGB : function(xyz, RefMtx) {
+
+
+            xyz  = {
+                x : xyz.x / 100.0,
+                y : xyz.y / 100.0,
+                z : xyz.z / 100.0
+            };
+
+            var fHelper = function (t) {
+
+                if (t < 0) {
+                    return 0;
+                }
+
+                if (t <= 0.0031308) {
+                    return 12.92 * t;
+                } else {
+                    return 1.055 * Math.pow(t, 1/2.4) - 0.055;
+                }
+            };
+            
+            var RGB = {};
+            RGB.R = xyz.x * RefMtx.m1 + xyz.y * RefMtx.m4 + xyz.z * RefMtx.m7;
+            RGB.G = xyz.x * RefMtx.m2 + xyz.y * RefMtx.m5 + xyz.z * RefMtx.m8;
+            RGB.B = xyz.x * RefMtx.m3 + xyz.y * RefMtx.m6 + xyz.z * RefMtx.m9;
+
+            RGB.R = root.helper.math.to8bit( fHelper(RGB.R) );
+            RGB.G = root.helper.math.to8bit( fHelper(RGB.G) );
+            RGB.B = root.helper.math.to8bit( fHelper(RGB.B) );
+
+
+            return RGB;
+        },
+
 
         XYZRGB8BIT : function(XYZ, RefMtx) {
 
@@ -143,21 +252,21 @@ var colorLab = (function(space, values){
             if (L === undefined) {
                 return root._CIELAB.L;
             } else {
-                root._CIELAB.L = L;
+                root._CIELAB.L = Math.min(100, Math.max(-100, L));
             }
         },
         a: function(a) {
             if (a === undefined) {
                 return root._CIELAB.a;
             } else {
-                root._CIELAB.a = a;
+                root._CIELAB.a = Math.min(128, Math.max(-128, a));
             }
         },
         b: function(b) {
             if (b === undefined) {
                 return root._CIELAB.b;
             } else {
-                root._CIELAB.b = b;
+                root._CIELAB.b = Math.min(128, Math.max(-128, b));
             }
         },
 
@@ -678,6 +787,9 @@ http://bl.ocks.org/mbostock/4281513
 http://bl.ocks.org/mbostock/3014589
 dont mix colors in lab!! mix in xyz!!!
 
+
+http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
+
  */
 
 
@@ -692,7 +804,6 @@ colorLab.XYZ2RGBMtx = {
         sRGB     : {name: 'sRGB', m1: 3.24071, m2:-0.969258, m3:0.0556352, m4:-1.53726, m5:1.87599, m6:-0.203996, m7:-0.498571, m8:0.0415557, m9:1.05707, gamma:2.4}
     }
 };
-
 
 
 // Relative spectral power distribution of CIE Standard Illuminant D65
@@ -1034,73 +1145,3 @@ colorLab.observer = {
         {nm: 780, xyz: [0.000042,0.000015,0]}
     ]
 };
-
-
-
-
-
-
-/* Simple JavaScript Inheritance
- * By John Resig http://ejohn.org/
- * MIT Licensed.
- */
-// Inspired by base2 and Prototype
-(function(){
-  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
-
-  // The base Class implementation (does nothing)
-  this.Class = function(){};
-
-  // Create a new Class that inherits from this class
-  Class.extend = function(prop) {
-    var _super = this.prototype;
-
-    // Instantiate a base class (but only create the instance,
-    // don't run the init constructor)
-    initializing = true;
-    var prototype = new this();
-    initializing = false;
-
-    // Copy the properties over onto the new prototype
-    for (var name in prop) {
-      // Check if we're overwriting an existing function
-      prototype[name] = typeof prop[name] == "function" &&
-        typeof _super[name] == "function" && fnTest.test(prop[name]) ?
-        (function(name, fn){
-          return function() {
-            var tmp = this._super;
-
-            // Add a new ._super() method that is the same method
-            // but on the super-class
-            this._super = _super[name];
-
-            // The method only need to be bound temporarily, so we
-            // remove it when we're done executing
-            var ret = fn.apply(this, arguments);
-            this._super = tmp;
-
-            return ret;
-          };
-        })(name, prop[name]) :
-        prop[name];
-    }
-
-    // The dummy class constructor
-    function Class() {
-      // All construction is actually done in the init method
-      if ( !initializing && this.init )
-        this.init.apply(this, arguments);
-    }
-
-    // Populate our constructed prototype object
-    Class.prototype = prototype;
-
-    // Enforce the constructor to be what we expect
-    Class.prototype.constructor = Class;
-
-    // And make this class extendable
-    Class.extend = arguments.callee;
-
-    return Class;
-  };
-})();
