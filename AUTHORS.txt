@@ -2,3 +2,4 @@ Authors ordered by first contribution.
 
 Stefan Huber (@signalwerk)
 Alex Jenter (@AlexJenter)
+Chad Furman (@shadesoflight)
