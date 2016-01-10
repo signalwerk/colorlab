@@ -1,4 +1,4 @@
-//console.log ("cxf: ", readCxfFromURL("http://localhost:8000/test/test sh 2.cxf") );
+//console.log ('cxf: ', readCxfFromURL('http://localhost:8000/test/test sh 2.cxf') );
 
 
 
@@ -27,9 +27,9 @@ function toBeCloseTo (expected, actual, precision) {
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "init Tests all" );
+module( 'init Tests all' );
 
-test( "wrong color system", function() {
+test( 'wrong color system', function() {
 
      throws(
         function() {
@@ -41,9 +41,9 @@ test( "wrong color system", function() {
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "init Tests LAB" );
+module( 'init Tests LAB' );
 
-test( "with values", function() {
+test( 'with values', function() {
 	var a = new colorLab('CIELAB', [2, 4, 6]);
 
     equal(a.CIELAB.L(), 2);
@@ -52,7 +52,7 @@ test( "with values", function() {
 
 });
 
-test( "without values", function() {
+test( 'without values', function() {
 	var a = new colorLab('CIELAB');
 
     equal(a.CIELAB.L(), 0);
@@ -64,9 +64,9 @@ test( "without values", function() {
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "init Tests CMYK" );
+module( 'init Tests CMYK' );
 
-test( "with values", function() {
+test( 'with values', function() {
     var a = new colorLab('CMYK', [2.5, 4.5, 6.5, 8.5]);
 
     equal(a.CMYK.C(), 2.5);
@@ -76,7 +76,7 @@ test( "with values", function() {
 
 });
 
-test( "without values", function() {
+test( 'without values', function() {
     var a = new colorLab('CMYK');
 
     equal(a.CMYK.C(), 0);
@@ -89,9 +89,9 @@ test( "without values", function() {
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "set/get Tests CMYK" );
+module( 'set/get Tests CMYK' );
 
-test( "without values", function() {
+test( 'without values', function() {
     var a = new colorLab('CMYK');
     a.CMYK.C(2.75);
     a.CMYK.M(4.75);
@@ -107,9 +107,9 @@ test( "without values", function() {
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "set/get Tests LAB" );
+module( 'set/get Tests LAB' );
 
-test( "without values", function() {
+test( 'without values', function() {
     var a = new colorLab('CIELAB');
     a.CIELAB.L(2);
     a.CIELAB.a(4);
@@ -123,9 +123,9 @@ test( "without values", function() {
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "general calc CMYK" );
+module( 'general calc CMYK' );
 
-test( "add two points", function() {
+test( 'add two points', function() {
     var a = new colorLab('CMYK', [1.25, 2.25, 3.25, 4.25]);
     var b = new colorLab('CMYK', [10.5, 20.5, 30.5, 40.5]);
 
@@ -140,9 +140,9 @@ test( "add two points", function() {
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "general calc LAB" );
+module( 'general calc LAB' );
 
-test( "add two points", function() {
+test( 'add two points', function() {
     var a = new colorLab('CIELAB', [1, 2, 3]);
     var b = new colorLab('CIELAB', [10, 20, 30]);
 
@@ -157,7 +157,7 @@ test( "add two points", function() {
 // ---------------------------------------------
 // ---------------------------------------------
 
-test( "sub two points", function() {
+test( 'sub two points', function() {
     var a = new colorLab('CIELAB', [10, 20, 30]);
     var b = new colorLab('CIELAB', [1, 2, 3]);
 
@@ -179,7 +179,7 @@ test( "sub two points", function() {
 
 });
 
-test( "div two points", function() {
+test( 'div two points', function() {
     var a = new colorLab('CIELAB', [10, 24, 35]);
     var b = new colorLab('CIELAB', [2, 4, 5]);
 
@@ -200,7 +200,7 @@ test( "div two points", function() {
     equal(c.CMYK.K(), 8);
 });
 
-test( "floor a points", function() {
+test( 'floor a points', function() {
     var a = new colorLab('CIELAB', [0.1, 9.9, 100]);
 
     a.CIELAB.floor();
@@ -220,7 +220,7 @@ test( "floor a points", function() {
 });
 
 
-test( "round a points", function() {
+test( 'round a points', function() {
     var a = new colorLab('CIELAB', [0.49, 9.5, 100.51]);
 
     a.CIELAB.round();
@@ -243,12 +243,12 @@ test( "round a points", function() {
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "general output CMYK" );
-test( "ouput", function() {
+module( 'general output CMYK' );
+test( 'ouput', function() {
     var a = new colorLab('CMYK', [1.5, 2.5, 3.5, 4.5]);
 
 
-    equal(a.CMYK.print(), "C: 1.5, M: 2.5, Y: 3.5, K: 4.5");
+    equal(a.CMYK.print(), 'C: 1.5, M: 2.5, Y: 3.5, K: 4.5');
     deepEqual(a.CMYK.toArray(), [1.5, 2.5, 3.5, 4.5]);
 
 });
@@ -256,21 +256,21 @@ test( "ouput", function() {
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "general output LAB" );
-test( "ouput", function() {
+module( 'general output LAB' );
+test( 'ouput', function() {
     var a = new colorLab('CIELAB', [1, 2, 3]);
 
 
-    equal(a.CIELAB.print(), "L: 1, a: 2, b: 3");
+    equal(a.CIELAB.print(), 'L: 1, a: 2, b: 3');
     deepEqual(a.CIELAB.toArray(), [1, 2, 3]);
 
 });
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "multiply" );
+module( 'multiply' );
 
-test( "two points", function() {
+test( 'two points', function() {
 
 	var a = new colorLab('CIELAB', [2, 20, 20]);
 	var b = new colorLab('CIELAB', [2, 3, 4]);
@@ -292,7 +292,7 @@ test( "two points", function() {
     equal(c.CMYK.K(), 10000);
 });
 
-test( "point with value", function() {
+test( 'point with value', function() {
 
 	var a = new colorLab('CIELAB', [2, 6, 8]);
 	a.CIELAB.mul(2);
@@ -312,7 +312,7 @@ test( "point with value", function() {
     equal(c.CMYK.K(), 20);
 });
 
-test( "point with object of values", function() {
+test( 'point with object of values', function() {
 
 	var a = new colorLab('CIELAB', [2, 20, 20]);
 	a.CIELAB.mul({L:2,a:3,b:4});
@@ -333,10 +333,10 @@ test( "point with object of values", function() {
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "spectrum (nm) to LAB" );
+module( 'spectrum (nm) to LAB' );
 
 
-test( "set lab according to nm-spectrum", function() {
+test( 'set lab according to nm-spectrum', function() {
 
     // the reference-Data is calculated with a x-rite i1 pro photospectrometer
     // and the according software
@@ -500,7 +500,7 @@ test( "set lab according to nm-spectrum", function() {
 // ---------------------------------------------
 
 
-module( "Delta E" );
+module( 'Delta E' );
 
 // To check Delta E differences
 // Source: [Gaurav Sharma](http://www.ece.rochester.edu/~gsharma/ciede2000/)
@@ -543,32 +543,32 @@ var ciede2000testdata = [
 
 
 
-test( "Delta E of two CIELAB colors with 0", function() {
+test( 'Delta E of two CIELAB colors with 0', function() {
 
     var a = new colorLab('CIELAB', [0,0,0]);
     var b = new colorLab('CIELAB', [0,0,0]);
 
     var dE = a.CIELAB.CIEDE2000(b);
 
-    ok(toBeCloseTo(dE, 0, 4), "The Delat E test. Exected: " +  0 + ", Result: " + dE);
-    equal(a.CIELAB.CIEDE2000(b), b.CIELAB.CIEDE2000(a), "The order of the colors shouldnt matter to get Delta E");
+    ok(toBeCloseTo(dE, 0, 4), 'The Delat E test. Exected: ' +  0 + ', Result: ' + dE);
+    equal(a.CIELAB.CIEDE2000(b), b.CIELAB.CIEDE2000(a), 'The order of the colors shouldnt matter to get Delta E');
 
 });
 
 
-test( "Delta E of two CIELAB colors", function() {
+test( 'Delta E of two CIELAB colors', function() {
 
     var a = new colorLab('CIELAB', [50.0000, 2.6772, -79.7751]);
     var b = new colorLab('CIELAB', [50.0000, 0.0000, -82.7485]);
 
     var dE = a.CIELAB.CIEDE2000(b);
 
-    ok(toBeCloseTo(dE, 2.0425, 4), "The Delat E test. Exected: " +  2.0425 + ", Result: " + dE);
-    equal(a.CIELAB.CIEDE2000(b), b.CIELAB.CIEDE2000(a), "The order of the colors shouldnt matter to get Delta E");
+    ok(toBeCloseTo(dE, 2.0425, 4), 'The Delat E test. Exected: ' +  2.0425 + ', Result: ' + dE);
+    equal(a.CIELAB.CIEDE2000(b), b.CIELAB.CIEDE2000(a), 'The order of the colors shouldnt matter to get Delta E');
 
 });
 
-test( "Delta E check with testdata", function() {
+test( 'Delta E check with testdata', function() {
 
 
     for (var i =0; i < ciede2000testdata.length; i++ ) {
@@ -576,7 +576,7 @@ test( "Delta E check with testdata", function() {
         var b = new colorLab('CIELAB', [ciede2000testdata[i].L2, ciede2000testdata[i].a2, ciede2000testdata[i].b2]);
         var dE = a.CIELAB.CIEDE2000(b);
 
-        ok(toBeCloseTo(dE, ciede2000testdata[i].dE, 4), "The Delat E test. Exected: " +  ciede2000testdata[i].dE + ", Result: " + dE);
+        ok(toBeCloseTo(dE, ciede2000testdata[i].dE, 4), 'The Delat E test. Exected: ' +  ciede2000testdata[i].dE + ', Result: ' + dE);
 
     }
 
@@ -587,12 +587,12 @@ test( "Delta E check with testdata", function() {
 
 // ---------------------------------------------
 // ---------------------------------------------
-// module( "test helper function for XYZ to RGB for sRGB 2° D65" );
+// module( 'test helper function for XYZ to RGB for sRGB 2° D65' );
 // 
 // 
 // console.log( colorLab.XYZ2RGBMtx.CIED65.sRGB );
 // 
-// test( "without values", function() {
+// test( 'without values', function() {
 //     var a = new colorLab('CIELAB', [0,0,0]);
 // 
 //     var RGB = a.helper.convert.XYZRGB8BIT( {X: 0.1081347, Y: 0.0967537, Z: 0.0619907}, colorLab.XYZ2RGBMtx.CIED65.sRGB);
@@ -605,7 +605,7 @@ test( "Delta E check with testdata", function() {
 // });
 // 
 // 
-// test( "without values", function() {
+// test( 'without values', function() {
 //     var a = new colorLab('CIELAB', [100,0,0]);
 // 
 //     var RGB = a.helper.convert.XYZRGB8BIT( {X: 0.1081347, Y: 0.0967537, Z: 0.0619907}, colorLab.XYZ2RGBMtx.CIED65.sRGB);
@@ -626,7 +626,7 @@ test( "Delta E check with testdata", function() {
 
 // ---------------------------------------------
 // ---------------------------------------------
-module( "LAB to RGB" );
+module( 'LAB to RGB' );
 
 
 
@@ -986,7 +986,7 @@ var Lab2RGB = {
 };
 
 
-test( "sRGB D65", function() {
+test( 'sRGB D65', function() {
 
     for (var i =0; i < Lab2RGB.CIED65.sRGB.tests.length; i++ ) {
         var currentTest = Lab2RGB.CIED65.sRGB.tests[i];
@@ -998,9 +998,9 @@ test( "sRGB D65", function() {
 
         var RGB = Lab.helper.convert.LABRGB(Lab, {x : 95.047, y : 100.000, z : 108.883}, colorLab.XYZ2RGBMtx.CIED65.sRGB);
 
-        equal(RGB.R, currentTest.R, "In Test Nr. " + i + " (Test R: "+currentTest.R+")");
-        equal(RGB.G, currentTest.G, "In Test Nr. " + i + " (Test G: "+currentTest.G+")");
-        equal(RGB.B, currentTest.B, "In Test Nr. " + i + " (Test B: "+currentTest.B+")");
+        equal(RGB.R, currentTest.R, 'In Test Nr. ' + i + ' (Test R: '+currentTest.R+')');
+        equal(RGB.G, currentTest.G, 'In Test Nr. ' + i + ' (Test G: '+currentTest.G+')');
+        equal(RGB.B, currentTest.B, 'In Test Nr. ' + i + ' (Test B: '+currentTest.B+')');
     }
 
 });
@@ -1011,7 +1011,7 @@ test( "sRGB D65", function() {
 // xyY = { 0.3127,  0.329, 100.0 }
 
 
-test( "AdobeRGB D65", function() {
+test( 'AdobeRGB D65', function() {
 
     for (var i =0; i < Lab2RGB.CIED65.AdobeRGB.tests.length; i++ ) {
         var currentTest = Lab2RGB.CIED65.AdobeRGB.tests[i];
@@ -1025,13 +1025,9 @@ test( "AdobeRGB D65", function() {
 
         var RGB = Lab.helper.convert.LABRGB(Lab, {x : 95.047, y : 100.000, z : 108.883}, colorLab.XYZ2RGBMtx.CIED65.AdobeRGB);
 
-        equal(RGB.R, currentTest.R, "In Test Nr. " + i + " (Test R: "+currentTest.R+")");
-        equal(RGB.G, currentTest.G, "In Test Nr. " + i + " (Test G: "+currentTest.G+")");
-        equal(RGB.B, currentTest.B, "In Test Nr. " + i + " (Test B: "+currentTest.B+")");
+        equal(RGB.R, currentTest.R, 'In Test Nr. ' + i + ' (Test R: '+currentTest.R+')');
+        equal(RGB.G, currentTest.G, 'In Test Nr. ' + i + ' (Test G: '+currentTest.G+')');
+        equal(RGB.B, currentTest.B, 'In Test Nr. ' + i + ' (Test B: '+currentTest.B+')');
     }
 
 });
-
-
-
-
