@@ -2,7 +2,7 @@
   "name": "colorlab",
   "version": "0.1.1",
   "description": "Library to calculate DeltaE (CIEDE2000) values between two colors",
-  "main": "colorLab.js",
+  "main": "colorlab.js",
   "directories": {
     "doc": "docs",
     "test": "test"
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://signalwerk@github.com/signalwerk/colorLab.git"
+    "url": "git+https://signalwerk@github.com/signalwerk/colorlab.git"
   },
   "keywords": [
     "LAB",
@@ -25,9 +25,9 @@
   "author": "Stefan Huber (Signalwerk GmbH)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/signalwerk/colorLab/issues"
+    "url": "https://github.com/signalwerk/colorlab/issues"
   },
-  "homepage": "https://github.com/signalwerk/colorLab#readme",
+  "homepage": "https://github.com/signalwerk/colorlab#readme",
   "devDependencies": {
     "babel-eslint": "^5.0.0-beta6",
     "eslint": "^1.10.3"
