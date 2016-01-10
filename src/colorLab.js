@@ -105,8 +105,8 @@ var colorLab = (function (space, values) {
       var fz = fy - Lab.CIELAB.b() / 200.0;
 
 
-      // console.log(fy,fx,fz)
-      //console.log(RefWhite.x,RefWhite.y,RefWhite.z)
+      // console.log(fy, fx, fz)
+      //console.log(RefWhite.x, RefWhite.y, RefWhite.z)
       // console.log(fHelper(fx * RefWhite.x))
       // console.log(fHelper(fy * RefWhite.y))
       // console.log(fHelper(fz * RefWhite.z))
@@ -235,7 +235,7 @@ var colorLab = (function (space, values) {
       }
     },
 
-    // add value to pint like `add({x:1,y:2})`
+    // add value to pint like `add({x: 1, y: 2})`
     add: function (other) {
       return this._fnTemplate(other, function (a, b) {
         return a + b;
@@ -287,7 +287,7 @@ var colorLab = (function (space, values) {
         return this;
       }
 
-      // run function without an additional imput of type colorLab or objects `add({L:2,a:3,b:2})`
+      // run function without an additional imput of type colorLab or objects `add({L: 2, a: 3, b: 2})`
 
       if (other.CIELAB === undefined) {
         this.L(op(this.L(), other.L));
@@ -466,8 +466,8 @@ var colorLab = (function (space, values) {
         }
       }
 
-      // console.log('Lab1.h',Lab1.h);
-      // console.log('Lab2.h',Lab2.h);
+      // console.log('Lab1.h', Lab1.h);
+      // console.log('Lab2.h', Lab2.h);
 
 
 
@@ -635,7 +635,7 @@ var colorLab = (function (space, values) {
       }
     },
 
-    // add value to pint like `add({x:1,y:2})`
+    // add value to pint like `add({x: 1, y: 2})`
     add: function (other) {
       return this._fnTemplate(other, function (a, b) {
         return a + b;
@@ -689,7 +689,7 @@ var colorLab = (function (space, values) {
         return this;
       }
 
-      // run function without an additional imput of type colorLab or objects `add({L:2,a:3,b:2})`
+      // run function without an additional imput of type colorLab or objects `add({L: 2, a: 3, b: 2})`
 
       if (other.CMYK === undefined) {
         this.C(op(this.C(), other.C));
@@ -798,10 +798,10 @@ http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
 colorLab.XYZ2RGBMtx = {
 
   CIED65 : {
-    AdobeRGB : {name: 'Adobe RGB (1998)', m1: 2.04148, m2:-0.969258, m3:0.0134455, m4:-0.564977, m5:1.87599, m6:-0.118373, m7:-0.344713, m8:0.0415557, m9:1.01527, gamma:2.2, gammastyle:'nonlinear'}, // precise gamma: 563/256 (2.19921875)
-    AppleRGB : {name: 'Apple RGB', m1: 2.95176, m2:-1.0851, m3:0.0854804, m4:-1.28951, m5:1.99084, m6:-0.269456, m7:-0.47388, m8:0.0372023, m9:1.09113, gamma:1.8},
-    ECIRGB   : {name: 'ECI RGB', m1: 1.78276, m2:-0.959362, m3:0.0859318, m4:-0.496985, m5:1.9478, m6:-0.174467, m7:-0.26901, m8:-0.0275807, m9:1.32283, gamma:1.8},
-    sRGB     : {name: 'sRGB', m1: 3.24071, m2:-0.969258, m3:0.0556352, m4:-1.53726, m5:1.87599, m6:-0.203996, m7:-0.498571, m8:0.0415557, m9:1.05707, gamma:2.4, gammastyle:'sRGB'}
+    AdobeRGB : {name: 'Adobe RGB (1998)', m1: 2.04148, m2: -0.969258, m3: 0.0134455, m4: -0.564977, m5: 1.87599, m6: -0.118373, m7: -0.344713, m8: 0.0415557, m9: 1.01527, gamma: 2.2, gammastyle: 'nonlinear'}, // precise gamma: 563/256 (2.19921875)
+    AppleRGB : {name: 'Apple RGB', m1: 2.95176, m2: -1.0851, m3: 0.0854804, m4: -1.28951, m5: 1.99084, m6: -0.269456, m7: -0.47388, m8: 0.0372023, m9: 1.09113, gamma: 1.8},
+    ECIRGB   : {name: 'ECI RGB', m1: 1.78276, m2: -0.959362, m3: 0.0859318, m4: -0.496985, m5: 1.9478, m6: -0.174467, m7: -0.26901, m8: -0.0275807, m9: 1.32283, gamma: 1.8},
+    sRGB     : {name: 'sRGB', m1: 3.24071, m2: -0.969258, m3: 0.0556352, m4: -1.53726, m5: 1.87599, m6: -0.203996, m7: -0.498571, m8: 0.0415557, m9: 1.05707, gamma: 2.4, gammastyle: 'sRGB'}
   }
 };
 
