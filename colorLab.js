@@ -158,35 +158,29 @@ var colorLab = (function(space, values){
 
         },
 
-        XYZRGB : function(XYZ, RefMtx) {
+        gammaCompensate: function(linearValue, gamma, gammaStyle) {
 
-            // (Observer = 2°, Illuminant = D65)
-            // Chromatic Adaptation to implement: http://www.brucelindbloom.com/index.html?WorkingSpaceInfo.html
+            if (gammaStyle.toLowerCase() === 'srgb') {
+                // sRGB Gamma corrections 
+                // sRGB-Standard = Gamma 2.4 (average ~2.2)
+                // Gamma correction is linear for <= 0.0031308
+                // Gamma correction is nonlinear for > 0.0031308
 
-            var fHelper = function (t) {
-
-                if (t < 0) {
+                if (linearValue < 0) {
                     return 0;
                 }
 
-                if (t <= 0.0031308) {
-                    return 12.92 * t;
+                if (linearValue <= 0.0031308) {
+                    return 12.92 * linearValue;
                 } else {
-                    return 1.055 * Math.pow(t, 1/2.4) - 0.055;
+                    return 1.055 * Math.pow(linearValue, 1.0/2.4) - 0.055;
                 }
-            };
-            
-            var RGB = {};
-            RGB.R = XYZ.X * RefMtx.m1 + XYZ.Y * RefMtx.m4 + XYZ.Z * RefMtx.m7;
-            RGB.G = XYZ.X * RefMtx.m2 + XYZ.Y * RefMtx.m5 + XYZ.Z * RefMtx.m8;
-            RGB.B = XYZ.X * RefMtx.m3 + XYZ.Y * RefMtx.m6 + XYZ.Z * RefMtx.m9;
-
-            RGB.R = fHelper(RGB.R);
-            RGB.G = fHelper(RGB.G);
-            RGB.B = fHelper(RGB.B);
+            } else {
+                return Math.pow(linearValue, 1/gamma);
+            }
 
 
-            return RGB;
+
         },
 
 
@@ -200,47 +194,16 @@ var colorLab = (function(space, values){
                 y : xyz.y / 100.0,
                 z : xyz.z / 100.0
             };
-
-            // sRGB Gamma corrections 
-            // sRGB-Standard = Gamma 2.2
-            // Gamma correction is linear for <= 0.0031308
-            // Gamma correction is nonlinear for > 0.0031308
-            var fHelper = function (t) {
-
-                if (t < 0) {
-                    return 0;
-                }
-
-                if (t <= 0.0031308) {
-                    return 12.92 * t;
-                } else {
-                    return 1.055 * Math.pow(t, 1/2.4) - 0.055;
-                }
-            };
             
             var RGB = {};
             RGB.R = xyz.x * RefMtx.m1 + xyz.y * RefMtx.m4 + xyz.z * RefMtx.m7;
             RGB.G = xyz.x * RefMtx.m2 + xyz.y * RefMtx.m5 + xyz.z * RefMtx.m8;
             RGB.B = xyz.x * RefMtx.m3 + xyz.y * RefMtx.m6 + xyz.z * RefMtx.m9;
 
-            RGB.R = root.helper.math.to8bit( fHelper(RGB.R) );
-            RGB.G = root.helper.math.to8bit( fHelper(RGB.G) );
-            RGB.B = root.helper.math.to8bit( fHelper(RGB.B) );
+            RGB.R = root.helper.math.to8bit( root.helper.convert.gammaCompensate(RGB.R, RefMtx.gamma, RefMtx.gammastyle) );
+            RGB.G = root.helper.math.to8bit( root.helper.convert.gammaCompensate(RGB.G, RefMtx.gamma, RefMtx.gammastyle) );
+            RGB.B = root.helper.math.to8bit( root.helper.convert.gammaCompensate(RGB.B, RefMtx.gamma, RefMtx.gammastyle) );
 
-
-            return RGB;
-        },
-
-
-        XYZRGB8BIT : function(XYZ, RefMtx) {
-
-            // (Observer = 2°, Illuminant = D65)
-
-            var RGB = root.helper.convert.XYZRGB(XYZ, RefMtx);
-
-            RGB.R = root.helper.math.to8bit(RGB.R);
-            RGB.G = root.helper.math.to8bit(RGB.G);
-            RGB.B = root.helper.math.to8bit(RGB.B);
 
             return RGB;
         }
@@ -808,10 +771,10 @@ http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
 colorLab.XYZ2RGBMtx = {
 
     CIED65 : {
-        AdobeRGB : {name: 'Adobe RGB (1998)', m1: 2.04148, m2:-0.969258, m3:0.0134455, m4:-0.564977, m5:1.87599, m6:-0.118373, m7:-0.344713, m8:0.0415557, m9:1.01527, gamma:2.2},
+        AdobeRGB : {name: 'Adobe RGB (1998)', m1: 2.04148, m2:-0.969258, m3:0.0134455, m4:-0.564977, m5:1.87599, m6:-0.118373, m7:-0.344713, m8:0.0415557, m9:1.01527, gamma:2.2, gammastyle:'nonlinear'}, // precise gamma: 563/256 (2.19921875)
         AppleRGB : {name: 'Apple RGB', m1: 2.95176, m2:-1.0851, m3:0.0854804, m4:-1.28951, m5:1.99084, m6:-0.269456, m7:-0.47388, m8:0.0372023, m9:1.09113, gamma:1.8},
         ECIRGB   : {name: 'ECI RGB', m1: 1.78276, m2:-0.959362, m3:0.0859318, m4:-0.496985, m5:1.9478, m6:-0.174467, m7:-0.26901, m8:-0.0275807, m9:1.32283, gamma:1.8},
-        sRGB     : {name: 'sRGB', m1: 3.24071, m2:-0.969258, m3:0.0556352, m4:-1.53726, m5:1.87599, m6:-0.203996, m7:-0.498571, m8:0.0415557, m9:1.05707, gamma:2.4}
+        sRGB     : {name: 'sRGB', m1: 3.24071, m2:-0.969258, m3:0.0556352, m4:-1.53726, m5:1.87599, m6:-0.203996, m7:-0.498571, m8:0.0415557, m9:1.05707, gamma:2.4, gammastyle:'sRGB'}
     }
 };
 
