@@ -12,11 +12,11 @@ To generate the Doc just install [Docco](http://jashkenas.github.io/docco/) with
 2. include colorLab.js in your template
 
 
-###DeltaE of two colors
+###DeltaE of two CIELAB colors
 ```javascript
-var color1 = new colorLab('CIELAB', [red, green, blue])
-var color2 = new colorLab('CIELAB', [red, green, blue])
-color1.CIEDE2000(color2); // this tells you the DeltaE, or perceptible color difference, between color1 and color2
+var color1 = new colorLab('CIELAB', [L*, a*, b*])
+var color2 = new colorLab('CIELAB', [L*, a*, b*])
+color1.CIEDE2000(color2); // this tells you the DeltaE, or perceptible color difference, between CIELAB color1 and CIELAB color2
 ```
 
 ###Authors
