@@ -4,7 +4,9 @@
 //     For all details and documentation:
 //     http://colorlabjs.org
 
-
+// good infos and sources;
+// https://www.rit.edu/cos/colorscience/rc_useful_data.php
+// http://www.brucelindbloom.com/iPhone/ColorConv.html
 
 
 // colorLab Class
@@ -163,6 +165,10 @@ var colorLab = (function(space, values){
 
             var fHelper = function (t) {
 
+                if (t < 0) {
+                    return 0;
+                }
+
                 if (t <= 0.0031308) {
                     return 12.92 * t;
                 } else {
@@ -195,6 +201,10 @@ var colorLab = (function(space, values){
                 z : xyz.z / 100.0
             };
 
+            // sRGB Gamma corrections 
+            // sRGB-Standard = Gamma 2.2
+            // Gamma correction is linear for <= 0.0031308
+            // Gamma correction is nonlinear for > 0.0031308
             var fHelper = function (t) {
 
                 if (t < 0) {
@@ -976,6 +986,9 @@ colorLab.illuminant = {
 
 // 1931 2° CIE Standard Colorimetric Observer Data
 // 1964 10 °CIE Standard Colorimetric Observer Data
+
+// nm = Nanometer (light)
+// xBar, yBar, and zBar
 
 colorLab.observer = {
     CIE1964 : [
