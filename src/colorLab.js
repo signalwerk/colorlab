@@ -88,8 +88,6 @@ var colorLab = (function (space, values) {
     },
 
 
-
-
     CIELABCIExyz: function (Lab, RefWhite) {
 
       var fHelper = function (t, m) {
