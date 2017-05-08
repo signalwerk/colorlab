@@ -86,7 +86,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // constatnats
 	        // Current version of the library.
 	        get: function get() {
-	            return '0.2.0';
+	            return '0.2.1';
 	        }
 	    }, {
 	        key: 'kK',
