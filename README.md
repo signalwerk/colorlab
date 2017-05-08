@@ -1,7 +1,7 @@
 # colorlab
 colorLab is a Javascript Lib to calculate DeltaE (CIEDE2000) values between two colors. It also contains functions to do basic calculations (for example: RGB+RGB) for DeviceColors like CMYK or RGB.
 
-# installation
+## installation
 ```
 npm install colorlab
 ```
@@ -22,6 +22,8 @@ colorlab.CIEDE2000(color1, color2); // => 2.0425
 
 ```
 
+## Contribut
+
 ### npm Scripts
 
 - `npm test` - Lint the library and tests, then run the unit tests
@@ -38,12 +40,11 @@ colorlab.CIEDE2000(color1, color2); // => 2.0425
 
 The browser spec runner can be opened in a browser to run your tests. For it to work, you must first run `npm run test-browser`. This will set up a watch task that will automatically refresh the tests when your scripts, or the tests, change. The spec runner file is located at `test/runner.html`: open it in your browser to run tests.
 
-
 ### Authors
 ---
 See `AUTHORS.txt`.
 
-### Liks
+## Liks
 * Similar Lib: [chromatist](https://github.com/jrus/chromatist)
 * [generator-babel-boilerplate](https://github.com/babel/generator-babel-boilerplate)
 
