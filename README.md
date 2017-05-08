@@ -6,7 +6,7 @@ colorLab is a Javascript Lib to calculate DeltaE (CIEDE2000) values between two 
 npm install colorlab
 ```
 
-### DeltaE of two CIELAB colors
+### DeltaE 2000 of two CIELAB colors
 ```javascript
 import colorlab from colorlab;
 
