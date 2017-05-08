@@ -1,5 +1,7 @@
 # colorlab
-colorLab is a Javascript Lib to calculate DeltaE (CIEDE2000) values between two colors. It also contains functions to do basic calculations (for example: RGB+RGB) for DeviceColors like CMYK or RGB.
+colorLab is a Javascript Lib to calculate DeltaE (CIEDE2000) values between two colors.
+
+<!-- It also contains functions to do basic calculations (for example: RGB+RGB) for DeviceColors like CMYK or RGB. -->
 
 ## installation
 ```
