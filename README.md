@@ -47,9 +47,12 @@ The browser spec runner can be opened in a browser to run your tests. For it to 
 See `AUTHORS.txt`.
 
 ## Liks
-* Similar Lib: [chromatist](https://github.com/jrus/chromatist)
+### Similar Libs
+* [chromatist](https://github.com/jrus/chromatist)
 * [CSS Color Module Level 4](https://drafts.csswg.org/css-color/)
-
+* [Color-diff](https://github.com/markusn/color-diff)
+* [ColorMine](https://github.com/THEjoezack/ColorMine)
+### Others
 * [generator-babel-boilerplate](https://github.com/babel/generator-babel-boilerplate)
 
 [![Travis build status](http://img.shields.io/travis/signalwerk/colorlab.svg?style=flat)](https://travis-ci.org/signalwerk/colorlab)
