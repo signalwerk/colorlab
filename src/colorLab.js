@@ -6,7 +6,7 @@ class Colorlab {
   // constatnats
   // Current version of the library.
   static get VERSION(){
-      return '0.2.1';
+      return '0.2.2';
   }
   static get kK(){
       return 24389.0 / 27.0; // 903.296296296

@@ -86,7 +86,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // constatnats
 	        // Current version of the library.
 	        get: function get() {
-	            return '0.2.1';
+	            return '0.2.2';
 	        }
 	    }, {
 	        key: 'kK',
@@ -209,79 +209,79 @@ return /******/ (function(modules) { // webpackBootstrap
 	    L: LabInput1.L,
 	    a: LabInput1.a,
 	    b: LabInput1.b,
-	    C: LabInput1.chroma };
+	    C: LabInput1.chroma, // chroma = Step (2)
+	    a1: null, // a' = Step (5)
+	    C1: null, // C' = Step (6)
+	    h1: null };
 	  var Lab2 = {
 	    L: LabInput2.L,
 	    a: LabInput2.a,
 	    b: LabInput2.b,
-	    C: LabInput2.chroma };
+	    C: LabInput2.chroma, // chroma = Step (2)
+	    a1: null, // a' = Step (5)
+	    C1: null, // C' = Step (6)
+	    h1: null };
 	
 	  // weighting factors
 	  var k_L = 1;
 	  var k_C = 1;
 	  var k_H = 1;
 	
-	  var C_avr = (Lab1.C + Lab2.C) / 2; // average of the two C
+	  // ------------------------------------
+	  // Step 1.
+	  // Calculate Chroma (C), h1
 	
-	  // get G for the colors
-	  var G = 0.5 * (1 - Math.sqrt(Math.pow(C_avr, 7) / (Math.pow(C_avr, 7) + Math.pow(25, 7))));
-	  // console.log('G', G);
 	
-	  // add for both colors the a'
-	  Lab1.a_1 = (1 + G) * Lab1.a;
-	  Lab2.a_1 = (1 + G) * Lab2.a;
-	  // console.log('Lab1.a_1', Lab1.a_1);
-	  // console.log('Lab2.a_1', Lab2.a_1);
+	  // average of the two chromas
+	  // Step (3)
+	  var cromaAverage = (Lab1.C + Lab2.C) / 2;
 	
-	  // add for both colors the C'
-	  Lab1.C_1 = Math.sqrt(Math.pow(Lab1.a_1, 2) + Math.pow(Lab1.b, 2));
-	  Lab2.C_1 = Math.sqrt(Math.pow(Lab2.a_1, 2) + Math.pow(Lab2.b, 2));
-	  // console.log('Lab1.C_1', Lab1.C_1);
-	  // console.log('Lab2.C_1', Lab2.C_1);
+	  // G = Step (4)
+	  var G = 0.5 * (1 - Math.sqrt(Math.pow(cromaAverage, 7) / (Math.pow(cromaAverage, 7) + Math.pow(25, 7))));
 	
-	  // add h' for both colors
-	  if (Lab1.a_1 === 0 && Lab1.b === 0) {
-	    Lab1.h = 0;
-	  } else {
-	    if (Lab1.b >= 0) {
-	      Lab1.h = (0, _helper.toDegrees)(Math.atan2(Lab1.b, Lab1.a_1));
-	    } else {
-	      Lab1.h = (0, _helper.toDegrees)(Math.atan2(Lab1.b, Lab1.a_1)) + 360;
+	  // a' = Step (5)
+	  Lab1.a1 = (1 + G) * Lab1.a;
+	  Lab2.a1 = (1 + G) * Lab2.a;
+	
+	  // C' = Step (6)
+	  Lab1.C1 = Math.sqrt(Math.pow(Lab1.a1, 2) + Math.pow(Lab1.b, 2));
+	  Lab2.C1 = Math.sqrt(Math.pow(Lab2.a1, 2) + Math.pow(Lab2.b, 2));
+	
+	  // h' = Step (7)
+	  var h1Helper = function h1Helper(a1, b) {
+	    if (a1 === 0 && b === 0) {
+	      return 0;
 	    }
-	  }
-	
-	  if (Lab2.a_1 === 0 && Lab2.b === 0) {
-	    Lab2.h = 0;
-	  } else {
-	    if (Lab2.b >= 0) {
-	      Lab2.h = (0, _helper.toDegrees)(Math.atan2(Lab2.b, Lab2.a_1));
+	    if (b >= 0) {
+	      return (0, _helper.toDegrees)(Math.atan2(b, a1));
 	    } else {
-	      Lab2.h = (0, _helper.toDegrees)(Math.atan2(Lab2.b, Lab2.a_1)) + 360;
+	      return (0, _helper.toDegrees)(Math.atan2(b, a1)) + 360;
 	    }
-	  }
+	  };
+	  Lab1.h1 = h1Helper(Lab1.a1, Lab1.b);
+	  Lab2.h1 = h1Helper(Lab2.a1, Lab2.b);
 	
-	  // console.log('Lab1.h', Lab1.h);
-	  // console.log('Lab2.h', Lab2.h);
-	
-	
-	  // Now calculate the signed differences in lightness, chroma, and hue
+	  // ------------------------------------
+	  // Step 2.
+	  // Now calculate the signed differences in
+	  // lightness, chroma, and hue
 	
 	  // get the delta h and delta H
 	  var deltah;
-	  if (Lab1.C_1 * Lab2.C_1 === 0) {
+	  if (Lab1.C1 * Lab2.C1 === 0) {
 	    deltah = 0;
 	  } else {
-	    if (Math.abs(Lab2.h - Lab1.h) <= 180) {
-	      deltah = Lab2.h - Lab1.h;
+	    if (Math.abs(Lab2.h1 - Lab1.h1) <= 180) {
+	      deltah = Lab2.h1 - Lab1.h1;
 	    } else {
-	      if (Lab2.h - Lab1.h > 180) {
-	        deltah = Lab2.h - Lab1.h - 360;
+	      if (Lab2.h1 - Lab1.h1 > 180) {
+	        deltah = Lab2.h1 - Lab1.h1 - 360;
 	      } else {
-	        deltah = Lab2.h - Lab1.h + 360;
+	        deltah = Lab2.h1 - Lab1.h1 + 360;
 	      }
 	    }
 	  }
-	  var deltaH = 2 * Math.sqrt(Lab1.C_1 * Lab2.C_1) * Math.sin((0, _helper.toRad)(deltah / 2));
+	  var deltaH = 2 * Math.sqrt(Lab1.C1 * Lab2.C1) * Math.sin((0, _helper.toRad)(deltah / 2));
 	
 	  // console.log('deltah: ', deltah);
 	  // console.log('deltaH: ', deltaH);
@@ -290,32 +290,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var deltaL = Lab1.L - Lab2.L;
 	  // console.log('deltaL', deltaL);
 	
-	
 	  // the delta for chroma
-	  var deltaC = Lab2.C_1 - Lab1.C_1;
+	  var deltaC = Lab2.C1 - Lab1.C1;
 	  // console.log('deltaC', deltaC);
 	
 	
 	  // Calculate CIEDE2000 Color-Difference
 	
 	  var L_ave = (Lab1.L + Lab2.L) / 2;
-	  var C_1ave = (Lab1.C_1 + Lab2.C_1) / 2;
+	  var C_1ave = (Lab1.C1 + Lab2.C1) / 2;
 	
 	  // console.log('L_ave', L_ave);
 	  // console.log('C_1ave', C_1ave);
 	
 	  var hDiff;
-	  if (Lab1.C_1 * Lab2.C_1 === 0) {
-	    hDiff = Lab1.h + Lab2.h;
+	  if (Lab1.C1 * Lab2.C1 === 0) {
+	    hDiff = Lab1.h1 + Lab2.h1;
 	  } else {
-	    if (Math.abs(Lab2.h - Lab1.h) > 180) {
-	      if (Lab2.h + Lab1.h < 360) {
-	        hDiff = Lab1.h + Lab2.h + 360;
+	    if (Math.abs(Lab2.h1 - Lab1.h1) > 180) {
+	      if (Lab2.h1 + Lab1.h1 < 360) {
+	        hDiff = Lab1.h1 + Lab2.h1 + 360;
 	      } else {
-	        hDiff = Lab1.h + Lab2.h - 360;
+	        hDiff = Lab1.h1 + Lab2.h1 - 360;
 	      }
 	    } else {
-	      hDiff = Lab1.h + Lab2.h;
+	      hDiff = Lab1.h1 + Lab2.h1;
 	    }
 	    hDiff = hDiff / 2;
 	  }
