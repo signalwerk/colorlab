@@ -16,7 +16,7 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
     L: LabInput1.L,
     a: LabInput1.a,
     b: LabInput1.b,
-    C: chroma(LabInput1.a, LabInput1.b), // Step (2)
+    C: null, // Step (2)
     a1: null, // a' = Step (5)
     C1: null, // C' = Step (6)
     h1: null, // h' = Step (7)
@@ -25,7 +25,7 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
     L: LabInput2.L,
     a: LabInput2.a,
     b: LabInput2.b,
-    C: chroma(LabInput2.a, LabInput2.b), // Step (2)
+    C: null, // Step (2)
     a1: null, // a' = Step (5)
     C1: null, // C' = Step (6)
     h1: null, // h' = Step (7)
@@ -39,6 +39,11 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
   // ------------------------------------
   // Part 1.
   // Calculate Chroma (C), h1
+
+  // calculate chroma for each color
+  // Step (2)
+  Lab1.C = chroma(LabInput1.a, LabInput1.b)
+  Lab2.C = chroma(LabInput2.a, LabInput2.b)
 
   // average of the two chromas
   // Step (3)
