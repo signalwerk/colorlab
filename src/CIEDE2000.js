@@ -4,13 +4,13 @@
 // http://www.ece.rochester.edu/~gsharma/ciede2000/dataNprograms/deltaE2000.m
 // http://en.wikipedia.org/wiki/Color_difference
 
+// if you are not used to the pow notation
+// 8**7 === Math.pow(8, 7)
+
 import { toDegrees, toRad } from './helper';
 
 
 const CIEDE2000 = (LabInput1, LabInput2) => {
-  // console.log(LabInput1);
-  // console.log(LabInput2);
-
   // Input Lab pairs
   const Lab1 = {
     L: LabInput1.L,
@@ -32,9 +32,9 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
   };
 
   // weighting factors
-  let k_L = 1;
-  let k_C = 1;
-  let k_H = 1;
+  const kL = 1;
+  const kC = 1;
+  const kH = 1;
 
   // ------------------------------------
   // Part 1.
@@ -63,10 +63,9 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
     }
     if (b >= 0) {
       return toDegrees(Math.atan2(b, a1));
-    } else {
-      return toDegrees(Math.atan2(b, a1)) + 360;
     }
-  }
+    return toDegrees(Math.atan2(b, a1)) + 360;
+  };
   Lab1.h1 = h1Helper(Lab1.a1, Lab1.b);
   Lab2.h1 = h1Helper(Lab2.a1, Lab2.b);
 
@@ -141,10 +140,9 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
   var RT = 0 - Math.sin(toRad(2 * dTheta)) * RC;
 
 
-
-  var dkL = ΔL1 / (k_L * SL);
-  var dkC = ΔC1 / (k_C * SC);
-  var dkH = ΔH1 / (k_H * SH);
+  var dkL = ΔL1 / (kL * SL);
+  var dkC = ΔC1 / (kC * SC);
+  var dkH = ΔH1 / (kH * SH);
 
 
   var CIEDE2000 = Math.sqrt(Math.pow(dkL, 2) + Math.pow(dkC, 2) + Math.pow(dkH, 2) + RT * dkC * dkH);

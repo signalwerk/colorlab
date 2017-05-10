@@ -53,6 +53,7 @@ See `AUTHORS.txt`.
 * [Color-diff](https://github.com/markusn/color-diff)
 * [ColorMine](https://github.com/THEjoezack/ColorMine)
 ### Others
+* [CSS Color Module Level 4](https://drafts.csswg.org/css-color/)
 * [generator-babel-boilerplate](https://github.com/babel/generator-babel-boilerplate)
 
 [![Travis build status](http://img.shields.io/travis/signalwerk/colorlab.svg?style=flat)](https://travis-ci.org/signalwerk/colorlab)
