@@ -37,7 +37,7 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
   let k_H = 1;
 
   // ------------------------------------
-  // Step 1.
+  // Part 1.
   // Calculate Chroma (C), h1
 
 
@@ -71,106 +71,83 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
   Lab2.h1 = h1Helper(Lab2.a1, Lab2.b);
 
   // ------------------------------------
-  // Step 2.
+  // Part 2.
   // Now calculate the signed differences in
   // lightness, chroma, and hue
 
-  // get the delta h and delta H
-  var deltah;
-  if ((Lab1.C1 * Lab2.C1) === 0) {
-    deltah = 0;
-  } else {
-    if (Math.abs(Lab2.h1 - Lab1.h1) <= 180) {
-      deltah = Lab2.h1 - Lab1.h1;
-    } else {
-      if (Lab2.h1 - Lab1.h1 > 180) {
-        deltah = Lab2.h1 - Lab1.h1 - 360;
-      } else {
-        deltah = Lab2.h1 - Lab1.h1 + 360;
-      }
-    }
-  }
-  var deltaH = 2 * Math.sqrt(Lab1.C1 * Lab2.C1) * Math.sin(toRad(deltah / 2));
-
-  // console.log('deltah: ', deltah);
-  // console.log('deltaH: ', deltaH);
-
+  // ΔL' = Step (8)
   // the delta for lightness
-  const deltaL = Lab1.L - Lab2.L;
-  // console.log('deltaL', deltaL);
+  const ΔL1 = Lab1.L - Lab2.L;
 
+  // ΔC' = Step (9)
   // the delta for chroma
-  const deltaC = Lab2.C1 - Lab1.C1;
-  // console.log('deltaC', deltaC);
+  const ΔC1 = Lab2.C1 - Lab1.C1;
 
+  // Δh' = Step (10)
+  const Δh1 = (() => {
+    if ((Lab1.C1 * Lab2.C1) === 0) {
+      return 0;
+    }
+    if (Math.abs(Lab2.h1 - Lab1.h1) <= 180) {
+      return Lab2.h1 - Lab1.h1;
+    }
+    if ((Lab2.h1 - Lab1.h1) > 180) {
+      return (Lab2.h1 - Lab1.h1) - 360;
+    }
+    return (Lab2.h1 - Lab1.h1) + 360;
+  })();
 
+  // ΔH' = Step (11)
+  const ΔH1 = 2 * Math.sqrt(Lab1.C1 * Lab2.C1) * Math.sin(toRad(Δh1 / 2));
+
+  // ------------------------------------
+  // Part 3.
   // Calculate CIEDE2000 Color-Difference
 
-  var L_ave = (Lab1.L + Lab2.L) / 2;
-  var C_1ave = (Lab1.C1 + Lab2.C1) / 2;
+  // L' = Step (12)
+  const L1 = (Lab1.L + Lab2.L) / 2;
+  // C' = Step (13)
+  const C1 = (Lab1.C1 + Lab2.C1) / 2;
+  // h' = Step (14)
+  const hDiff = (() => {
+    if ((Lab1.C1 * Lab2.C1) === 0) {
+      return Lab1.h1 + Lab2.h1;
+    }
 
-  // console.log('L_ave', L_ave);
-  // console.log('C_1ave', C_1ave);
-
-  var hDiff;
-  if ((Lab1.C1 * Lab2.C1) === 0) {
-    hDiff = Lab1.h1 + Lab2.h1;
-  } else {
     if (Math.abs(Lab2.h1 - Lab1.h1) > 180) {
       if ((Lab2.h1 + Lab1.h1) < 360) {
-        hDiff = Lab1.h1 + Lab2.h1 + 360;
-      } else {
-        hDiff = Lab1.h1 + Lab2.h1 - 360;
+        return ((Lab1.h1 + Lab2.h1) + 360) / 2;
       }
-    } else {
-      hDiff = Lab1.h1 + Lab2.h1;
+      return ((Lab1.h1 + Lab2.h1) - 360) / 2;
     }
-    hDiff = hDiff / 2;
-  }
-
-  // console.log('hDiff', hDiff);
+    return (Lab1.h1 + Lab2.h1) / 2;
+  })();
 
 
-  var L_aveMinus50pow2 = Math.pow((L_ave - 50), 2);
-  // console.log('L_aveMinus50pow2', L_aveMinus50pow2);
-
+  var L_aveMinus50pow2 = Math.pow((L1 - 50), 2);
 
   var SL = 1 + ((0.015 * L_aveMinus50pow2) / Math.sqrt(20 + L_aveMinus50pow2));
-  // console.log('SL', SL);
 
-  var SC = 1 + 0.045 * C_1ave;
-  // console.log('SC', SC);
-
+  var SC = 1 + 0.045 * C1;
 
   var T = 1 - 0.17 * Math.cos(toRad(hDiff - 30)) + 0.24 * Math.cos(toRad(2 * hDiff)) + 0.32 * Math.cos(toRad(3 * hDiff + 6)) - 0.20 * Math.cos(toRad(4 * hDiff - 63));
 
-  // console.log('T', T);
-
-  var SH = 1 + 0.015 * C_1ave * T;
-  // console.log('SH', SH);
+  var SH = 1 + 0.015 * C1 * T;
 
   var dTheta = 30 * Math.exp(-1 * Math.pow((hDiff - 275) / 25, 2));
-  // console.log('dTheta', dTheta);
 
-  var RC = 2 * Math.sqrt(Math.pow(C_1ave, 7) / (Math.pow(C_1ave, 7) + Math.pow(25, 7)));
-  // console.log('RC', RC);
+  var RC = 2 * Math.sqrt(Math.pow(C1, 7) / (Math.pow(C1, 7) + Math.pow(25, 7)));
 
   var RT = 0 - Math.sin(toRad(2 * dTheta)) * RC;
-  // console.log('RT', RT);
 
 
 
-  var dkL = deltaL / (k_L * SL);
-  var dkC = deltaC / (k_C * SC);
-  var dkH = deltaH / (k_H * SH);
+  var dkL = ΔL1 / (k_L * SL);
+  var dkC = ΔC1 / (k_C * SC);
+  var dkH = ΔH1 / (k_H * SH);
 
-  // console.log('dkL', dkL);
-  // console.log('dkC', dkC);
-  // console.log('dkH', dkH);
 
   var CIEDE2000 = Math.sqrt(Math.pow(dkL, 2) + Math.pow(dkC, 2) + Math.pow(dkH, 2) + RT * dkC * dkH);
-
-  // console.log('CIEDE2000', CIEDE2000);
 
   return CIEDE2000;
 
