@@ -1,4 +1,5 @@
 import CIEDE2000 from './CIEDE2000'
+import { chroma } from './helper';
 
 class CIELAB {
 
@@ -13,7 +14,7 @@ class CIELAB {
   }
 
   get chroma() {
-    return Math.sqrt(Math.pow(this.a, 2) + Math.pow(this.b, 2));
+    return chroma(this.a, this.b);
   }
 
   CIEDE2000(color2) {

@@ -16,3 +16,8 @@ export const to8bit = (num) => {
 export const range8bit = (num) => {
   return Math.round(Math.min(255, Math.max(0, num)));
 }
+
+// get chroma from (L)ab
+export const chroma = (a, b) => {
+  return Math.sqrt(a ** 2 + b ** 2);
+}

@@ -7,7 +7,7 @@
 // if you are not used to the pow notation
 // 8 ** 7 === Math.pow(8, 7)
 
-import { toDegrees, toRad } from './helper';
+import { toDegrees, toRad, chroma } from './helper';
 
 
 const CIEDE2000 = (LabInput1, LabInput2) => {
@@ -16,7 +16,7 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
     L: LabInput1.L,
     a: LabInput1.a,
     b: LabInput1.b,
-    C: LabInput1.chroma, // chroma = Step (2)
+    C: chroma(LabInput1.a, LabInput1.b), // Step (2)
     a1: null, // a' = Step (5)
     C1: null, // C' = Step (6)
     h1: null, // h' = Step (7)
@@ -25,7 +25,7 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
     L: LabInput2.L,
     a: LabInput2.a,
     b: LabInput2.b,
-    C: LabInput2.chroma, // chroma = Step (2)
+    C: chroma(LabInput2.a, LabInput2.b), // Step (2)
     a1: null, // a' = Step (5)
     C1: null, // C' = Step (6)
     h1: null, // h' = Step (7)
@@ -39,7 +39,6 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
   // ------------------------------------
   // Part 1.
   // Calculate Chroma (C), h1
-
 
   // average of the two chromas
   // Step (3)
@@ -122,10 +121,9 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
     return (Lab1.h1 + Lab2.h1) / 2;
   })();
 
+  const L1Minus50pow2 = ((L1 - 50) ** 2);
 
-  var L_aveMinus50pow2 = ((L1 - 50) ** 2);
-
-  var SL = 1 + ((0.015 * L_aveMinus50pow2) / Math.sqrt(20 + L_aveMinus50pow2));
+  var SL = 1 + ((0.015 * L1Minus50pow2) / Math.sqrt(20 + L1Minus50pow2));
 
   var SC = 1 + 0.045 * C1;
 
@@ -139,16 +137,13 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
 
   var RT = 0 - Math.sin(toRad(2 * dTheta)) * RC;
 
-
-  var dkL = ΔL1 / (kL * SL);
-  var dkC = ΔC1 / (kC * SC);
-  var dkH = ΔH1 / (kH * SH);
-
+  const dkL = ΔL1 / (kL * SL);
+  const dkC = ΔC1 / (kC * SC);
+  const dkH = ΔH1 / (kH * SH);
 
   var CIEDE2000 = Math.sqrt(dkL ** 2 + dkC ** 2 + dkH ** 2 + RT * dkC * dkH);
 
   return CIEDE2000;
-
 }
 
 
