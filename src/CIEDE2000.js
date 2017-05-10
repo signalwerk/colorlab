@@ -5,7 +5,7 @@
 // http://en.wikipedia.org/wiki/Color_difference
 
 // if you are not used to the pow notation
-// 8**7 === Math.pow(8, 7)
+// 8 ** 7 === Math.pow(8, 7)
 
 import { toDegrees, toRad } from './helper';
 
@@ -46,15 +46,15 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
   const cromaAverage = (Lab1.C + Lab2.C) / 2;
 
   // G = Step (4)
-  const G = 0.5 * (1 - Math.sqrt(Math.pow(cromaAverage, 7) / (Math.pow(cromaAverage, 7) + Math.pow(25, 7))));
+  const G = 0.5 * (1 - Math.sqrt(cromaAverage ** 7 / (cromaAverage ** 7 + 25 ** 7)));
 
   // a' = Step (5)
   Lab1.a1 = (1 + G) * Lab1.a;
   Lab2.a1 = (1 + G) * Lab2.a;
 
   // C' = Step (6)
-  Lab1.C1 = Math.sqrt(Math.pow(Lab1.a1, 2) + Math.pow(Lab1.b, 2));
-  Lab2.C1 = Math.sqrt(Math.pow(Lab2.a1, 2) + Math.pow(Lab2.b, 2));
+  Lab1.C1 = Math.sqrt(Lab1.a1 ** 2 + Lab1.b ** 2);
+  Lab2.C1 = Math.sqrt(Lab2.a1 ** 2 + Lab2.b ** 2);
 
   // h' = Step (7)
   const h1Helper = (a1, b) => {
@@ -123,7 +123,7 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
   })();
 
 
-  var L_aveMinus50pow2 = Math.pow((L1 - 50), 2);
+  var L_aveMinus50pow2 = ((L1 - 50) ** 2);
 
   var SL = 1 + ((0.015 * L_aveMinus50pow2) / Math.sqrt(20 + L_aveMinus50pow2));
 
@@ -133,9 +133,9 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
 
   var SH = 1 + 0.015 * C1 * T;
 
-  var dTheta = 30 * Math.exp(-1 * Math.pow((hDiff - 275) / 25, 2));
+  var dTheta = 30 * Math.exp(-1 * (((hDiff - 275) / 25) ** 2));
 
-  var RC = 2 * Math.sqrt(Math.pow(C1, 7) / (Math.pow(C1, 7) + Math.pow(25, 7)));
+  var RC = 2 * Math.sqrt(C1 ** 7 / (C1 ** 7 + 25 ** 7));
 
   var RT = 0 - Math.sin(toRad(2 * dTheta)) * RC;
 
@@ -145,7 +145,7 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
   var dkH = ΔH1 / (kH * SH);
 
 
-  var CIEDE2000 = Math.sqrt(Math.pow(dkL, 2) + Math.pow(dkC, 2) + Math.pow(dkH, 2) + RT * dkC * dkH);
+  var CIEDE2000 = Math.sqrt(dkL ** 2 + dkC ** 2 + dkH ** 2 + RT * dkC * dkH);
 
   return CIEDE2000;
 
