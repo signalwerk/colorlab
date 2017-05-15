@@ -47,6 +47,10 @@ The browser spec runner can be opened in a browser to run your tests. For it to 
 See `AUTHORS.txt`.
 
 ## Liks
+
+https://github.com/markusn/color-diff/blob/master/lib/diff.js
+
+
 ### Similar Libs
 * [chromatist](https://github.com/jrus/chromatist)
 * [CSS Color Module Level 4](https://drafts.csswg.org/css-color/)

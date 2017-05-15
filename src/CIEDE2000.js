@@ -4,7 +4,7 @@
 // http://www.ece.rochester.edu/~gsharma/ciede2000/dataNprograms/deltaE2000.m
 // http://en.wikipedia.org/wiki/Color_difference
 
-// if you are not used to the pow notation
+// if you are not used to the new ECMAScript 7 pow notation:
 // 8 ** 7 === Math.pow(8, 7)
 
 import { toDegrees, toRad, chroma } from './helper';
@@ -16,7 +16,7 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
     L: LabInput1.L,
     a: LabInput1.a,
     b: LabInput1.b,
-    C: null, // Step (2)
+    C: null, // chroma = Step (2)
     a1: null, // a' = Step (5)
     C1: null, // C' = Step (6)
     h1: null, // h' = Step (7)
@@ -25,7 +25,7 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
     L: LabInput2.L,
     a: LabInput2.a,
     b: LabInput2.b,
-    C: null, // Step (2)
+    C: null, // chroma = Step (2)
     a1: null, // a' = Step (5)
     C1: null, // C' = Step (6)
     h1: null, // h' = Step (7)
