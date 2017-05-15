@@ -9,7 +9,7 @@
     "test-browser": "gulp test-browser",
     "watch": "gulp watch",
     "build": "gulp build",
-    "gh-pages": "rm -rf gh-pages && mkdir -p ./gh-pages/lib/colorlab/ && cp ./dist/colorlab.min.js ./gh-pages/lib/colorlab/ && cp ./example/*.* ./gh-pages/ && sed -i'.bak' 's$../dist/colorlab.js$./lib/colorlab/colorlab.min.js$g' ./gh-pages/index.html && rm -f ./gh-pages/*.bak",
+    "gh-pages": "mkdir -p ./gh-pages/lib/colorlab/ && cp ./dist/colorlab.min.js ./gh-pages/lib/colorlab/ && cp ./example/*.* ./gh-pages/ && sed -i'.bak' 's$../dist/colorlab.js$./lib/colorlab/colorlab.min.js$g' ./gh-pages/index.html && rm -f ./gh-pages/*.bak",
     "coverage": "gulp coverage"
   },
   "repository": {
