@@ -10,7 +10,8 @@ TARGET_BRANCH="gh-pages"
 DEPLOY_DIR="gh-pages"
 
 function doCompile {
-  ## npm test
+  # npm test
+  # npm run build
   ls -las
   mkdir -p ./gh-pages/lib/colorlab/
   cp ./dist/* ./gh-pages/lib/colorlab/
@@ -33,7 +34,7 @@ SHA=`git rev-parse --verify HEAD`
 
 # Clone the existing gh-pages for this repo into $DEPLOY_DIR/
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deply)
-git clone $REPO $DEPLOY_DIR
+git clone $REPO ${DEPLOY_DIR}
 cd ${DEPLOY_DIR}
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
