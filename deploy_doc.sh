@@ -10,6 +10,8 @@ TARGET_BRANCH="gh-pages"
 DEPLOY_DIR="gh-pages"
 
 function doCompile {
+  npm test
+  npm run build
   npm run gh-pages
 }
 
