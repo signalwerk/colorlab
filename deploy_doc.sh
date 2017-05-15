@@ -11,9 +11,8 @@ DEPLOY_DIR="gh-pages"
 
 function doCompile {
   ## npm test
-  npm run build
-  mkdir -p ./gh-pages/lib/colorlab/
   ls -las
+  mkdir -p ./gh-pages/lib/colorlab/
   cp ./dist/* ./gh-pages/lib/colorlab/
   cp ./example/*.* ./gh-pages/
   sed -i'.bak' 's$../dist/colorlab.js$./lib/colorlab/colorlab.min.js$g' ./gh-pages/index.html
