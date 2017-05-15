@@ -10,7 +10,7 @@ TARGET_BRANCH="gh-pages"
 DEPLOY_DIR="gh-pages"
 
 function doCompile {
-  npm test
+  ## npm test
   npm run build
   npm run gh-pages
 }
@@ -33,6 +33,10 @@ git clone $REPO $DEPLOY_DIR
 cd $DEPLOY_DIR
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
+
+
+echo "-- DEBUG --"
+find .
 
 # Clean out existing contents
 rm -rf $DEPLOY_DIR/**/* || exit 0
