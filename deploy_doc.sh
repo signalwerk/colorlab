@@ -34,18 +34,18 @@ SHA=`git rev-parse --verify HEAD`
 # Clone the existing gh-pages for this repo into $DEPLOY_DIR/
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deply)
 git clone $REPO $DEPLOY_DIR
-cd $DEPLOY_DIR
+cd ${DEPLOY_DIR}
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
 # Clean out existing contents
-rm -rf $DEPLOY_DIR/**/* || exit 0
+rm -rf ${DEPLOY_DIR}/**/* || exit 0
 
 # Run our compile script
 doCompile
 
 # Now let's go have some fun with the cloned repo
-cd $DEPLOY_DIR
+cd ${DEPLOY_DIR}
 git config user.name "Travis CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
 

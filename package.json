@@ -9,7 +9,6 @@
     "test-browser": "gulp test-browser",
     "watch": "gulp watch",
     "build": "gulp build",
-    "gh-pages": "mkdir -p './gh-pages/lib/colorlab/' && cp  -a './dist/' './gh-pages/lib/colorlab/' && cp -a './example/.' './gh-pages/' && sed -i'.bak' 's$../dist/colorlab.js$./lib/colorlab/colorlab.min.js$g' './gh-pages/index.html' && rm -f ./gh-pages/*.bak",
     "coverage": "gulp coverage"
   },
   "repository": {
