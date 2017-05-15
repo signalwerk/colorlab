@@ -5,6 +5,11 @@
 
 set -e # Exit with nonzero exit code if anything fails
 
+
+echo "-- start"
+ls -las
+
+
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 DEPLOY_DIR="gh-pages"
@@ -12,6 +17,7 @@ DEPLOY_DIR="gh-pages"
 function doCompile {
   # npm test
   # npm run build
+  echo "-- doCompile"
   ls -las
   mkdir -p ./gh-pages/lib/colorlab/
   cp ./dist/* ./gh-pages/lib/colorlab/
@@ -34,19 +40,21 @@ SHA=`git rev-parse --verify HEAD`
 
 # Clone the existing gh-pages for this repo into $DEPLOY_DIR/
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deply)
-git clone $REPO ${DEPLOY_DIR}
-cd ${DEPLOY_DIR}
+git clone $REPO $DEPLOY_DIR
+cd $DEPLOY_DIR
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
 # Clean out existing contents
-rm -rf ${DEPLOY_DIR}/**/* || exit 0
+echo "-- kill"
+echo $DEPLOY_DIR
+rm -rf $DEPLOY_DIR/**/* || exit 0
 
 # Run our compile script
 doCompile
 
 # Now let's go have some fun with the cloned repo
-cd ${DEPLOY_DIR}
+cd $DEPLOY_DIR
 git config user.name "Travis CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
 
