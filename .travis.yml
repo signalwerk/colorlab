@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "stable"
+install:
+  - npm install
+script:
+  - bash ./deploy_doc.sh
+env:
+  global:
+  - ENCRYPTION_LABEL: "54b726ebe2ce"
+  - COMMIT_AUTHOR_EMAIL: "sh@signalwerk.ch"
