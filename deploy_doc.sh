@@ -12,7 +12,11 @@ DEPLOY_DIR="gh-pages"
 function doCompile {
   ## npm test
   npm run build
-  npm run gh-pages
+  mkdir -p './gh-pages/lib/colorlab/'
+  cp  -a './dist/' './gh-pages/lib/colorlab/'
+  cp -a './example/.' './gh-pages/'
+  sed -i'.bak' 's$../dist/colorlab.js$./lib/colorlab/colorlab.min.js$g' './gh-pages/index.html'
+  rm -f ./gh-pages/*.bak
 }
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
@@ -34,10 +38,6 @@ cd $DEPLOY_DIR
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
-
-echo "-- DEBUG --"
-find .
-
 # Clean out existing contents
 rm -rf $DEPLOY_DIR/**/* || exit 0
 
@@ -48,9 +48,6 @@ doCompile
 cd $DEPLOY_DIR
 git config user.name "Travis CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
-
-echo "-- DEBUG --"
-find ./..
 
 # If there are no changes to the compiled out (e.g. this is a README update) then just bail.
 if git diff --quiet; then
