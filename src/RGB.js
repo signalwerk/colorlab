@@ -2,8 +2,6 @@
 import { clamp } from './helper';
 
 
-
-
 class RGB {
 
   constructor(R, G, B) {
@@ -13,36 +11,36 @@ class RGB {
   }
 
   toString() {
-    return 'R: ' + this.R + ', G: ' + this.G + ', B: ' + this.B;
-  };
+    return `R: ${this.R}, G: ${this.G}, B: ${this.B}`;
+  }
 
   toHexString() {
-   return "#" +
-    ("0" + parseInt(this.R,10).toString(16)).slice(-2) +
-    ("0" + parseInt(this.G,10).toString(16)).slice(-2) +
-    ("0" + parseInt(this.B,10).toString(16)).slice(-2);
-  };
+    return `#${
+    (`0${parseInt(this.R, 10).toString(16)}`).slice(-2)
+    }${(`0${parseInt(this.G, 10).toString(16)}`).slice(-2)
+    }${(`0${parseInt(this.B, 10).toString(16)}`).slice(-2)}`;
+  }
 
   set R(R) {
-    this._R = clamp(R, 0, 255);
-  };
+    this.privateR = clamp(R, 0, 255);
+  }
   get R() {
-    return this._R;
-  };
+    return this.privateR;
+  }
 
   set G(G) {
-    this._G = clamp(G, 0, 255);
-  };
+    this.privateG = clamp(G, 0, 255);
+  }
   get G() {
-    return this._G;
-  };
+    return this.privateG;
+  }
 
   set B(B) {
-    this._B = clamp(B, 0, 255);
-  };
+    this.privateB = clamp(B, 0, 255);
+  }
   get B() {
-    return this._B;
-  };
+    return this.privateB;
+  }
 }
 
 export default RGB;
