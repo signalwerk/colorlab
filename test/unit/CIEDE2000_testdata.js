@@ -1,5 +1,5 @@
 // Test-Data
-// 
+//
 // Source:
 //
 // The CIEDE2000 Color-Difference
@@ -29,7 +29,7 @@ export const ciede2000testdata = [
       b: -79.7751,
       a1: 2.6774,
       C1: 79.82,
-      h1: 271.9222
+      h1: 271.9222,
     },
     colorB: {
       L: 50,
@@ -37,8 +37,8 @@ export const ciede2000testdata = [
       b: -82.7485,
       a1: 0,
       C1: 82.7485,
-      h1: 270
-    }
+      h1: 270,
+    },
   },
   {
     pair: 2,
@@ -56,7 +56,7 @@ export const ciede2000testdata = [
       b: -77.2803,
       a1: 3.1573,
       C1: 77.3448,
-      h1: 272.3395
+      h1: 272.3395,
     },
     colorB: {
       L: 50,
@@ -64,8 +64,8 @@ export const ciede2000testdata = [
       b: -82.7485,
       a1: 0,
       C1: 82.7485,
-      h1: 270
-    }
+      h1: 270,
+    },
   },
   {
     pair: 3,
@@ -83,7 +83,7 @@ export const ciede2000testdata = [
       b: -74.02,
       a1: 2.8363,
       C1: 74.0743,
-      h1: 272.1944
+      h1: 272.1944,
     },
     colorB: {
       L: 50,
@@ -91,8 +91,8 @@ export const ciede2000testdata = [
       b: -82.7485,
       a1: 0,
       C1: 82.7485,
-      h1: 270
-    }
+      h1: 270,
+    },
   },
   {
     pair: 4,
@@ -110,7 +110,7 @@ export const ciede2000testdata = [
       b: -84.2814,
       a1: -1.3803,
       C1: 84.2927,
-      h1: 269.0618
+      h1: 269.0618,
     },
     colorB: {
       L: 50,
@@ -118,8 +118,8 @@ export const ciede2000testdata = [
       b: -82.7485,
       a1: 0,
       C1: 82.7485,
-      h1: 270
-    }
+      h1: 270,
+    },
   },
   {
     pair: 5,
@@ -137,7 +137,7 @@ export const ciede2000testdata = [
       b: -84.8006,
       a1: -1.1849,
       C1: 84.8089,
-      h1: 269.1995
+      h1: 269.1995,
     },
     colorB: {
       L: 50,
@@ -145,8 +145,8 @@ export const ciede2000testdata = [
       b: -82.7485,
       a1: 0,
       C1: 82.7485,
-      h1: 270
-    }
+      h1: 270,
+    },
   },
   {
     pair: 6,
@@ -164,7 +164,7 @@ export const ciede2000testdata = [
       b: -85.5211,
       a1: -0.9009,
       C1: 85.5258,
-      h1: 269.3964
+      h1: 269.3964,
     },
     colorB: {
       L: 50,
@@ -172,8 +172,8 @@ export const ciede2000testdata = [
       b: -82.7485,
       a1: 0,
       C1: 82.7485,
-      h1: 270
-    }
+      h1: 270,
+    },
   },
   {
     pair: 7,
@@ -191,7 +191,7 @@ export const ciede2000testdata = [
       b: 0,
       a1: 0,
       C1: 0,
-      h1: 0
+      h1: 0,
     },
     colorB: {
       L: 50,
@@ -199,8 +199,8 @@ export const ciede2000testdata = [
       b: 2,
       a1: -1.5,
       C1: 2.5,
-      h1: 126.8697
-    }
+      h1: 126.8697,
+    },
   },
   {
     pair: 8,
@@ -218,7 +218,7 @@ export const ciede2000testdata = [
       b: 2,
       a1: -1.5,
       C1: 2.5,
-      h1: 126.8697
+      h1: 126.8697,
     },
     colorB: {
       L: 50,
@@ -226,8 +226,8 @@ export const ciede2000testdata = [
       b: 0,
       a1: 0,
       C1: 0,
-      h1: 0
-    }
+      h1: 0,
+    },
   },
   {
     pair: 9,
@@ -245,7 +245,7 @@ export const ciede2000testdata = [
       b: -0.001,
       a1: 3.7346,
       C1: 3.7346,
-      h1: 359.9847
+      h1: 359.9847,
     },
     colorB: {
       L: 50,
@@ -253,8 +253,8 @@ export const ciede2000testdata = [
       b: 0.0009,
       a1: -3.7346,
       C1: 3.7346,
-      h1: 179.9862
-    }
+      h1: 179.9862,
+    },
   },
   {
     pair: 10,
@@ -272,7 +272,7 @@ export const ciede2000testdata = [
       b: -0.001,
       a1: 3.7346,
       C1: 3.7346,
-      h1: 359.9847
+      h1: 359.9847,
     },
     colorB: {
       L: 50,
@@ -280,8 +280,8 @@ export const ciede2000testdata = [
       b: 0.001,
       a1: -3.7346,
       C1: 3.7346,
-      h1: 179.9847
-    }
+      h1: 179.9847,
+    },
   },
   {
     pair: 11,
@@ -299,7 +299,7 @@ export const ciede2000testdata = [
       b: -0.001,
       a1: 3.7346,
       C1: 3.7346,
-      h1: 359.9847
+      h1: 359.9847,
     },
     colorB: {
       L: 50,
@@ -307,8 +307,8 @@ export const ciede2000testdata = [
       b: 0.0011,
       a1: -3.7346,
       C1: 3.7346,
-      h1: 179.9831
-    }
+      h1: 179.9831,
+    },
   },
   {
     pair: 12,
@@ -326,7 +326,7 @@ export const ciede2000testdata = [
       b: -0.001,
       a1: 3.7346,
       C1: 3.7346,
-      h1: 359.9847
+      h1: 359.9847,
     },
     colorB: {
       L: 50,
@@ -334,8 +334,8 @@ export const ciede2000testdata = [
       b: 0.0012,
       a1: -3.7346,
       C1: 3.7346,
-      h1: 179.9816
-    }
+      h1: 179.9816,
+    },
   },
   {
     pair: 13,
@@ -353,7 +353,7 @@ export const ciede2000testdata = [
       b: 2.49,
       a1: -0.0015,
       C1: 2.49,
-      h1: 90.0345
+      h1: 90.0345,
     },
     colorB: {
       L: 50,
@@ -361,8 +361,8 @@ export const ciede2000testdata = [
       b: -2.49,
       a1: 0.0013,
       C1: 2.49,
-      h1: 270.0311
-    }
+      h1: 270.0311,
+    },
   },
   {
     pair: 14,
@@ -380,7 +380,7 @@ export const ciede2000testdata = [
       b: 2.49,
       a1: -0.0015,
       C1: 2.49,
-      h1: 90.0345
+      h1: 90.0345,
     },
     colorB: {
       L: 50,
@@ -388,8 +388,8 @@ export const ciede2000testdata = [
       b: -2.49,
       a1: 0.0015,
       C1: 2.49,
-      h1: 270.0345
-    }
+      h1: 270.0345,
+    },
   },
   {
     pair: 15,
@@ -407,7 +407,7 @@ export const ciede2000testdata = [
       b: 2.49,
       a1: -0.0015,
       C1: 2.49,
-      h1: 90.0345
+      h1: 90.0345,
     },
     colorB: {
       L: 50,
@@ -415,8 +415,8 @@ export const ciede2000testdata = [
       b: -2.49,
       a1: 0.0016,
       C1: 2.49,
-      h1: 270.038
-    }
+      h1: 270.038,
+    },
   },
   {
     pair: 16,
@@ -434,7 +434,7 @@ export const ciede2000testdata = [
       b: 0,
       a1: 3.7496,
       C1: 3.7496,
-      h1: 0
+      h1: 0,
     },
     colorB: {
       L: 50,
@@ -442,8 +442,8 @@ export const ciede2000testdata = [
       b: -2.5,
       a1: 0,
       C1: 2.5,
-      h1: 270
-    }
+      h1: 270,
+    },
   },
   {
     pair: 17,
@@ -461,7 +461,7 @@ export const ciede2000testdata = [
       b: 0,
       a1: 3.4569,
       C1: 3.4569,
-      h1: 0
+      h1: 0,
     },
     colorB: {
       L: 73,
@@ -469,8 +469,8 @@ export const ciede2000testdata = [
       b: -18,
       a1: 34.5687,
       C1: 38.9743,
-      h1: 332.4939
-    }
+      h1: 332.4939,
+    },
   },
   {
     pair: 18,
@@ -488,7 +488,7 @@ export const ciede2000testdata = [
       b: 0,
       a1: 3.4954,
       C1: 3.4954,
-      h1: 0
+      h1: 0,
     },
     colorB: {
       L: 61,
@@ -496,8 +496,8 @@ export const ciede2000testdata = [
       b: 29,
       a1: -6.9907,
       C1: 29.8307,
-      h1: 103.5532
-    }
+      h1: 103.5532,
+    },
   },
   {
     pair: 19,
@@ -515,7 +515,7 @@ export const ciede2000testdata = [
       b: 0,
       a1: 3.5514,
       C1: 3.5514,
-      h1: 0
+      h1: 0,
     },
     colorB: {
       L: 56,
@@ -523,8 +523,8 @@ export const ciede2000testdata = [
       b: -3,
       a1: -38.3556,
       C1: 38.4728,
-      h1: 184.4723
-    }
+      h1: 184.4723,
+    },
   },
   {
     pair: 20,
@@ -542,7 +542,7 @@ export const ciede2000testdata = [
       b: 0,
       a1: 3.5244,
       C1: 3.5244,
-      h1: 0
+      h1: 0,
     },
     colorB: {
       L: 58,
@@ -550,8 +550,8 @@ export const ciede2000testdata = [
       b: 15,
       a1: 33.8342,
       C1: 37.0102,
-      h1: 23.9095
-    }
+      h1: 23.9095,
+    },
   },
   {
     pair: 21,
@@ -569,7 +569,7 @@ export const ciede2000testdata = [
       b: 0,
       a1: 3.7494,
       C1: 3.7494,
-      h1: 0
+      h1: 0,
     },
     colorB: {
       L: 50,
@@ -577,8 +577,8 @@ export const ciede2000testdata = [
       b: 0.5854,
       a1: 4.7596,
       C1: 4.7954,
-      h1: 7.0113
-    }
+      h1: 7.0113,
+    },
   },
   {
     pair: 22,
@@ -596,7 +596,7 @@ export const ciede2000testdata = [
       b: 0,
       a1: 3.7493,
       C1: 3.7493,
-      h1: 0
+      h1: 0,
     },
     colorB: {
       L: 50,
@@ -604,8 +604,8 @@ export const ciede2000testdata = [
       b: 0,
       a1: 4.945,
       C1: 4.945,
-      h1: 0
-    }
+      h1: 0,
+    },
   },
   {
     pair: 23,
@@ -623,7 +623,7 @@ export const ciede2000testdata = [
       b: 0,
       a1: 3.7497,
       C1: 3.7497,
-      h1: 0
+      h1: 0,
     },
     colorB: {
       L: 50,
@@ -631,8 +631,8 @@ export const ciede2000testdata = [
       b: 0.5757,
       a1: 2.7949,
       C1: 2.8536,
-      h1: 11.638
-    }
+      h1: 11.638,
+    },
   },
   {
     pair: 24,
@@ -650,7 +650,7 @@ export const ciede2000testdata = [
       b: 0,
       a1: 3.7493,
       C1: 3.7493,
-      h1: 0
+      h1: 0,
     },
     colorB: {
       L: 50,
@@ -658,8 +658,8 @@ export const ciede2000testdata = [
       b: 0.335,
       a1: 4.8879,
       C1: 4.8994,
-      h1: 3.9206
-    }
+      h1: 3.9206,
+    },
   },
   {
     pair: 25,
@@ -677,7 +677,7 @@ export const ciede2000testdata = [
       b: 36.2677,
       a1: -34.0678,
       C1: 49.759,
-      h1: 133.2085
+      h1: 133.2085,
     },
     colorB: {
       L: 60.4626,
@@ -685,8 +685,8 @@ export const ciede2000testdata = [
       b: 39.4387,
       a1: -34.2333,
       C1: 52.2238,
-      h1: 130.9584
-    }
+      h1: 130.9584,
+    },
   },
   {
     pair: 26,
@@ -704,7 +704,7 @@ export const ciede2000testdata = [
       b: -5.8663,
       a1: -32.6194,
       C1: 33.1427,
-      h1: 190.1951
+      h1: 190.1951,
     },
     colorB: {
       L: 62.8187,
@@ -712,8 +712,8 @@ export const ciede2000testdata = [
       b: -4.0864,
       a1: -31.2542,
       C1: 31.5202,
-      h1: 187.449
-    }
+      h1: 187.449,
+    },
   },
   {
     pair: 27,
@@ -731,7 +731,7 @@ export const ciede2000testdata = [
       b: -5.3901,
       a1: 5.5668,
       C1: 7.7487,
-      h1: 315.924
+      h1: 315.924,
     },
     colorB: {
       L: 61.4292,
@@ -739,8 +739,8 @@ export const ciede2000testdata = [
       b: -4.962,
       a1: 3.3644,
       C1: 5.995,
-      h1: 304.1385
-    }
+      h1: 304.1385,
+    },
   },
   {
     pair: 28,
@@ -758,7 +758,7 @@ export const ciede2000testdata = [
       b: 3.7933,
       a1: -44.3939,
       C1: 44.5557,
-      h1: 175.1161
+      h1: 175.1161,
     },
     colorB: {
       L: 35.0232,
@@ -766,8 +766,8 @@ export const ciede2000testdata = [
       b: 1.5901,
       a1: -40.3237,
       C1: 40.355,
-      h1: 177.7418
-    }
+      h1: 177.7418,
+    },
   },
   {
     pair: 29,
@@ -785,7 +785,7 @@ export const ciede2000testdata = [
       b: -46.694,
       a1: 20.1424,
       C1: 50.8532,
-      h1: 293.3339
+      h1: 293.3339,
     },
     colorB: {
       L: 23.0331,
@@ -793,8 +793,8 @@ export const ciede2000testdata = [
       b: -42.5619,
       a1: 15.0118,
       C1: 45.1317,
-      h1: 289.4279
-    }
+      h1: 289.4279,
+    },
   },
   {
     pair: 30,
@@ -812,7 +812,7 @@ export const ciede2000testdata = [
       b: 18.3852,
       a1: 47.9197,
       C1: 51.3256,
-      h1: 20.9901
+      h1: 20.9901,
     },
     colorB: {
       L: 36.2715,
@@ -820,8 +820,8 @@ export const ciede2000testdata = [
       b: 21.2231,
       a1: 50.5716,
       C1: 54.8444,
-      h1: 22.766
-    }
+      h1: 22.766,
+    },
   },
   {
     pair: 31,
@@ -839,7 +839,7 @@ export const ciede2000testdata = [
       b: 1.441,
       a1: -3.1245,
       C1: 3.4408,
-      h1: 155.241
+      h1: 155.241,
     },
     colorB: {
       L: 91.1528,
@@ -847,8 +847,8 @@ export const ciede2000testdata = [
       b: 0.0447,
       a1: -2.4651,
       C1: 2.4655,
-      h1: 178.9612
-    }
+      h1: 178.9612,
+    },
   },
   {
     pair: 32,
@@ -866,7 +866,7 @@ export const ciede2000testdata = [
       b: -0.9208,
       a1: -0.8109,
       C1: 1.227,
-      h1: 228.6315
+      h1: 228.6315,
     },
     colorB: {
       L: 88.6381,
@@ -874,8 +874,8 @@ export const ciede2000testdata = [
       b: -0.7239,
       a1: -1.3477,
       C1: 1.5298,
-      h1: 208.2412
-    }
+      h1: 208.2412,
+    },
   },
   {
     pair: 33,
@@ -893,7 +893,7 @@ export const ciede2000testdata = [
       b: -2.4247,
       a1: -0.4362,
       C1: 2.4636,
-      h1: 259.8025
+      h1: 259.8025,
     },
     colorB: {
       L: 5.8714,
@@ -901,8 +901,8 @@ export const ciede2000testdata = [
       b: -2.2286,
       a1: -0.1477,
       C1: 2.2335,
-      h1: 266.2073
-    }
+      h1: 266.2073,
+    },
   },
   {
     pair: 34,
@@ -920,7 +920,7 @@ export const ciede2000testdata = [
       b: -1.135,
       a1: 0.1192,
       C1: 1.1412,
-      h1: 275.9978
+      h1: 275.9978,
     },
     colorB: {
       L: 0.9033,
@@ -928,7 +928,7 @@ export const ciede2000testdata = [
       b: -0.5514,
       a1: -0.0954,
       C1: 0.5596,
-      h1: 260.1842
-    }
-  }
+      h1: 260.1842,
+    },
+  },
 ];

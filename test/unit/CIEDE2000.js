@@ -7,8 +7,8 @@ describe('CIEDE2000', () => {
     expect(
       CIEDE2000(
         new Cielab(50, 2.6772, -79.7751),
-        new Cielab(50, 0, -82.7485)
-      )
+        new Cielab(50, 0, -82.7485),
+      ),
     ).to.closeTo(2.0425, 0.0001);
   });
 
@@ -16,8 +16,8 @@ describe('CIEDE2000', () => {
     expect(
       CIEDE2000(
         new Cielab(0, 0, 0),
-        new Cielab(0, 0, 0)
-      )
+        new Cielab(0, 0, 0),
+      ),
     ).to.equal(0);
   });
 
@@ -26,8 +26,8 @@ describe('CIEDE2000', () => {
       expect(
         CIEDE2000(
           new Cielab(dataset.colorA.L, dataset.colorA.a, dataset.colorA.b),
-          new Cielab(dataset.colorB.L, dataset.colorB.a, dataset.colorB.b)
-        )
+          new Cielab(dataset.colorB.L, dataset.colorB.a, dataset.colorB.b),
+        ),
       ).to.closeTo(dataset.DE2000, 0.0001);
     });
   });
