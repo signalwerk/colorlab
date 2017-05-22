@@ -22,7 +22,7 @@ class CIELAB {
   }
 
   set L(L) {
-    this._L = Math.min(100, Math.max(-100, L));
+    this._L = clamp(L, 0, 100);
   };
 
   get L() {
@@ -30,14 +30,14 @@ class CIELAB {
   };
 
   set a(a) {
-    this._a = Math.min(128, Math.max(-128, a));
+    this._a = clamp(a, -128, 128);
   };
   get a() {
     return this._a;
   };
 
   set b(b) {
-    this._b = Math.min(128, Math.max(-128, b));
+    this._b = clamp(b, -128, 128);
   };
   get b() {
     return this._b;
