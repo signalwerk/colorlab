@@ -42,8 +42,8 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
 
   // calculate chroma for each color
   // Step (2)
-  Lab1.C = chroma(LabInput1.a, LabInput1.b)
-  Lab2.C = chroma(LabInput2.a, LabInput2.b)
+  Lab1.C = chroma(LabInput1.a, LabInput1.b);
+  Lab2.C = chroma(LabInput2.a, LabInput2.b);
 
   // average of the two chromas
   // Step (3)
@@ -128,28 +128,28 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
 
   const L1Minus50pow2 = ((L1 - 50) ** 2);
 
-  var SL = 1 + ((0.015 * L1Minus50pow2) / Math.sqrt(20 + L1Minus50pow2));
+  const SL = 1 + ((0.015 * L1Minus50pow2) / Math.sqrt(20 + L1Minus50pow2));
 
-  var SC = 1 + 0.045 * C1;
+  const SC = 1 + 0.045 * C1;
 
-  var T = 1 - 0.17 * Math.cos(toRad(hDiff - 30)) + 0.24 * Math.cos(toRad(2 * hDiff)) + 0.32 * Math.cos(toRad(3 * hDiff + 6)) - 0.20 * Math.cos(toRad(4 * hDiff - 63));
+  const T = 1 - 0.17 * Math.cos(toRad(hDiff - 30)) + 0.24 * Math.cos(toRad(2 * hDiff)) + 0.32 * Math.cos(toRad(3 * hDiff + 6)) - 0.20 * Math.cos(toRad(4 * hDiff - 63));
 
-  var SH = 1 + 0.015 * C1 * T;
+  const SH = 1 + 0.015 * C1 * T;
 
-  var dTheta = 30 * Math.exp(-1 * (((hDiff - 275) / 25) ** 2));
+  const dTheta = 30 * Math.exp(-1 * (((hDiff - 275) / 25) ** 2));
 
-  var RC = 2 * Math.sqrt(C1 ** 7 / (C1 ** 7 + 25 ** 7));
+  const RC = 2 * Math.sqrt(C1 ** 7 / (C1 ** 7 + 25 ** 7));
 
-  var RT = 0 - Math.sin(toRad(2 * dTheta)) * RC;
+  const RT = 0 - Math.sin(toRad(2 * dTheta)) * RC;
 
   const dkL = ΔL1 / (kL * SL);
   const dkC = ΔC1 / (kC * SC);
   const dkH = ΔH1 / (kH * SH);
 
-  var CIEDE2000 = Math.sqrt(dkL ** 2 + dkC ** 2 + dkH ** 2 + RT * dkC * dkH);
+  const CIEDE2000 = Math.sqrt(dkL ** 2 + dkC ** 2 + dkH ** 2 + RT * dkC * dkH);
 
   return CIEDE2000;
-}
+};
 
 
 export default CIEDE2000;
