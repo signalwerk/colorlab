@@ -27,6 +27,7 @@ function doCompile {
   cp ./index.html ../gh-pages/
   sed -i'.bak' 's$/static/$./$g' ../gh-pages/index.html
   rm -f ../gh-pages/*.bak
+  cd ..
 }
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
