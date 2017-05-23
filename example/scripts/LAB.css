@@ -7,7 +7,7 @@
 }
 
 .caption {
-  width: 2rem;
+  width: 1.5rem;
 }
 
 .slider {
@@ -24,6 +24,7 @@
 
 .input input {
   width: 100%;
+  border: #999 solid 1px;
 }
 
 .testpatch {
@@ -32,4 +33,13 @@
   margin-bottom: 0.5rem;
   border-top: #999 solid 2px;
   border-bottom: #999 solid 2px;
+}
+
+input[type=number] {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
 }
