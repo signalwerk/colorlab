@@ -180,10 +180,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'interpolate',
 	    value: function interpolate(color2, factor) {
-	      this.L = this.L * factor + color2.L * (1 - factor);
-	      this.a = this.a * factor + color2.a * (1 - factor);
-	      this.b = this.b * factor + color2.b * (1 - factor);
-	      return this;
+	      var newCol = new CIELAB();
+	      newCol.L = this.L * factor + color2.L * (1 - factor);
+	      newCol.a = this.a * factor + color2.a * (1 - factor);
+	      newCol.b = this.b * factor + color2.b * (1 - factor);
+	      return newCol;
 	    }
 	
 	    // Convert Lab to XYZ
