@@ -57,7 +57,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -75,37 +75,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var Colorlab = function () {
-	    function Colorlab() {
-	        _classCallCheck(this, Colorlab);
+	  function Colorlab() {
+	    _classCallCheck(this, Colorlab);
+	  }
+	
+	  _createClass(Colorlab, null, [{
+	    key: 'VERSION',
+	
+	
+	    // constatnats
+	    // Current version of the library.
+	    get: function get() {
+	      return '0.2.3';
+	    }
+	  }, {
+	    key: 'kK',
+	    get: function get() {
+	      return 24389.0 / 27.0; // 903.296296296
+	    }
+	  }, {
+	    key: 'kE',
+	    get: function get() {
+	      return 216.0 / 24389.0; // 0.00885645167
 	    }
 	
-	    _createClass(Colorlab, null, [{
-	        key: 'VERSION',
+	    // constructor() {
+	    //
+	    // }
 	
+	  }]);
 	
-	        // constatnats
-	        // Current version of the library.
-	        get: function get() {
-	            return '0.2.2';
-	        }
-	    }, {
-	        key: 'kK',
-	        get: function get() {
-	            return 24389.0 / 27.0; // 903.296296296
-	        }
-	    }, {
-	        key: 'kE',
-	        get: function get() {
-	            return 216.0 / 24389.0; // 0.00885645167
-	        }
-	
-	        // constructor() {
-	        //
-	        // }
-	
-	    }]);
-	
-	    return Colorlab;
+	  return Colorlab;
 	}();
 	
 	Colorlab.CIELAB = _CIELAB2.default;
@@ -131,9 +131,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _helper = __webpack_require__(3);
 	
+	var _CIEXYZ = __webpack_require__(4);
+	
+	var _CIEXYZ2 = _interopRequireDefault(_CIEXYZ);
+	
+	var _illuminant = __webpack_require__(5);
+	
+	var _gamma = __webpack_require__(6);
+	
+	var _RGB = __webpack_require__(7);
+	
+	var _RGB2 = _interopRequireDefault(_RGB);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// D65
+	var XYZ2RGBMtx = {
+	
+	  CIED65: {
+	    AdobeRGB: { name: 'Adobe RGB (1998)', m1: 2.04148, m2: -0.969258, m3: 0.0134455, m4: -0.564977, m5: 1.87599, m6: -0.118373, m7: -0.344713, m8: 0.0415557, m9: 1.01527, gamma: 2.2, gammastyle: 'nonlinear' }, // precise gamma: 563/256 (2.19921875)
+	    AppleRGB: { name: 'Apple RGB', m1: 2.95176, m2: -1.0851, m3: 0.0854804, m4: -1.28951, m5: 1.99084, m6: -0.269456, m7: -0.47388, m8: 0.0372023, m9: 1.09113, gamma: 1.8 },
+	    ECIRGB: { name: 'ECI RGB', m1: 1.78276, m2: -0.959362, m3: 0.0859318, m4: -0.496985, m5: 1.9478, m6: -0.174467, m7: -0.26901, m8: -0.0275807, m9: 1.32283, gamma: 1.8 },
+	    sRGB: { name: 'sRGB', m1: 3.24071, m2: -0.969258, m3: 0.0556352, m4: -1.53726, m5: 1.87599, m6: -0.203996, m7: -0.498571, m8: 0.0415557, m9: 1.05707, gamma: 2.4, gammastyle: 'sRGB' }
+	  }
+	};
 	
 	var CIELAB = function () {
 	  function CIELAB(L, a, b) {
@@ -155,33 +178,97 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return (0, _CIEDE3.default)(this, color2);
 	    }
 	  }, {
-	    key: 'chroma',
-	    get: function get() {
-	      return (0, _helper.chroma)(this.a, this.b);
+	    key: 'interpolate',
+	    value: function interpolate(color2, factor) {
+	      this.L = this.L * factor + color2.L * (1 - factor);
+	      this.a = this.a * factor + color2.a * (1 - factor);
+	      this.b = this.b * factor + color2.b * (1 - factor);
+	      return this;
 	    }
+	
+	    // Convert Lab to XYZ
+	
+	  }, {
+	    key: 'toCIExyz',
+	    value: function toCIExyz(RefWhite) {
+	      var fHelper = function fHelper(t, m) {
+	        var p = Math.pow(t, 3);
+	
+	        if (p > 216.0 / 24389.0) {
+	          // 216.0 / 24389.0 = 0.00885645167
+	          return p * m;
+	        }
+	        return (t - 16.0 / 116.0) / 7.787 * m;
+	      };
+	
+	      var fy = (this.L + 16.0) / 116.0;
+	      var fx = this.a / 500.0 + fy;
+	      var fz = fy - this.b / 200.0;
+	
+	      var xyz = {};
+	      xyz.x = fHelper(fx, RefWhite.X);
+	      xyz.y = fHelper(fy, RefWhite.Y);
+	      xyz.z = fHelper(fz, RefWhite.Z);
+	      return xyz;
+	    }
+	
+	    // 1. Convert Lab to (D50-adapted) XYZ
+	    // 2. Convert from a D50 whitepoint (used by Lab) to the D65 whitepoint used in sRGB, with the Bradford transform
+	    // 3. Convert from (D65-adapted) CIE XYZ to linear sRGB
+	    // 4. Convert from linear-light sRGB to sRGB (do gamma encoding)
+	    // source: https://drafts.csswg.org/css-color/
+	
+	  }, {
+	    key: 'toSRGB',
+	    value: function toSRGB() {
+	      var xyz = this.toCIExyz(_illuminant.D65);
+	      var linearRGB = (0, _CIEXYZ2.default)(xyz, XYZ2RGBMtx.CIED65.sRGB);
+	
+	      var rgbOut = new _RGB2.default();
+	      rgbOut.R = (0, _gamma.sRrbGammaCompensate)(linearRGB.R) * 255;
+	      rgbOut.G = (0, _gamma.sRrbGammaCompensate)(linearRGB.G) * 255;
+	      rgbOut.B = (0, _gamma.sRrbGammaCompensate)(linearRGB.B) * 255;
+	      return rgbOut;
+	    }
+	
+	    // toRGB(RefWhite, RefMtx) {
+	    //   const xyz = this.toCIExyz(RefWhite);
+	    //   const linearRGB = xyzRGB(xyz, RefMtx);
+	    //
+	    //   const rgbOut = new RGB();
+	    //   rgbOut.R = gammaCompensate(linearRGB.R, RefMtx.gamma) * 255;
+	    //   rgbOut.G = gammaCompensate(linearRGB.G, RefMtx.gamma) * 255;
+	    //   rgbOut.B = gammaCompensate(linearRGB.B, RefMtx.gamma) * 255;
+	    // };
+	
 	  }, {
 	    key: 'L',
 	    set: function set(L) {
-	      this._L = Math.min(100, Math.max(-100, L));
+	      this.privateL = (0, _helper.clamp)(L, 0, 100);
 	    },
 	    get: function get() {
-	      return this._L;
+	      return this.privateL;
 	    }
 	  }, {
 	    key: 'a',
 	    set: function set(a) {
-	      this._a = Math.min(128, Math.max(-128, a));
+	      this.privateA = (0, _helper.clamp)(a, -128, 128);
 	    },
 	    get: function get() {
-	      return this._a;
+	      return this.privateA;
 	    }
 	  }, {
 	    key: 'b',
 	    set: function set(b) {
-	      this._b = Math.min(128, Math.max(-128, b));
+	      this.privateB = (0, _helper.clamp)(b, -128, 128);
 	    },
 	    get: function get() {
-	      return this._b;
+	      return this.privateB;
+	    }
+	  }, {
+	    key: 'chroma',
+	    get: function get() {
+	      return (0, _helper.chroma)(this.a, this.b);
 	    }
 	  }]);
 	
@@ -322,7 +409,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  var SC = 1 + 0.045 * C1;
 	
-	  var T = 1 - 0.17 * Math.cos((0, _helper.toRad)(hDiff - 30)) + 0.24 * Math.cos((0, _helper.toRad)(2 * hDiff)) + 0.32 * Math.cos((0, _helper.toRad)(3 * hDiff + 6)) - 0.20 * Math.cos((0, _helper.toRad)(4 * hDiff - 63));
+	  var T = 1;
+	  T -= 0.17 * Math.cos((0, _helper.toRad)(hDiff - 30));
+	  T += 0.24 * Math.cos((0, _helper.toRad)(2 * hDiff));
+	  T += 0.32 * Math.cos((0, _helper.toRad)(3 * hDiff + 6));
+	  T -= 0.20 * Math.cos((0, _helper.toRad)(4 * hDiff - 63));
 	
 	  var SH = 1 + 0.015 * C1 * T;
 	
@@ -336,9 +427,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var dkC = ΔC1 / (kC * SC);
 	  var dkH = ΔH1 / (kH * SH);
 	
-	  var CIEDE2000 = Math.sqrt(Math.pow(dkL, 2) + Math.pow(dkC, 2) + Math.pow(dkH, 2) + RT * dkC * dkH);
+	  var finalCIEDE2000 = Math.sqrt(Math.pow(dkL, 2) + Math.pow(dkC, 2) + Math.pow(dkH, 2) + RT * dkC * dkH);
 	
-	  return CIEDE2000;
+	  return finalCIEDE2000;
 	}; // for more details see
 	// http://www.ece.rochester.edu/~gsharma/ciede2000/
 	// http://www.ece.rochester.edu/~gsharma/ciede2000/ciede2000noteCRNA.pdf
@@ -368,20 +459,165 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return num * Math.PI / 180;
 	};
 	
-	// Convert from 0-1 to 0-255
-	var to8bit = exports.to8bit = function to8bit(num) {
-	  return root.helper.math.range8bit(num * 255);
-	};
-	
-	// Convert from 0-1 to 0-255
-	var range8bit = exports.range8bit = function range8bit(num) {
-	  return Math.round(Math.min(255, Math.max(0, num)));
-	};
-	
 	// get chroma from (L)ab
 	var chroma = exports.chroma = function chroma(a, b) {
 	  return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
 	};
+	
+	//  ECMAScript 2017
+	// Math.clamp(x, lower, upper)
+	var clamp = exports.clamp = function clamp(number, min, max) {
+	  return Math.max(min, Math.min(number, max));
+	};
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
+	
+	var xyzRGB = function xyzRGB(inXyz, RefMtx) {
+	  var xyz = {
+	    x: inXyz.x / 100.0,
+	    y: inXyz.y / 100.0,
+	    z: inXyz.z / 100.0
+	  };
+	
+	  var RGB = {};
+	  RGB.R = xyz.x * RefMtx.m1 + xyz.y * RefMtx.m4 + xyz.z * RefMtx.m7;
+	  RGB.G = xyz.x * RefMtx.m2 + xyz.y * RefMtx.m5 + xyz.z * RefMtx.m8;
+	  RGB.B = xyz.x * RefMtx.m3 + xyz.y * RefMtx.m6 + xyz.z * RefMtx.m9;
+	
+	  return RGB;
+	};
+	
+	exports.default = xyzRGB;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// https://en.wikipedia.org/wiki/Illuminant_D65
+	// https://en.wikipedia.org/wiki/Standard_illuminant
+	// CIE Standard Illuminant D65
+	
+	var D65 = exports.D65 = {
+	  X: 95.047,
+	  Y: 100.00,
+	  Z: 108.883
+	};
+	
+	// https://ch.mathworks.com/help/images/ref/whitepoint.html
+	var D50 = exports.D50 = {
+	  X: 96.42,
+	  Y: 100.00,
+	  Z: 82.51
+	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var sRrbGammaCompensate = exports.sRrbGammaCompensate = function sRrbGammaCompensate(linearValue) {
+	  // sRGB Gamma corrections
+	  // sRGB-Standard = Gamma 2.4 (average ~2.2)
+	  // Gamma correction is linear for <= 0.0031308
+	  // Gamma correction is nonlinear for > 0.0031308
+	
+	  if (linearValue < 0) {
+	    return 0;
+	  }
+	  if (linearValue <= 0.0031308) {
+	    return 12.92 * linearValue;
+	  }
+	  return 1.055 * Math.pow(linearValue, 1.0 / 2.4) - 0.055;
+	};
+	
+	var gammaCompensate = exports.gammaCompensate = function gammaCompensate(linearValue, gamma) {
+	  return Math.pow(linearValue, 1 / gamma);
+	};
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // https://www.w3.org/Graphics/Color/srgb
+	
+	
+	var _helper = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var RGB = function () {
+	  function RGB(R, G, B) {
+	    _classCallCheck(this, RGB);
+	
+	    this.R = R;
+	    this.G = G;
+	    this.B = B;
+	  }
+	
+	  _createClass(RGB, [{
+	    key: 'toString',
+	    value: function toString() {
+	      return 'R: ' + this.R + ', G: ' + this.G + ', B: ' + this.B;
+	    }
+	  }, {
+	    key: 'toHexString',
+	    value: function toHexString() {
+	      return '#' + ('0' + parseInt(this.R, 10).toString(16)).slice(-2) + ('0' + parseInt(this.G, 10).toString(16)).slice(-2) + ('0' + parseInt(this.B, 10).toString(16)).slice(-2);
+	    }
+	  }, {
+	    key: 'R',
+	    set: function set(R) {
+	      this.privateR = (0, _helper.clamp)(R, 0, 255);
+	    },
+	    get: function get() {
+	      return this.privateR;
+	    }
+	  }, {
+	    key: 'G',
+	    set: function set(G) {
+	      this.privateG = (0, _helper.clamp)(G, 0, 255);
+	    },
+	    get: function get() {
+	      return this.privateG;
+	    }
+	  }, {
+	    key: 'B',
+	    set: function set(B) {
+	      this.privateB = (0, _helper.clamp)(B, 0, 255);
+	    },
+	    get: function get() {
+	      return this.privateB;
+	    }
+	  }]);
+	
+	  return RGB;
+	}();
+	
+	exports.default = RGB;
 
 /***/ }
 /******/ ])

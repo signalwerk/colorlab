@@ -1,0 +1,30 @@
+
+.container {
+  display: flex; /* or inline-flex */
+  width: 100%;
+  flex-direction: row;
+}
+
+.caption {
+  width: 2rem;
+}
+
+.slider {
+   /*width: calc(100% - 5rem);*/
+  flex-grow: 1;
+}
+
+.input {
+  padding-left: 1rem;
+  width: 3rem;
+}
+
+.input input {
+  width: 100%;
+}
+
+.testpatch {
+  margin-top: 0.5rem;
+  height: 2rem;
+  margin-bottom: 0.5rem;
+}
