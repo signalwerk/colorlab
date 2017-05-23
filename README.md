@@ -61,7 +61,7 @@ https://github.com/markusn/color-diff/blob/master/lib/diff.js
 * [generator-babel-boilerplate](https://github.com/babel/generator-babel-boilerplate)
 
 [![Travis build status](http://img.shields.io/travis/signalwerk/colorlab.svg?style=flat)](https://travis-ci.org/signalwerk/colorlab)
-[![Code Climate](https://codeclimate.com/github/signalwerk/colorlab/badges/gpa.svg)](https://codeclimate.com/github/signalwerk/colorlab)
-[![Test Coverage](https://codeclimate.com/github/signalwerk/colorlab/badges/coverage.svg)](https://codeclimate.com/github/signalwerk/colorlab)
+<!-- [![Code Climate](https://codeclimate.com/github/signalwerk/colorlab/badges/gpa.svg)](https://codeclimate.com/github/signalwerk/colorlab) -->
+<!-- [![Test Coverage](https://codeclimate.com/github/signalwerk/colorlab/badges/coverage.svg)](https://codeclimate.com/github/signalwerk/colorlab) -->
 [![Dependency Status](https://david-dm.org/signalwerk/colorlab.svg)](https://david-dm.org/signalwerk/colorlab)
 [![devDependency Status](https://david-dm.org/signalwerk/colorlab/dev-status.svg)](https://david-dm.org/signalwerk/colorlab#info=devDependencies)
