@@ -50,15 +50,15 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
   const cromaAverage = (Lab1.C + Lab2.C) / 2;
 
   // G = Step (4)
-  const G = 0.5 * (1 - Math.sqrt(cromaAverage ** 7 / (cromaAverage ** 7 + 25 ** 7)));
+  const G = 0.5 * (1 - Math.sqrt((cromaAverage ** 7) / ((cromaAverage ** 7) + (25 ** 7))));
 
   // a' = Step (5)
   Lab1.a1 = (1 + G) * Lab1.a;
   Lab2.a1 = (1 + G) * Lab2.a;
 
   // C' = Step (6)
-  Lab1.C1 = Math.sqrt(Lab1.a1 ** 2 + Lab1.b ** 2);
-  Lab2.C1 = Math.sqrt(Lab2.a1 ** 2 + Lab2.b ** 2);
+  Lab1.C1 = Math.sqrt((Lab1.a1 ** 2) + (Lab1.b ** 2));
+  Lab2.C1 = Math.sqrt((Lab2.a1 ** 2) + (Lab2.b ** 2));
 
   // h' = Step (7)
   const h1Helper = (a1, b) => {
@@ -130,25 +130,30 @@ const CIEDE2000 = (LabInput1, LabInput2) => {
 
   const SL = 1 + ((0.015 * L1Minus50pow2) / Math.sqrt(20 + L1Minus50pow2));
 
-  const SC = 1 + 0.045 * C1;
+  const SC = 1 + (0.045 * C1);
 
-  const T = 1 - 0.17 * Math.cos(toRad(hDiff - 30)) + 0.24 * Math.cos(toRad(2 * hDiff)) + 0.32 * Math.cos(toRad(3 * hDiff + 6)) - 0.20 * Math.cos(toRad(4 * hDiff - 63));
+  let T = 1;
+  T -= 0.17 * Math.cos(toRad(hDiff - 30));
+  T += 0.24 * Math.cos(toRad(2 * hDiff));
+  T += 0.32 * Math.cos(toRad((3 * hDiff) + 6));
+  T -= 0.20 * Math.cos(toRad((4 * hDiff) - 63));
 
-  const SH = 1 + 0.015 * C1 * T;
+
+  const SH = 1 + (0.015 * C1 * T);
 
   const dTheta = 30 * Math.exp(-1 * (((hDiff - 275) / 25) ** 2));
 
-  const RC = 2 * Math.sqrt(C1 ** 7 / (C1 ** 7 + 25 ** 7));
+  const RC = 2 * Math.sqrt((C1 ** 7) / ((C1 ** 7) + (25 ** 7)));
 
-  const RT = 0 - Math.sin(toRad(2 * dTheta)) * RC;
+  const RT = 0 - (Math.sin(toRad(2 * dTheta)) * RC);
 
   const dkL = ΔL1 / (kL * SL);
   const dkC = ΔC1 / (kC * SC);
   const dkH = ΔH1 / (kH * SH);
 
-  const CIEDE2000 = Math.sqrt(dkL ** 2 + dkC ** 2 + dkH ** 2 + RT * dkC * dkH);
+  const finalCIEDE2000 = Math.sqrt((dkL ** 2) + (dkC ** 2) + (dkH ** 2) + (RT * dkC * dkH));
 
-  return CIEDE2000;
+  return finalCIEDE2000;
 };
 
 
