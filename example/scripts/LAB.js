@@ -87,12 +87,20 @@ export default class Lab extends Component {
   render() {
     const { L, a, b } = this.state;
     const color = new colorlab.CIELAB(L, a, b);
+    const handleStyle = {
+      height: 28,
+      width: 28,
+      marginLeft: -14,
+      marginTop: -10,
+      borderColor: '#999',
+    }
 
     const LStyle = {
       backgroundImage: this.cssGradient(
         new colorlab.CIELAB(0, a, b),
         new colorlab.CIELAB(100, a, b)
       ),
+      height: 8,
     };
 
     const aStyle = {
@@ -100,6 +108,7 @@ export default class Lab extends Component {
         new colorlab.CIELAB(L, -128, b),
         new colorlab.CIELAB(L, 128, b)
       ),
+      height: 8,
     };
 
     const bStyle = {
@@ -107,6 +116,7 @@ export default class Lab extends Component {
         new colorlab.CIELAB(L, a, -128),
         new colorlab.CIELAB(L, a, 128)
       ),
+      height: 8,
     };
 
     return (
@@ -120,6 +130,7 @@ export default class Lab extends Component {
               tipTransitionName="rc-slider-tooltip-zoom-down"
               maximumTrackStyle={LStyle}
               minimumTrackStyle={{ backgroundColor: 'transparent' }}
+              handleStyle={handleStyle}
               value={L}
               min={0}
               max={+100}
@@ -146,6 +157,7 @@ export default class Lab extends Component {
               tipTransitionName="rc-slider-tooltip-zoom-down"
               maximumTrackStyle={aStyle}
               minimumTrackStyle={{ backgroundColor: 'transparent' }}
+              handleStyle={handleStyle}
               value={a}
               min={-128}
               max={+128}
@@ -172,6 +184,7 @@ export default class Lab extends Component {
               tipTransitionName="rc-slider-tooltip-zoom-down"
               maximumTrackStyle={bStyle}
               minimumTrackStyle={{ backgroundColor: 'transparent' }}
+              handleStyle={handleStyle}
               value={b}
               min={-128}
               max={+128}

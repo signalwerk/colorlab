@@ -3,6 +3,7 @@
   display: flex; /* or inline-flex */
   width: 100%;
   flex-direction: row;
+  padding-bottom: 1rem;
 }
 
 .caption {
@@ -12,11 +13,13 @@
 .slider {
    /*width: calc(100% - 5rem);*/
   flex-grow: 1;
+  margin-top: 0.2rem;
 }
 
 .input {
   padding-left: 1rem;
   width: 3rem;
+  margin-top: 0.2rem;
 }
 
 .input input {
@@ -27,4 +30,6 @@
   margin-top: 0.5rem;
   height: 2rem;
   margin-bottom: 0.5rem;
+  border-top: #999 solid 2px;
+  border-bottom: #999 solid 2px;
 }
