@@ -1,4 +1,5 @@
 import Cielab from '../../src/CIELAB';
+import { Lab2RGB } from './LABRGB_testdata';
 
 describe('CIELAB', () => {
   describe('Test constructor normal', () => {
@@ -10,7 +11,7 @@ describe('CIELAB', () => {
 
   describe('Test constructor out of min bounds', () => {
     const color = new Cielab(-200, -200, -200);
-    expect(color.L).to.equal(-100);
+    expect(color.L).to.equal(0);
     expect(color.a).to.equal(-128);
     expect(color.b).to.equal(-128);
   });
@@ -41,4 +42,19 @@ describe('CIELAB', () => {
     const color1 = new Cielab(test.L2, test.a2, test.b2);
     expect(color.CIEDE2000(color1)).to.closeTo(test.dE, 0.0001);
   });
+
+  describe('Convert LAB to sRGB', () => {
+    const currentTests = Lab2RGB.CIED65.sRGB.tests;
+
+    currentTests.forEach((currentTest) => {
+
+      const color = new Cielab(currentTest.L, currentTest.a, currentTest.b);
+      const finalRGB = color.toSRGB();
+
+      expect(finalRGB.R).to.closeTo(currentTest.R, 0.5);
+      expect(finalRGB.G).to.closeTo(currentTest.G, 0.5);
+      expect(finalRGB.B).to.closeTo(currentTest.B, 0.5);
+    });
+  });
+
 });
