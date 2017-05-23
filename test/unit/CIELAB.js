@@ -1,5 +1,5 @@
 import Cielab from '../../src/CIELAB';
-import { Lab2RGB } from './LABRGB_testdata';
+import Lab2RGB from './LABRGB_testdata';
 
 describe('CIELAB', () => {
   describe('Test constructor normal', () => {
@@ -47,7 +47,6 @@ describe('CIELAB', () => {
     const currentTests = Lab2RGB.CIED65.sRGB.tests;
 
     currentTests.forEach((currentTest) => {
-
       const color = new Cielab(currentTest.L, currentTest.a, currentTest.b);
       const finalRGB = color.toSRGB();
 
@@ -56,5 +55,4 @@ describe('CIELAB', () => {
       expect(finalRGB.B).to.closeTo(currentTest.B, 0.5);
     });
   });
-
 });

@@ -1,6 +1,6 @@
 // http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
 
-export const xyzRGB = (inXyz, RefMtx) => {
+const xyzRGB = (inXyz, RefMtx) => {
   const xyz = {
     x: inXyz.x / 100.0,
     y: inXyz.y / 100.0,
@@ -14,3 +14,5 @@ export const xyzRGB = (inXyz, RefMtx) => {
 
   return RGB;
 };
+
+export default xyzRGB;

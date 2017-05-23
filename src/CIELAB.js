@@ -1,10 +1,9 @@
 import CIEDE2000 from './CIEDE2000';
-import { chroma } from './helper';
-import { xyzRGB } from './CIEXYZ';
+import { clamp, chroma } from './helper';
+import xyzRGB from './CIEXYZ';
 import { D65 } from './illuminant';
-import { sRrbGammaCompensate, gammaCompensate } from './gamma';
+import { sRrbGammaCompensate } from './gamma';
 import RGB from './RGB';
-import { clamp } from './helper';
 
 
 // D65
@@ -32,25 +31,25 @@ class CIELAB {
   }
 
   set L(L) {
-    this._L = clamp(L, 0, 100);
+    this.privateL = clamp(L, 0, 100);
   }
 
   get L() {
-    return this._L;
+    return this.privateL;
   }
 
   set a(a) {
-    this._a = clamp(a, -128, 128);
+    this.privateA = clamp(a, -128, 128);
   }
   get a() {
-    return this._a;
+    return this.privateA;
   }
 
   set b(b) {
-    this._b = clamp(b, -128, 128);
+    this.privateB = clamp(b, -128, 128);
   }
   get b() {
-    return this._b;
+    return this.privateB;
   }
 
   get chroma() {
@@ -71,17 +70,17 @@ class CIELAB {
   // Convert Lab to XYZ
   toCIExyz(RefWhite) {
     const fHelper = (t, m) => {
-      const p = Math.pow(t, 3);
+      const p = t ** 3;
 
       if (p > (216.0 / 24389.0)) {  // 216.0 / 24389.0 = 0.00885645167
         return p * m;
       }
-      return ((t - 16.0 / 116.0) / 7.787) * m;
+      return ((t - (16.0 / 116.0)) / 7.787) * m;
     };
 
     const fy = (this.L + 16.0) / 116.0;
-    const fx = this.a / 500.0 + fy;
-    const fz = fy - this.b / 200.0;
+    const fx = (this.a / 500.0) + fy;
+    const fz = fy - (this.b / 200.0);
 
     const xyz = {};
     xyz.x = fHelper(fx, RefWhite.X);

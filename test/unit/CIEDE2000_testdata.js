@@ -12,7 +12,7 @@
 // Edul N. Dalal
 //
 // http://www.ece.rochester.edu/~gsharma/ciede2000/ciede2000noteCRNA.pdf
-export const ciede2000testdata = [
+const ciede2000testdata = [
   {
     pair: 1,
     h: 270.9611,
@@ -932,3 +932,5 @@ export const ciede2000testdata = [
     },
   },
 ];
+
+export default ciede2000testdata;

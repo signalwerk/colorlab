@@ -1,6 +1,6 @@
 import Cielab from '../../src/CIELAB';
 import CIEDE2000 from '../../src/CIEDE2000';
-import { ciede2000testdata } from './CIEDE2000_testdata';
+import ciede2000testdata from './CIEDE2000_testdata';
 
 describe('CIEDE2000', () => {
   describe('Delta E of two CIELAB colors', () => {
