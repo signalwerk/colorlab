@@ -37,7 +37,6 @@ export default class Lab extends Component {
   }
 
   onUpdate = () => {
-    console.log('---- onUpdate', this.state.L, this.state.a, this.state.b)
     if (this.props.onUpdate) {
       this.props.onUpdate({
         L: this.state.L,
@@ -48,15 +47,15 @@ export default class Lab extends Component {
   }
 
   onLInputChange = (event) => {
-    this.setState({ L: parseFloat(event.target.value) }, this.onUpdate);
+    this.setState({ L: parseFloat(event.target.value || 0) }, this.onUpdate);
   };
 
   onAInputChange = (event) => {
-    this.setState({ a: parseFloat(event.target.value) }, this.onUpdate);
+    this.setState({ a: parseFloat(event.target.value || 0) }, this.onUpdate);
   };
 
   onBInputChange = (event) => {
-    this.setState({ b: parseFloat(event.target.value) }, this.onUpdate);
+    this.setState({ b: parseFloat(event.target.value || 0) }, this.onUpdate);
   };
 
   onLSliderChange = (L) => {
@@ -71,20 +70,16 @@ export default class Lab extends Component {
 
   cssGradient = (LColorMin, LColorMax) => {
 
-    // using array
-    const stops = [
-      LColorMin.toSRGB().toHexString(),
-      LColorMin.interpolate(LColorMax, 0.80).toSRGB().toHexString(),
-      LColorMin.interpolate(LColorMax, 0.60).toSRGB().toHexString(),
-      LColorMin.interpolate(LColorMax, 0.40).toSRGB().toHexString(),
-      LColorMin.interpolate(LColorMax, 0.20).toSRGB().toHexString(),
-      LColorMax.toSRGB().toHexString(),
-    ];
 
     let css = 'linear-gradient(to right';
-    stops.forEach((color, i) => {
-      css += ', ' + color + ' ' + (i/(stops.length-1)*100) + '%';
-    });
+
+    var i;
+    var steps = 9;
+    for (i = 0; i < steps; i++) {
+        let color = LColorMax.interpolate(LColorMin, (i/(steps-1))).toSRGB().toHexString();
+        css += ', ' + color + ' ' + (i/(steps-1)*100) + '%';
+    }
+
     css += ')';
     return css;
   };
@@ -133,8 +128,10 @@ export default class Lab extends Component {
           </div>
           <div className={style.input}>
             <input
-              type="text"
+              type="number"
               value={L}
+              min={0}
+              max={+100}
               onChange={this.onLInputChange}
             />
           </div>
@@ -157,8 +154,10 @@ export default class Lab extends Component {
           </div>
           <div className={style.input}>
             <input
-              type="text"
+              type="number"
               value={a}
+              min={-128}
+              max={+128}
               onChange={this.onAInputChange}
             />
           </div>
@@ -181,8 +180,10 @@ export default class Lab extends Component {
           </div>
           <div className={style.input}>
             <input
-              type="text"
+              type="number"
               value={b}
+              min={-128}
+              max={+128}
               onChange={this.onBInputChange}
             />
           </div>
