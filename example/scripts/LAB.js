@@ -48,15 +48,36 @@ export default class Lab extends Component {
   }
 
   onLInputChange = (value) => {
-    this.setState({ L: parseFloat(value) }, this.onUpdate);
+    if (value === undefined) {
+      this.setState({ L: 0 }, this.onUpdate);
+      return;
+    }
+    const newValue = parseFloat(value);
+    if (!isNaN(newValue)) {
+      this.setState({ L: newValue }, this.onUpdate);
+    }
   };
 
   onAInputChange = (value) => {
-    this.setState({ a: parseFloat(value || 0) }, this.onUpdate);
+    if (value === undefined) {
+      this.setState({ a: 0 }, this.onUpdate);
+      return;
+    }
+    const newValue = parseFloat(value);
+    if (!isNaN(newValue)) {
+      this.setState({ a: newValue }, this.onUpdate);
+    }
   };
 
   onBInputChange = (value) => {
-    this.setState({ b: parseFloat(value || 0) }, this.onUpdate);
+    if (value === undefined) {
+      this.setState({ b: 0 }, this.onUpdate);
+      return;
+    }
+    const newValue = parseFloat(value);
+    if (!isNaN(newValue)) {
+      this.setState({ b: newValue }, this.onUpdate);
+    }
   };
 
   onLSliderChange = (L) => {
