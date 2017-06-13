@@ -185,9 +185,13 @@ gulp.task('lint', ['lint-src', 'lint-test', 'lint-gulpfile']);
 
 // Build two versions of the library
 gulp.task('build', ['lint', 'clean'], build);
+gulp.task('build_nolint', ['clean'], build);
 
 // Lint and run our tests
 gulp.task('test', ['lint'], test);
+
+// run our tests
+gulp.task('test_nolint', test);
 
 // Set up coverage and run tests
 gulp.task('coverage', ['lint'], coverage);

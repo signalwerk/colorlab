@@ -7,6 +7,7 @@
     "start": "node server.js",
     "build": "cross-env BABEL_ENV=production ./node_modules/.bin/webpack --config webpack.config.production.js",
     "lint": "eslint --cache --ignore-path .gitignore --format=node_modules/eslint-formatter-pretty . *.js",
+    "lint-fix": "eslint --fix . *.js",
     "test": "npm run lint"
   },
   "repository": {
@@ -28,12 +29,11 @@
   "dependencies": {
     "babel-runtime": "^6.20.0",
     "prop-types": "^15.5.10",
+    "rc-input-number": "^3.6.0",
     "rc-slider": "^7.0.8",
     "react": "^15.4.1",
-    "react-color": "^2.11.7",
     "react-dom": "^15.4.1",
-    "tinycolor2": "^1.4.1",
-    "tinygradient": "^0.3.1"
+    "react-numeric-input": "^2.0.7"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",

@@ -76,7 +76,7 @@ module.exports = {
       {
         test: /\.css$/,
         include: /node_modules/,
-        //include: path.join(__dirname, 'scripts'),
+        // include: path.join(__dirname, 'scripts'),
         loaders: [
           'style-loader',
           'css-loader',

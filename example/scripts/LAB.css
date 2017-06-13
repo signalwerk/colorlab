@@ -4,6 +4,7 @@
   width: 100%;
   flex-direction: row;
   padding-bottom: 1rem;
+  font-size: 1em;
 }
 
 .caption {
@@ -18,13 +19,15 @@
 
 .input {
   padding-left: 1rem;
-  width: 3rem;
-  margin-top: 0.2rem;
+  width: 4rem;
+  height: 1.5rem;
 }
 
 .input input {
+  font-size: 1em;
   width: 100%;
   border: #999 solid 1px;
+  margin-top: -0.1em;
 }
 
 .testpatch {

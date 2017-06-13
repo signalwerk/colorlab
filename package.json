@@ -5,10 +5,13 @@
   "main": "dist/colorlab.js",
   "scripts": {
     "test": "gulp",
+    "test_nolint": "gulp test_nolint",
     "lint": "gulp lint",
+    "lintfix": "eslint --fix ./test/setup/",
     "test-browser": "gulp test-browser",
     "watch": "gulp watch",
     "build": "gulp build",
+    "build_nolint": "gulp build_nolint",
     "coverage": "gulp coverage"
   },
   "repository": {

@@ -31,11 +31,10 @@ export default class App extends Component {
   };
 
   render() {
-
     const { L1, a1, b1, L2, a2, b2 } = this.state;
 
-    let color1 = new colorlab.CIELAB(L1, a1, b1);
-    let color2 = new colorlab.CIELAB(L2, a2, b2);
+    const color1 = new colorlab.CIELAB(L1, a1, b1);
+    const color2 = new colorlab.CIELAB(L2, a2, b2);
 
     return (
       <div className={style.sliderbox}>
