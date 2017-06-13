@@ -1,5 +1,4 @@
 .root {
-  
 }
 
 .githubCorner svg {
@@ -11,20 +10,30 @@
   right: 0;
 }
 
-.githubCorner:hover .octoArm{
-  animation: octocat-wave 560ms ease-in-out
+.githubCorner:hover .octoArm {
+  animation: octocat-wave 560ms ease-in-out;
 }
 
 @keyframes octocat-wave {
-  0%,100%{transform: rotate(0)}
-  20%,60%{transform: rotate(-25deg)}
-  40%,80%{transform: rotate(10deg)}
-}
-@media (max-width:500px){
-  .githubCorner:hover .octoArm{
-    animation: none
+  0%,100% {
+    transform: rotate(0);
   }
-  .github-corner .octoArm{
-    animation:octocat-wave 560ms ease-in-out
+
+  20%,60% {
+    transform: rotate(-25deg);
+  }
+
+  40%,80% {
+    transform: rotate(10deg);
+  }
+}
+
+@media (max-width:500px) {
+  .githubCorner:hover .octoArm {
+    animation: none;
+  }
+
+  .github-corner .octoArm {
+    animation: octocat-wave 560ms ease-in-out;
   }
 }
