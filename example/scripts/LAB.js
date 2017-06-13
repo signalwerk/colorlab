@@ -48,7 +48,7 @@ export default class Lab extends Component {
   }
 
   onLInputChange = (value) => {
-    this.setState({ L: parseFloat(value || 0) }, this.onUpdate);
+    this.setState({ L: parseFloat(value) }, this.onUpdate);
   };
 
   onAInputChange = (value) => {
