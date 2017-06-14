@@ -30,3 +30,6 @@ tmp
 # Users Environment Variables
 .lock-wscript
 /gh-pages
+/.ssh
+/__OLD
+/ciede2000noteCRNA.pdf
