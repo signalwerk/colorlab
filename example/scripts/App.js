@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Lab from './LAB';
-import GithubCorner from './githubCorner';
+import GithubCorner from 'react-github-corner';
 import colorlab from '../../dist/colorlab';
 import style from './app.css';
 
@@ -61,9 +61,13 @@ export default class App extends Component {
 
         <a href="https://github.com/signalwerk/colorlab">→ colorlab @ github</a>
 
-        {/* http://tholman.com/github-corners/ */}
         <GithubCorner
-          href="https://github.com/signalwerk/colorlab"
+          href={'https://github.com/signalwerk/colorlab'}
+          bannerColor="#000"
+          octoColor="#fff"
+          width={60}
+          height={60}
+          direction="right"
         />
       </div>
     );

@@ -12,6 +12,7 @@
     "watch": "gulp watch",
     "build": "gulp build",
     "build_nolint": "gulp build_nolint",
+    "npm:publish:next": "npm version patch && npm run build_nolint && npm publish --tag next",
     "coverage": "gulp coverage"
   },
   "repository": {
