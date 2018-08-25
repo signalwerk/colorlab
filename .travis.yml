@@ -1,7 +1,7 @@
 language: node_js
 node_js: stable
 install:
-  - npm install
+  - npm ci
 script:
   - bash ./deploy_doc.sh
 env:
