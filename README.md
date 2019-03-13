@@ -56,6 +56,7 @@ https://github.com/markusn/color-diff/blob/master/lib/diff.js
 * [CSS Color Module Level 4](https://drafts.csswg.org/css-color/)
 * [Color-diff](https://github.com/markusn/color-diff)
 * [ColorMine](https://github.com/THEjoezack/ColorMine)
+* [Contrast Calculator](http://leserlich.info/werkzeuge/kontrastrechner/index.php)
 ### Others
 * [CSS Color Module Level 4](https://drafts.csswg.org/css-color/)
 * [generator-babel-boilerplate](https://github.com/babel/generator-babel-boilerplate)
