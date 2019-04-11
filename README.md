@@ -60,6 +60,7 @@ https://github.com/markusn/color-diff/blob/master/lib/diff.js
 ### Others
 * [CSS Color Module Level 4](https://drafts.csswg.org/css-color/)
 * [generator-babel-boilerplate](https://github.com/babel/generator-babel-boilerplate)
+* [Color-Visualisation in 3D Space](https://github.com/meodai/color-names/blob/master/README.md)
 
 [![Travis build status](http://img.shields.io/travis/signalwerk/colorlab.svg?style=flat)](https://travis-ci.org/signalwerk/colorlab)
 [![Dependency Status](https://david-dm.org/signalwerk/colorlab.svg)](https://david-dm.org/signalwerk/colorlab)
