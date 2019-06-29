@@ -10,6 +10,7 @@
     "lintfix": "eslint --fix ./test/setup/",
     "test-browser": "gulp test-browser",
     "watch": "gulp watch",
+    "watch_nolint": "gulp watch_nolint",
     "build": "gulp build",
     "build_nolint": "gulp build_nolint",
     "npm:publish:next": "npm version patch && npm run build_nolint && npm publish --tag next",

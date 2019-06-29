@@ -117,6 +117,12 @@ const watchFiles = ['src/**/*', 'test/**/*', 'package.json', '**/.eslintrc'];
 function watch() {
   gulp.watch(watchFiles, ['test']);
 }
+function watch_nolint() {
+  gulp.watch(watchFiles, ['test_nolint']);
+}
+
+
+
 
 function testBrowser() {
   // Our testing bundle is made up of our unit tests, which
@@ -201,6 +207,7 @@ gulp.task('test-browser', ['lint', 'clean-tmp'], testBrowser);
 
 // Run the headless unit tests as you make changes.
 gulp.task('watch', watch);
+gulp.task('watch_nolint', watch_nolint);
 
 // An alias of test
 gulp.task('default', ['test']);

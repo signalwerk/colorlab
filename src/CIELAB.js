@@ -91,7 +91,8 @@ class CIELAB {
   }
 
   // 1. Convert Lab to (D50-adapted) XYZ
-  // 2. Convert from a D50 whitepoint (used by Lab) to the D65 whitepoint used in sRGB, with the Bradford transform
+  // 2. Convert from a D50 whitepoint (used by Lab) to the
+  // D65 whitepoint used in sRGB, with the Bradford transform
   // 3. Convert from (D65-adapted) CIE XYZ to linear sRGB
   // 4. Convert from linear-light sRGB to sRGB (do gamma encoding)
   // source: https://drafts.csswg.org/css-color/
