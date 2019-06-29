@@ -20,10 +20,11 @@ function doCompile {
   echo "-- doCompile"
   ls -las
   cd ./example/
-  npm install
+  npm ci
   npm run build
   mkdir -p ../gh-pages/
   cp ./dist/* ../gh-pages/
+  cp ../CNAME ../gh-pages/
   cp ./index.html ../gh-pages/
   sed -i'.bak' 's$/static/$./$g' ../gh-pages/index.html
   rm -f ../gh-pages/*.bak

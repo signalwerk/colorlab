@@ -1,5 +1,5 @@
 # colorlab
-colorLab is a Javascript Lib to calculate DeltaE (CIEDE2000) values between two colors.
+colorLab is a JavaScript Lib to calculate DeltaE (CIEDE2000) values between two colors.
 
 <!-- It also contains functions to do basic calculations (for example: RGB+RGB) for DeviceColors like CMYK or RGB. -->
 
@@ -56,9 +56,11 @@ https://github.com/markusn/color-diff/blob/master/lib/diff.js
 * [CSS Color Module Level 4](https://drafts.csswg.org/css-color/)
 * [Color-diff](https://github.com/markusn/color-diff)
 * [ColorMine](https://github.com/THEjoezack/ColorMine)
+* [Contrast Calculator](http://leserlich.info/werkzeuge/kontrastrechner/index.php)
 ### Others
 * [CSS Color Module Level 4](https://drafts.csswg.org/css-color/)
 * [generator-babel-boilerplate](https://github.com/babel/generator-babel-boilerplate)
+* [Color-Visualisation in 3D Space](https://github.com/meodai/color-names/blob/master/README.md)
 
 [![Travis build status](http://img.shields.io/travis/signalwerk/colorlab.svg?style=flat)](https://travis-ci.org/signalwerk/colorlab)
 [![Dependency Status](https://david-dm.org/signalwerk/colorlab.svg)](https://david-dm.org/signalwerk/colorlab)

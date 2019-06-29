@@ -39,8 +39,6 @@ export default class App extends Component {
 
     return (
       <div className={style.sliderbox}>
-        <h3>DeltaE 2000 of the two colors</h3>
-        <p>ΔE: {color1.CIEDE2000(color2).toFixed(2)}</p>
 
         <h3>Color 1</h3>
         <Lab
@@ -57,8 +55,10 @@ export default class App extends Component {
           onUpdate={this.onLab2Change}
         />
         <br />
+        <h3>DeltaE 2000 of the two colors:</h3>
+        <h2>{color1.CIEDE2000(color2).toFixed(2)}</h2>
         <br />
-
+      
         <a href="https://github.com/signalwerk/colorlab">→ colorlab @ github</a>
 
         <GithubCorner
