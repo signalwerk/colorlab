@@ -58,6 +58,7 @@ https://github.com/markusn/color-diff/blob/master/lib/diff.js
 * [ColorMine](https://github.com/THEjoezack/ColorMine)
 * [Contrast Calculator](http://leserlich.info/werkzeuge/kontrastrechner/index.php)
 ### Others
+* [Easing Gradients](https://larsenwork.com/easing-gradients/) & [PostCSS plugin](https://github.com/larsenwork/postcss-easing-gradients)
 * [CSS Color Module Level 4](https://drafts.csswg.org/css-color/)
 * [generator-babel-boilerplate](https://github.com/babel/generator-babel-boilerplate)
 * [Color-Visualisation in 3D Space](https://github.com/meodai/color-names/blob/master/README.md)
