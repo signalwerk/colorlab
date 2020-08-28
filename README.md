@@ -68,3 +68,6 @@ https://github.com/markusn/color-diff/blob/master/lib/diff.js
 [![devDependency Status](https://david-dm.org/signalwerk/colorlab/dev-status.svg)](https://david-dm.org/signalwerk/colorlab#info=devDependencies)
 <!-- [![Test Coverage](https://codeclimate.com/github/signalwerk/colorlab/badges/coverage.svg)](https://codeclimate.com/github/signalwerk/colorlab) -->
 <!-- [![Code Climate](https://codeclimate.com/github/signalwerk/colorlab/badges/gpa.svg)](https://codeclimate.com/github/signalwerk/colorlab) -->
+### Colors for the Web
+* [[css-color] Separation / DeviceN color support](https://github.com/w3c/csswg-drafts/issues/2023#issuecomment-610663255)
+* [PANTONE libraries](https://www.efi.com/en-gb/marketing/fiery-servers-and-software/downloads/pantone-library/ )
