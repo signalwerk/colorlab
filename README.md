@@ -66,6 +66,7 @@ The browser spec runner can be opened in a browser to run your tests. For it to 
 - [CSS Color Module Level 4](https://drafts.csswg.org/css-color/)
 - [generator-babel-boilerplate](https://github.com/babel/generator-babel-boilerplate)
 - [Color-Visualisation in 3D Space](https://github.com/meodai/color-names/blob/master/README.md)
+- [imatest – Algorithms and reference formulas](https://www.imatest.com/docs/colorcheck_ref/)
 
 
 <!-- [![Test Coverage](https://codeclimate.com/github/signalwerk/colorlab/badges/coverage.svg)](https://codeclimate.com/github/signalwerk/colorlab) -->
