@@ -59,6 +59,7 @@ The browser spec runner can be opened in a browser to run your tests. For it to 
 - [Color-diff](https://github.com/markusn/color-diff)
 - [ColorMine](https://github.com/THEjoezack/ColorMine)
 - [Contrast Calculator](http://leserlich.info/werkzeuge/kontrastrechner/index.php)
+- [colorjs](https://colorjs.io/api/)
 
 ### Others
 
