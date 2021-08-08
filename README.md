@@ -68,7 +68,7 @@ The browser spec runner can be opened in a browser to run your tests. For it to 
 - [generator-babel-boilerplate](https://github.com/babel/generator-babel-boilerplate)
 - [Color-Visualisation in 3D Space](https://github.com/meodai/color-names/blob/master/README.md)
 - [imatest – Algorithms and reference formulas](https://www.imatest.com/docs/colorcheck_ref/)
-
+- [atcq – Ant-Tree Color Quantization](https://github.com/mattdesl/atcq)
 
 <!-- [![Test Coverage](https://codeclimate.com/github/signalwerk/colorlab/badges/coverage.svg)](https://codeclimate.com/github/signalwerk/colorlab) -->
 <!-- [![Code Climate](https://codeclimate.com/github/signalwerk/colorlab/badges/gpa.svg)](https://codeclimate.com/github/signalwerk/colorlab) -->
