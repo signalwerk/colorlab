@@ -30,7 +30,7 @@
   "devDependencies": {
     "babel-core": "6.14.0",
     "babel-eslint": "^7.2.3",
-    "babel-loader": "6.2.5",
+    "babel-loader": "9.1.0",
     "babel-polyfill": "6.13.0",
     "babel-preset-latest": "6.14.0",
     "babel-register": "6.14.0",
@@ -56,8 +56,8 @@
     "mocha": "3.0.2",
     "sinon": "1.17.5",
     "sinon-chai": "2.8.0",
-    "webpack": "1.13.2",
-    "webpack-stream": "3.2.0"
+    "webpack": "5.74.0",
+    "webpack-stream": "7.0.0"
   },
   "babelBoilerplateOptions": {
     "entryFileName": "colorlab.js",
