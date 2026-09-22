@@ -53,7 +53,7 @@
     "gulp-uglify": "2.0.0",
     "isparta": "4.0.0",
     "json-loader": "0.5.4",
-    "mocha": "10.2.0",
+    "mocha": "10.8.2",
     "sinon": "1.17.5",
     "sinon-chai": "2.8.0",
     "webpack": "1.13.2",
