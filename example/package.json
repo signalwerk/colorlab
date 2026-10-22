@@ -57,6 +57,6 @@
     "react-transform-hmr": "^1.0.4",
     "style-loader": "^0.17.0",
     "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^6.1.0"
   }
 }
